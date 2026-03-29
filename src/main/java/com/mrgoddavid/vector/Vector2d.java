@@ -1,13 +1,34 @@
-package com.mrgoddavid.vectorMath;
+package com.mrgoddavid.vector;
+
+import java.io.Serializable;
+import java.util.Comparator;
+import java.util.Objects;
 
 /**
- * Interface of custom vector class. Define the operation of two-dimensional vector.
+ * Custom 2d vector class. Parameters are double variable.
  *
- * @param <T> data type of two-dimensional vector.
- * @author David Liu.
+ * @author Mr. GodDavid.
  * @since 3/16/2026
  */
-public interface Vector<T> {
+public class Vector2d implements Vector<Vector2d>, Comparable<Vector2d>, Comparator<Vector2d>, Serializable {
+
+    private double x;
+    private double y;
+
+    public Vector2d() {
+        this.x = 0d;
+        this.y = 0d;
+    }
+
+    public Vector2d(double x, double y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    public Vector2d(Vector2d v) {
+        this.x = v.x;
+        this.y = v.y;
+    }
 
     /**
      * Performs entry addition of two vectors.
@@ -17,7 +38,10 @@ public interface Vector<T> {
      * @param second vector that is not null.
      * @return the sum of two vectors.
      */
-    T add(T second);
+    @Override
+    public Vector2d add(Vector2d second) {
+        return new Vector2d(x + second.x, y + second.y);
+    }
 
     /**
      * Performs entry subtraction of two vectors.
@@ -27,7 +51,10 @@ public interface Vector<T> {
      * @param second vector that is not null.
      * @return the difference between two vectors.
      */
-    T subtract(T second);
+    @Override
+    public Vector2d subtract(Vector2d second) {
+        return new Vector2d(x - second.x, y - second.y);
+    }
 
     /**
      * Performs entry multiplication of two vectors.
@@ -37,7 +64,10 @@ public interface Vector<T> {
      * @param second vector that is not null.
      * @return the product of two vectors.
      */
-    T multiply(T second);
+    @Override
+    public Vector2d multiply(Vector2d second) {
+        return new Vector2d(x * second.x, y * second.y);
+    }
 
     /**
      * Performs entry division of two vectors.
@@ -47,7 +77,13 @@ public interface Vector<T> {
      * @param second vector that is not null.
      * @return the quotient of two vectors.
      */
-    T divide(T second);
+    @Override
+    public Vector2d divide(Vector2d second) {
+        if (second.x != 0 && second.y != 0) {
+            return new Vector2d(x / second.x, y / second.y);
+        }
+        return new Vector2d(second);
+    }
 
     /**
      * Performs entry multiplication and then addition of a vector itself.
@@ -58,7 +94,12 @@ public interface Vector<T> {
      * @param adder      vector that is not null.
      * @return the vector that is  multiplied multiplier vector and by  of two vectors.
      */
-    T multiply_add(T multiplier, T adder);
+    @Override
+    public Vector2d multiply_add(Vector2d multiplier, Vector2d adder) {
+        double newX = x * multiplier.x + adder.x;
+        double newY = y * multiplier.y + adder.y;
+        return new Vector2d(newX, newY);
+    }
 
     /**
      * Performs the cross product of this vector to the second vector.
@@ -68,7 +109,10 @@ public interface Vector<T> {
      * @param second vector that is not null.
      * @return the cross product of itself to the second input vector.
      */
-    double cross_product(T second);
+    @Override
+    public double cross_product(Vector2d second) {
+        return x * second.y - y * second.x;
+    }
 
     /**
      * Project itself on the second vector.
@@ -78,7 +122,16 @@ public interface Vector<T> {
      * @param second vector that is not null.
      * @return the projection vector of the second vector.
      */
-    T project(T second);
+    @Override
+    public Vector2d project(Vector2d second) {
+        double length = second.length();
+        if (length == 0) {
+            return new Vector2d();
+        }
+        double dotProduct = dot_product(second);
+        double scaleVector = dotProduct / (length * length);
+        return second.scale(scaleVector);
+    }
 
     /**
      * Reflect itself around the normal of the second input vector.
@@ -88,7 +141,14 @@ public interface Vector<T> {
      * @param second vector that is not null.
      * @return the reflected vector around the normal of the second vector.
      */
-    T reflect(T second);
+    @Override
+    public Vector2d reflect(Vector2d second) {
+        if (second.length() == 0) return new Vector2d();
+        Vector2d n = second.normalize();
+        double dotProduct = dot_product(n);
+        Vector2d a = second.scale(dotProduct * 2);
+        return this.subtract(a);
+    }
 
     /**
      * Orients a vector A (itself) to point away from a surface B as defined by its normal C.
@@ -100,7 +160,10 @@ public interface Vector<T> {
      * @param reference the surface normal used to determine the orientation and itself is not null.
      * @return the calculated vector that is either flipped or not.
      */
-    T faceForward(T incident, T reference);
+    @Override
+    public Vector2d faceForward(Vector2d incident, Vector2d reference) {
+        return (incident.dot_product(reference) < 0) ? new Vector2d(this) : new Vector2d(this.scale(-1d));
+    }
 
     /**
      * Calculate the dot product of two vectors.
@@ -110,7 +173,10 @@ public interface Vector<T> {
      * @param second vector that is not null.
      * @return the dot product of itself and the second vector.
      */
-    double dot_product(T second);
+    @Override
+    public double dot_product(Vector2d second) {
+        return x * second.x + y * second.y;
+    }
 
     /**
      * Calculate the distance between two points are each represented by a 2-d vector.
@@ -120,7 +186,12 @@ public interface Vector<T> {
      * @param second vector that is not null.
      * @return the distance between itself and the second vector.
      */
-    double distance(T second);
+    @Override
+    public double distance(Vector2d second) {
+        double dx = x - second.x;
+        double dy = y - second.y;
+        return Math.sqrt(dx * dx + dy * dy);
+    }
 
     /**
      * Calculate the length/magnitude of the vector.
@@ -129,7 +200,10 @@ public interface Vector<T> {
      *
      * @return the length of itself.
      */
-    double length();
+    @Override
+    public double length() {
+        return Math.sqrt(x * x + y * y);
+    }
 
     /**
      * Entry scale each component by a scale factor.
@@ -139,7 +213,10 @@ public interface Vector<T> {
      * @param scale scaling factor.
      * @return the result of multiplying itself by the scalar input <code>scale</code>.
      */
-    T scale(double scale);
+    @Override
+    public Vector2d scale(double scale) {
+        return new Vector2d(x * scale, y * scale);
+    }
 
     /**
      * Calculate the vector that is the normalized version of itself.
@@ -148,7 +225,13 @@ public interface Vector<T> {
      *
      * @return the normalized vector.
      */
-    T normalize();
+    @Override
+    public Vector2d normalize() {
+        if (length() == 0) {
+            return new Vector2d();
+        }
+        return new Vector2d(x / length(), y / length());
+    }
 
     /**
      * The entrywise absolute value of itself.
@@ -157,7 +240,10 @@ public interface Vector<T> {
      *
      * @return a new vector2 that contains the entrywise absolute value of itself.
      */
-    T absolute();
+    @Override
+    public Vector2d absolute() {
+        return new Vector2d(Math.abs(x), Math.abs(y));
+    }
 
     /**
      * The entrywise power operator where the Base raised to the power of Exponent.
@@ -167,7 +253,10 @@ public interface Vector<T> {
      * @param exp the power exponent.
      * @return a new vector2 that contains the entrywise power operator where the Base raised to the power of Exponent.
      */
-    T power(double exp);
+    @Override
+    public Vector2d power(double exp) {
+        return new Vector2d(Math.pow(x, exp), Math.pow(y, exp));
+    }
 
     /**
      * Extracts the sign of the input value. All positive numbers will output 1.0. All negative numbers will output -1.0.
@@ -177,7 +266,12 @@ public interface Vector<T> {
      *
      * @return a new vector that represents the sign of each component value.
      */
-    T sign();
+    @Override
+    public Vector2d sign() {
+        double signX = x > 0 ? 1 : -1;
+        double signY = y > 0 ? 1 : -1;
+        return new Vector2d(signX, signY);
+    }
 
     /**
      * The entrywise minimum of itself and the second vector.
@@ -187,7 +281,10 @@ public interface Vector<T> {
      * @param second vector that is not null.
      * @return a new vector that contains entrywise minimum of itself and the second vector
      */
-    T minimum(T second);
+    @Override
+    public Vector2d minimum(Vector2d second) {
+        return new Vector2d(Math.min(x, second.x), Math.min(y, second.y));
+    }
 
     /**
      * The entrywise maximum of itself and the second vector.
@@ -197,7 +294,10 @@ public interface Vector<T> {
      * @param second vector that is not null.
      * @return a new vector that contains entrywise maximum of itself and the second vector
      */
-    T maximum(T second);
+    @Override
+    public Vector2d maximum(Vector2d second) {
+        return new Vector2d(Math.max(x, second.x), Math.max(y, second.y));
+    }
 
     /**
      * Rounds itself entrywise down to the nearest integer.
@@ -206,7 +306,10 @@ public interface Vector<T> {
      *
      * @return a new vector with its each component entrywise down to the nearest integer.
      */
-    T floor();
+    @Override
+    public Vector2d floor() {
+        return new Vector2d(Math.floor(x), Math.floor(y));
+    }
 
     /**
      * Rounds itself entrywise up to the nearest integer.
@@ -215,7 +318,10 @@ public interface Vector<T> {
      *
      * @return a new vector with its each component entrywise up to the nearest integer.
      */
-    T ceil();
+    @Override
+    public Vector2d ceil() {
+        return new Vector2d(Math.ceil(x), Math.ceil(y));
+    }
 
     /**
      * Returns the fractional part of the value entrywise.
@@ -224,7 +330,10 @@ public interface Vector<T> {
      *
      * @return the fractional part of the value entrywise.
      */
-    T fraction();
+    @Override
+    public Vector2d fraction() {
+        return this.subtract(this.floor());
+    }
 
     /**
      * The entrywise modulo of itself by the second vector.
@@ -234,7 +343,10 @@ public interface Vector<T> {
      * @param second vector that is not null.
      * @return the entrywise modulo of itself by the second vector.
      */
-    T modulo(T second);
+    @Override
+    public Vector2d modulo(Vector2d second) {
+        return new Vector2d(x % second.x, y % second.y);
+    }
 
     /**
      * The entrywise output of a value between Min and Max based on the absolute difference between the input value
@@ -246,17 +358,24 @@ public interface Vector<T> {
      * @param maximum: maximum threshold.
      * @return a new vector that is entrywise wrapped for each its component.
      */
-    T wrap(T minimum, T maximum);
+    @Override
+    public Vector2d wrap(Vector2d minimum, Vector2d maximum) {
+        Vector2d v1 = this.subtract(minimum);
+        Vector2d range = maximum.subtract(minimum);
+        return this.subtract(range.multiply(v1.divide(range)).floor());
+    }
 
     /**
      * The result of rounding itself to the largest integer multiple of B less than or equal itself.
      * <p>Precondition: none.</p>
      * <p>Postcondition: returns a new vector that is entrywise snapped for each its component.</p>
      *
-     * @param second that is not null.
      * @return a new vector that is entrywise snapped for each its component.
      */
-    T snap(T second);
+    @Override
+    public Vector2d snap(Vector2d second) {
+        return this.divide(second).floor().multiply(second);
+    }
 
     /**
      * The entrywise of sine of itself.
@@ -265,7 +384,10 @@ public interface Vector<T> {
      *
      * @return the entrywise of sine of itself.
      */
-    T sine();
+    @Override
+    public Vector2d sine() {
+        return new Vector2d(Math.sin(x), Math.sin(y));
+    }
 
     /**
      * The entrywise of cosine of itself.
@@ -274,7 +396,10 @@ public interface Vector<T> {
      *
      * @return the entrywise of cosine of itself.
      */
-    T cosine();
+    @Override
+    public Vector2d cosine() {
+        return new Vector2d(Math.cos(x), Math.cos(y));
+    }
 
     /**
      * The entrywise of tangent of itself.
@@ -283,7 +408,10 @@ public interface Vector<T> {
      *
      * @return the entrywise of tangent of itself.
      */
-    T tangent();
+    @Override
+    public Vector2d tangent() {
+        return new Vector2d(Math.tan(x), Math.tan(y));
+    }
 
     /**
      * Copy itself.
@@ -292,5 +420,86 @@ public interface Vector<T> {
      *
      * @return a new reference of itself.
      */
-    T copy();
+    @Override
+    public Vector2d copy() {
+        return new Vector2d(x, y);
+    }
+
+    @Override
+    public String toString() {
+        return "[" + x + ", " + y + "]";
+    }
+
+    public double getX() {
+        return x;
+    }
+
+    public double getY() {
+        return y;
+    }
+
+    @Override
+    public int compareTo(Vector2d o) {
+        if (this.x != o.getX()) {
+            return Double.compare(x, o.getX());
+        }
+        if (this.y != o.getY()) {
+            return Double.compare(this.y, o.getY());
+        }
+        return (this.x == o.getX() && this.y == o.getY())
+                ? 0
+                : Double.compare(this.length(), o.length());
+    }
+
+    /**
+     * Compares its two arguments for order.  Returns a negative integer,
+     * zero, or a positive integer as the first argument is less than, equal
+     * to, or greater than the second.<p>
+     * <p>
+     * The implementor must ensure that {@link Integer#signum
+     * signum}{@code (compare(x, y)) == -signum(compare(y, x))} for
+     * all {@code x} and {@code y}.  (This implies that {@code
+     * compare(x, y)} must throw an exception if and only if {@code
+     * compare(y, x)} throws an exception.)<p>
+     * <p>
+     * The implementor must also ensure that the relation is transitive:
+     * {@code ((compare(x, y)>0) && (compare(y, z)>0))} implies
+     * {@code compare(x, z)>0}.<p>
+     * <p>
+     * Finally, the implementor must ensure that {@code compare(x,
+     * y)==0} implies that {@code signum(compare(x,
+     * z))==signum(compare(y, z))} for all {@code z}.
+     *
+     * @param o1 the first object to be compared.
+     * @param o2 the second object to be compared.
+     * @return a negative integer, zero, or a positive integer as the
+     * first argument is less than, equal to, or greater than the
+     * second.
+     * @throws NullPointerException if an argument is null and this
+     *                              comparator does not permit null arguments
+     * @throws ClassCastException   if the arguments' types prevent them from
+     *                              being compared by this comparator.
+     * @apiNote It is generally the case, but <i>not</i> strictly required that
+     * {@code (compare(x, y)==0) == (x.equals(y))}.  Generally speaking,
+     * any comparator that violates this condition should clearly indicate
+     * this fact.  The recommended language is "Note: this comparator
+     * imposes orderings that are inconsistent with equals."
+     */
+    @Override
+    public int compare(Vector2d o1, Vector2d o2) {
+        return o1.compareTo(o2);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Vector2d vector2d = (Vector2d) o;
+        return x == vector2d.x && y == vector2d.y;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(x, y);
+    }
 }
