@@ -293,4 +293,56 @@ public interface Vector<T> {
      * @return a new reference of itself.
      */
     T copy();
+
+    /**
+     * Check if any component of {@code Vector} is zero.
+     * <p>Precondition: none.</p>
+     * <p>Postcondition: return true if none of the components of {@code Vector} is zero.</p>
+     *
+     * @param x x integer component of {@code Vector}.
+     * @param y y integer component of {@code Vector}.
+     * @return true if none of the components of {@code Vector} is zero.
+     */
+    default boolean isVectorComponentZero(int x, int y) {
+        return x != 0 && y != 0;
+    }
+
+    /**
+     * Check if any component of {@code Vector} is zero.
+     * <p>Precondition: none.</p>
+     * <p>Postcondition: return true if none of the components of {@code Vector} is zero.</p>
+     *
+     * @param x x double component of {@code Vector}.
+     * @param y y double component of {@code Vector}.
+     * @return true if none of the components of {@code Vector} is zero.
+     */
+    default boolean isVectorComponentZero(double x, double y) {
+        return x != 0d && y != 0d;
+    }
+
+    /**
+     * Check if any component of {@code Vector} is zero.
+     * <p>Precondition: none.</p>
+     * <p>Postcondition: return true if none of the components of {@code Vector} is zero.</p>
+     *
+     * @param x x float component of {@code Vector}.
+     * @param y y float component of {@code Vector}.
+     * @return true if none of the components of {@code Vector} is zero.
+     */
+    default boolean isVectorComponentZero(float x, float y) {
+        return x != 0f && y != 0f;
+    }
+
+    /**
+     * Check if any component of {@code Vector} is zero.
+     * <p>Precondition: none.</p>
+     * <p>Postcondition: return true if none of the components of {@code Vector} is zero.</p>
+     *
+     * @param x x long component of {@code Vector}.
+     * @param y y long component of {@code Vector}.
+     * @return true if none of the components of {@code Vector} is zero.
+     */
+    default boolean isVectorComponentZero(long x, long y) {
+        return x != 0L && y != 0L;
+    }
 }
