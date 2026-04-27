@@ -425,6 +425,18 @@ public class Vector2i implements Vector<Vector2i>, Comparable<Vector2i>, Compara
     }
 
     /**
+     * Return a reference of itself.
+     * <p>Precondition: none.</p>
+     * <p>Postcondition: returns a reference of itself.</p>
+     *
+     * @return Return a reference of itself.
+     */
+    @Override
+    public Vector2i getSelf() {
+        return this;
+    }
+
+    /**
      * Compares this object with the specified object for order.  Returns a
      * negative integer, zero, or a positive integer as this object is less
      * than, equal to, or greater than the specified object.

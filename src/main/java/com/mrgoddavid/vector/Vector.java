@@ -9,6 +9,14 @@ package com.mrgoddavid.vector;
  */
 public interface Vector<T> {
 
+    enum ComparisonCommand {
+        LESS_THAN_OR_EQUAL_THAN,
+        LESS_THAN,
+        EQUALS,
+        GREATER_THAN,
+        GREATER_THAN_OR_EQUAL_THAN;
+    }
+
     /**
      * Performs entry addition of two vectors.
      * <p>Precondition: second vector is not null.</p>
@@ -293,6 +301,82 @@ public interface Vector<T> {
      * @return a new reference of itself.
      */
     T copy();
+
+    /**
+     * Return a reference of itself.
+     * <p>Precondition: none.</p>
+     * <p>Postcondition: returns a reference of itself.</p>
+     *
+     * @return Return a reference of itself.
+     */
+    T getSelf();
+
+    /**
+     * Performs entrywise comparison of vector itself and the second vector. The comparison is specified in the
+     * enum of {@code Vector}.
+     * <p>Precondition: second input vector is not null.</p>
+     * <p>Postcondition: return a boolean value that the first vector pass/fail the comparison test to the second
+     * vector.</p>
+     *
+     * @param second  vector that is not null.
+     * @param command specifies the comparison operation between the current vector and the second input vector.
+     * @return true if the current vector passes the comparison test to the second input vector and false otherwise.
+     */
+    default boolean compareWith(T second, ComparisonCommand command) {
+        if (!(second instanceof Vector)) return false;
+        boolean result = false;
+        T self = getSelf();
+        switch (command) {
+            case LESS_THAN_OR_EQUAL_THAN -> {
+                if (second instanceof Vector2i second_v2i) {
+                    Vector2i self_v2i = (Vector2i) self;
+                    result = (self_v2i.getX() <= second_v2i.getX()) && (self_v2i.getY() <= second_v2i.getY());
+                } else if (second instanceof Vector2d second_v2d) {
+                    Vector2d self_v2d = (Vector2d) self;
+                    result = (self_v2d.getX() <= second_v2d.getX()) && (self_v2d.getY() <= second_v2d.getY());
+                }
+            }
+            case LESS_THAN -> {
+                if (second instanceof Vector2i second_v2i) {
+                    Vector2i self_v2i = (Vector2i) self;
+                    result = (self_v2i.getX() < second_v2i.getX()) && (self_v2i.getY() < second_v2i.getY());
+                } else if (second instanceof Vector2d second_v2d) {
+                    Vector2d self_v2d = (Vector2d) self;
+                    result = (self_v2d.getX() < second_v2d.getX()) && (self_v2d.getY() < second_v2d.getY());
+                }
+            }
+            case EQUALS -> {
+                if (second instanceof Vector2i second_v2i) {
+                    Vector2i self_v2i = (Vector2i) self;
+                    result = (self_v2i.getX() == second_v2i.getX()) && (self_v2i.getY() == second_v2i.getY());
+                } else if (second instanceof Vector2d second_v2d) {
+                    Vector2d self_v2d = (Vector2d) self;
+                    result = (self_v2d.getX() == second_v2d.getX()) && (self_v2d.getY() == second_v2d.getY());
+                }
+            }
+            case GREATER_THAN -> {
+                if (second instanceof Vector2i second_v2i) {
+                    Vector2i self_v2i = (Vector2i) self;
+                    result = (self_v2i.getX() > second_v2i.getX()) && (self_v2i.getY() > second_v2i.getY());
+                } else if (second instanceof Vector2d second_v2d) {
+                    Vector2d self_v2d = (Vector2d) self;
+                    result = (self_v2d.getX() > second_v2d.getX()) && (self_v2d.getY() > second_v2d.getY());
+                }
+            }
+            case GREATER_THAN_OR_EQUAL_THAN -> {
+                if (second instanceof Vector2i second_v2i) {
+                    Vector2i self_v2i = (Vector2i) self;
+                    result = (self_v2i.getX() >= second_v2i.getX()) && (self_v2i.getY() >= second_v2i.getY());
+                } else if (second instanceof Vector2d second_v2d) {
+                    Vector2d self_v2d = (Vector2d) self;
+                    result = (self_v2d.getX() >= second_v2d.getX()) && (self_v2d.getY() >= second_v2d.getY());
+                }
+            }
+            default -> {
+            }
+        }
+        return result;
+    }
 
     /**
      * Check if any component of {@code Vector} is zero.

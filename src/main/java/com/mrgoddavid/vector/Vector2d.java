@@ -413,6 +413,11 @@ public class Vector2d implements Vector<Vector2d>, Comparable<Vector2d>, Compara
         return new Vector2d(Math.tan(x), Math.tan(y));
     }
 
+    @Override
+    public Vector2d getSelf() {
+        return this;
+    }
+
     /**
      * Copy itself.
      * <p>Precondition: none.</p>
