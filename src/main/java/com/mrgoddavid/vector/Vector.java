@@ -10,11 +10,11 @@ package com.mrgoddavid.vector;
 public interface Vector<T> {
 
     enum ComparisonCommand {
-        LESS_THAN_OR_EQUAL_THAN,
+        LESS_THAN_OR_EQUALS_TO,
         LESS_THAN,
         EQUALS,
         GREATER_THAN,
-        GREATER_THAN_OR_EQUAL_THAN;
+        GREATER_THAN_OR_EQUALS_TO;
     }
 
     /**
@@ -327,7 +327,7 @@ public interface Vector<T> {
         boolean result = false;
         T self = getSelf();
         switch (command) {
-            case LESS_THAN_OR_EQUAL_THAN -> {
+            case LESS_THAN_OR_EQUALS_TO -> {
                 if (second instanceof Vector2i second_v2i) {
                     Vector2i self_v2i = (Vector2i) self;
                     result = (self_v2i.getX() <= second_v2i.getX()) && (self_v2i.getY() <= second_v2i.getY());
@@ -363,7 +363,7 @@ public interface Vector<T> {
                     result = (self_v2d.getX() > second_v2d.getX()) && (self_v2d.getY() > second_v2d.getY());
                 }
             }
-            case GREATER_THAN_OR_EQUAL_THAN -> {
+            case GREATER_THAN_OR_EQUALS_TO -> {
                 if (second instanceof Vector2i second_v2i) {
                     Vector2i self_v2i = (Vector2i) self;
                     result = (self_v2i.getX() >= second_v2i.getX()) && (self_v2i.getY() >= second_v2i.getY());
