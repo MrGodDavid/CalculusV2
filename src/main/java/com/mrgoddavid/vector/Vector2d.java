@@ -507,4 +507,9 @@ public class Vector2d implements Vector<Vector2d>, Comparable<Vector2d>, Compara
     public int hashCode() {
         return Objects.hash(x, y);
     }
+
+    public void setValues(double x, double y) {
+        this.x = x;
+        this.y = y;
+    }
 }

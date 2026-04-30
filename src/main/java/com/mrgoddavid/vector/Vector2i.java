@@ -12,8 +12,8 @@ import java.util.Objects;
  */
 public class Vector2i implements Vector<Vector2i>, Comparable<Vector2i>, Comparator<Vector2i> , Serializable {
 
-    public int x;
-    public int y;
+    private int x;
+    private int y;
 
     public Vector2i() {
         this(0, 0);
@@ -572,5 +572,10 @@ public class Vector2i implements Vector<Vector2i>, Comparable<Vector2i>, Compara
 
     public int getY() {
         return y;
+    }
+
+    public void setValues(int x, int y) {
+        this.x = x;
+        this.y = y;
     }
 }
