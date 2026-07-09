@@ -1,5 +1,7 @@
 package com.mrgoddavid.vector;
 
+import com.mrgoddavid.matrix.Matrix3i;
+
 /**
  * Three-dimensional vector. Each component of this vector is integer.
  *
@@ -8,9 +10,9 @@ package com.mrgoddavid.vector;
  */
 public class Vector3i implements Vector3<Vector3i> {
 
-    private int x;
-    private int y;
-    private int z;
+    private final int x;
+    private final int y;
+    private final int z;
 
     public Vector3i() {
         this(0, 0, 0);
@@ -30,7 +32,8 @@ public class Vector3i implements Vector3<Vector3i> {
      */
     @Override
     public Vector3i crossProduct(Vector3i other) {
-        return null;
+        Matrix3i matrix3VI = new Matrix3i(-999, -999, -999, this.x, this.y, this.z, other.x, other.y, other.z);
+        return matrix3VI.determinantToVector();
     }
 
     /**
@@ -448,5 +451,10 @@ public class Vector3i implements Vector3<Vector3i> {
     @Override
     public Vector3i getSelf() {
         return new Vector3i(this.x, this.y, this.z);
+    }
+
+    @Override
+    public String toString() {
+        return "[" + x + ", " + y + ", " + z + "]";
     }
 }

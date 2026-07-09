@@ -3,7 +3,7 @@ package com.mrgoddavid.vector;
 /**
  * Interface of custom vector class. Define the operation of two-dimensional vector.
  *
- * @param <T> data type of two-dimensional vector.
+ * @param <T> Class type of the implementation class of this interface.
  * @author David Liu.
  * @since 3/16/2026
  */
