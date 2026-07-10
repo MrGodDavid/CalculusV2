@@ -182,6 +182,19 @@ public class Vector3i implements Vector3<Vector3i> {
     }
 
     /**
+     * Find the length of the shadow of itself on the second three-dimensional vector.
+     *
+     * @param second three-dimensional vector that is not null.
+     * @return the scalar projection of itself on the second vector.
+     * @author Mr. GodDavid
+     * @since 7/10/2026 added this method.
+     */
+    public double scalar_projection(Vector3i second) {
+        double dot_product = this.dot_product(second);
+        return dot_product / second.length();
+    }
+
+    /**
      * Project itself on the second vector.
      * <p>Precondition: second input vector in not null.</p>
      * <p>Postcondition: calculate the projection vector of the second vector.</p>
@@ -194,7 +207,9 @@ public class Vector3i implements Vector3<Vector3i> {
     @Deprecated
     @Override
     public Vector3i project(Vector3i second) {
-        return null;
+        double mag = second.length();
+        double length = this.dot_product(second) / mag / mag;
+        return this.scale(length);
     }
 
     /**

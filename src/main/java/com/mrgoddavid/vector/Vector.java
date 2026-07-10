@@ -178,7 +178,8 @@ public interface Vector<T> {
     T power(double exp);
 
     /**
-     * Extracts the sign of the input value. All positive numbers will output 1.0. All negative numbers will output -1.0.
+     * Extracts the sign of the input value. All positive numbers will output 1.0. All negative numbers will output
+     * -1.0.
      * And 0.0 will output 0.0.
      * <p>Precondition: none.</p>
      * <p>Postcondition: Extract the sign of each component.</p>
@@ -430,3 +431,32 @@ public interface Vector<T> {
         return x != 0L && y != 0L;
     }
 }
+
+/**
+ * Interface for operations of three-dimensional vectors. This interface extends {@link Vector}.
+ *
+ * @param <T> type parameter. Class type of implementation of this interface.
+ * @author Mr. GodDavid
+ * @since 6/9/2026
+ */
+interface Vector3<T> extends Vector<T> {
+
+    /**
+     * Calculate the cross product of two three-dimensional vectors.
+     *
+     * @param other three-dimensional vector that is not null.
+     * @return the cross product of two three-dimensional vectors.
+     */
+    T crossProduct(T other);
+
+    /**
+     * Find the length of the shadow of itself on the second three-dimensional vector.
+     *
+     * @param second three-dimensional vector that is not null.
+     * @return the scalar projection of itself on the second vector.
+     * @author Mr. GodDavid
+     * @since 7/10/2026 added this method.
+     */
+    double scalar_projection(T second);
+}
+

@@ -40,7 +40,7 @@ public class Matrix3i implements Matrix.SquareMatrix<Matrix3i> {
         @Deprecated
         @Override
         public double determinant() {
-            return 0;
+            return -999;
         }
 
         /**
@@ -115,6 +115,11 @@ public class Matrix3i implements Matrix.SquareMatrix<Matrix3i> {
         this.a33 = matrix[2][2];
     }
 
+    /**
+     * {@link MatrixV3i#determinantToVector()}.
+     *
+     * @return the determinant of vector 3x3 matrix.
+     */
     public Vector3i determinantToVector() {
         return new MatrixV3i().determinantToVector();
     }
