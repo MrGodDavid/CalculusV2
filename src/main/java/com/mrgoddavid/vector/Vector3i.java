@@ -25,7 +25,7 @@ public class Vector3i implements Vector3<Vector3i> {
     }
 
     /**
-     * Calculate the cross product of two three-dimensional vectors.
+     * Calculates the cross product of two three-dimensional vectors.
      *
      * @param other three-dimensional vector that is not null.
      * @return the cross product of two three-dimensional vectors.
@@ -34,6 +34,59 @@ public class Vector3i implements Vector3<Vector3i> {
     public Vector3i crossProduct(Vector3i other) {
         Matrix3i matrix3VI = new Matrix3i(-999, -999, -999, this.x, this.y, this.z, other.x, other.y, other.z);
         return matrix3VI.determinantToVector();
+    }
+
+    // =====================================> Cross Product Simplification Feature <=====================================
+    // author: Mr. GodDavid
+    // since 7/10/2026
+
+    /**
+     * Calculates the cross product of two three-dimensional vectors. This method simplifies the result by dividing it
+     * by the greatest common factor of three components.
+     *
+     * @param other    three-dimensional vector that is not null.
+     * @param simplify a boolean key allows user to choose whether to simplify the cross product or not.
+     * @return the simplified cross product if {@code simplify = true} and original cross product if {@code simplify = false}
+     * @author Mr. GodDavid
+     * @since 7/10/2026 added this method.
+     */
+    public Vector3i crossProduct(Vector3i other, boolean simplify) {
+        Vector3i cross_product = this.crossProduct(other);
+        if (simplify) {
+            int gcf = findGCF(cross_product.x, cross_product.y, cross_product.z);
+            cross_product = cross_product.scale(1d / gcf);
+        }
+        return cross_product;
+    }
+
+    /**
+     * Calculates the greatest common factor (GCF) of three integers via Euclidean Algorithm. First calculate the GCF of
+     * the first and second integer, then calculate the GCF of the first and second and third integer.
+     *
+     * @param a is the first integer.
+     * @param b is the second integer.
+     * @param c is the third integer.
+     * @return the greatest common factor of a, b, and c.
+     * @author Mr. GodDavid
+     * @since 6/10/2026 added this method.
+     */
+    private int findGCF(int a, int b, int c) {
+        return doFindGCF(doFindGCF(a, b), c);
+    }
+
+    /**
+     * Calculates the greatest common factor (GCF) of three integers via Euclidean Algorithm.
+     *
+     * @param a is the first integer.
+     * @param b is the second integer.
+     * @return the GCF of a and b.
+     */
+    private int doFindGCF(int a, int b) {
+        if (b == 0) {
+            return a;
+        } else {
+            return doFindGCF(b, a % b);
+        }
     }
 
     /**

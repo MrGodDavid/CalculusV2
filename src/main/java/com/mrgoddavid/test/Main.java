@@ -13,8 +13,8 @@ public class Main {
 //        Vector2i v2 = new Vector2i(3, 8);
 //
 //        System.out.println(v.compareWith(v2, Vector.ComparisonCommand.LESS_THAN));
-        Vector3i a =  new Vector3i(1,2,1);
-        Vector3i b = new Vector3i(0,1,0);
-        System.out.println(a.crossProduct(b));
+        Vector3i a =  new Vector3i(-2,1,1);
+        Vector3i b = new Vector3i(-1,3,3);
+        System.out.println(a.crossProduct(b, true));
     }
 }
