@@ -30,6 +30,7 @@ public final class Line3 {
 
     @Override
     public String toString() {
-        return "r(t) = " + startingPoint.toString() + " + t" + direction.toString();
+        return "r(t) = " + "<" + startingPoint.getX() + ", " + startingPoint.getY() + ", " + startingPoint.getZ() + ">" + " + t" +
+                direction.toString();
     }
 }

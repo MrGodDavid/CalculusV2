@@ -12,18 +12,36 @@ import com.mrgoddavid.vector.space.point.Point3;
  * @author Mr. GodDavid
  * @since 7/13/2026
  */
-public class Plane3d implements Plane3 {
+public final class Plane3d implements Plane3 {
 
-    private int A; // x coefficient
-    private int B; // y coefficient
-    private int C; // z coefficient
-    private int D; // Ax + By + Cz = D
+    private final int A; // x coefficient
+    private final int B; // y coefficient
+    private final int C; // z coefficient
+    private final int D; // Ax + By + Cz = D
 
     public Plane3d(int a, int b, int c, int d) {
         A = a;
         B = b;
         C = c;
         D = d;
+    }
+
+    /**
+     * Constructs a plane based on the equation in constructor. The constructor MUST be in the following form:
+     * {@code Ax + By + Cz = D}.
+     *
+     * @param equation of the three-dimensional plane.
+     * @author Mr. GodDavid
+     * @since 7/13/2026 added this new feature, which allows user to construct three-dimensional plane easier.
+     */
+    public Plane3d(String equation) {
+        int indexOfX = equation.indexOf('x');
+        int indexOfY = equation.indexOf('y');
+        int indexOfZ = equation.indexOf('z');
+        A = indexOfX == 0 ? 1 : Integer.parseInt(equation.substring(indexOfX - 1, indexOfX));
+        B = Integer.parseInt(equation.charAt(indexOfY - 1) == ' ' ? "1" : equation.substring(indexOfY - 1, indexOfY));
+        C = Integer.parseInt(equation.charAt(indexOfZ - 1) == ' ' ? "1" : equation.substring(indexOfZ - 1, indexOfZ));
+        D = Integer.parseInt(equation.substring(equation.indexOf('=') + 2));
     }
 
     /**

@@ -17,8 +17,8 @@ public class Main {
         System.out.println(a.crossProduct(b, false));
 
 
-        Plane3d plane1 = new Plane3d(1, 1, 1, 1); // x + y + z = 1
-        Plane3d plane2 = new Plane3d(1, 2, 1, 1); // x + 2y + z = 1
+        Plane3d plane1 = new Plane3d("x + y + z = 1"); // x + y + z = 1
+        Plane3d plane2 = new Plane3d("x + 2y + z = 1"); // x + 2y + z = 1
         System.out.println(plane1.intersect(plane2));
     }
 }
