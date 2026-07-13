@@ -45,6 +45,15 @@ public interface Matrix<T> {
         T transpose();
 
         /**
+         * Calculates the inverse of 2x2 matrix.
+         *
+         * @return the inverse matrix of this 2x2 matrix.
+         * @author Mr. GodDavid
+         * @since 7/13/2026 added this method. Part of Plane-Intersection-Feature update in 7/13/2026.
+         */
+        T inverse();
+
+        /**
          * The size by rows of a 2x2 matrix is 2.
          *
          * @return 2 because a 2x2 matrix has 2 rows.
@@ -106,4 +115,14 @@ public interface Matrix<T> {
      * @return the difference of the two matrices.
      */
     T subtract(T other);
+
+    /**
+     * Scalar multiplication of matrix.
+     *
+     * @param scalar multiplier.
+     * @return the scaled matrix.
+     * @author Me. GodDavid
+     * @since 7/13/2026 added this method.
+     */
+    T scale(double scalar);
 }

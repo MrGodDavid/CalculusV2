@@ -68,6 +68,21 @@ public class Matrix3i implements Matrix.SquareMatrix<Matrix3i> {
         public MatrixV3i subtract(MatrixV3i other) {
             return null;
         }
+
+        /**
+         * Scalar multiplication of matrix.
+         *
+         * @param scalar multiplier.
+         * @return the scaled matrix.
+         * @author Me. GodDavid
+         * @since 7/13/2026 added this method.
+         * @deprecated not suitable for using this method here.
+         */
+        @Deprecated
+        @Override
+        public MatrixV3i scale(double scalar) {
+            return null;
+        }
     }
 
     /*
@@ -191,6 +206,23 @@ public class Matrix3i implements Matrix.SquareMatrix<Matrix3i> {
                 a11 - other.a11, a12 - other.a12, a13 - other.a13,
                 a21 - other.a21, a22 - other.a22, a23 - other.a23,
                 a31 - other.a31, a32 - other.a32, a33 - other.a33
+        );
+    }
+
+    /**
+     * Scalar multiplication of matrix.
+     *
+     * @param scalar multiplier.
+     * @return the scaled matrix.
+     * @author Me. GodDavid
+     * @since 7/13/2026 added this method.
+     */
+    @Override
+    public Matrix3i scale(double scalar) {
+        return new Matrix3i(
+                (int) (a11 * scalar), (int) (a12 * scalar), (int) (a13 * scalar),
+                (int) (a21 * scalar), (int) (a22 * scalar), (int) (a23 * scalar),
+                (int) (a31 * scalar), (int) (a32 * scalar), (int) (a33 * scalar)
         );
     }
 }

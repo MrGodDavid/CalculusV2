@@ -35,6 +35,20 @@ public class Matrix2i implements Matrix.Matrix2<Matrix2i>, Matrix.SquareMatrix<M
         this.d = d;
     }
 
+    public Matrix2i multiply(Matrix2i other) {
+        return new Matrix2i(
+                this.a * other.a + this.b * other.c, this.a * other.b + this.b * other.d,
+                this.c * other.a + this.d * other.c, this.c * other.b + this.d * other.d
+        );
+    }
+
+    public FixedMatrix.Matrix21i multiply(FixedMatrix.Matrix21i other) {
+        return new FixedMatrix.Matrix21i(
+                this.a * other.a11() + this.b * other.a21(),
+                this.c * other.a11() + this.d * other.a21()
+        );
+    }
+
     /**
      * Addition of two same-sized matrices.
      *
@@ -58,6 +72,19 @@ public class Matrix2i implements Matrix.Matrix2<Matrix2i>, Matrix.SquareMatrix<M
     }
 
     /**
+     * Scalar multiplication of matrix.
+     *
+     * @param scalar multiplier.
+     * @return the scaled matrix.
+     * @author Me. GodDavid
+     * @since 7/13/2026 added this method.
+     */
+    @Override
+    public Matrix2i scale(double scalar) {
+        return new Matrix2i((int) (this.a * scalar), (int) (this.b * scalar), (int) (this.c * scalar), (int) (this.d * scalar));
+    }
+
+    /**
      * The transpose of a matrix is a new matrix formed by swapping its rows and columns. The rows of the original
      * matrix become the columns of the transposed matrix, and vice versa.
      *
@@ -66,6 +93,25 @@ public class Matrix2i implements Matrix.Matrix2<Matrix2i>, Matrix.SquareMatrix<M
     @Override
     public Matrix2i transpose() {
         return new Matrix2i(this.a, this.c, this.b, this.d);
+    }
+
+    /**
+     * Calculates the inverse of 2x2 matrix.
+     *
+     * @return the inverse matrix of this 2x2 matrix.
+     * @author Mr. GodDavid
+     * @since 7/13/2026 added this method. Part of Plane-Intersection-Feature update in 7/13/2026.
+     */
+    @Override
+    public Matrix2i inverse() {
+        Matrix2i mat = new Matrix2i(this.d, -this.b, -this.c, this.a);
+        double det = this.determinant();
+        if (det == 0) {
+            return null;
+        }
+
+        double multiplier = 1d / (det);
+        return mat.scale(multiplier);
     }
 
     /**
