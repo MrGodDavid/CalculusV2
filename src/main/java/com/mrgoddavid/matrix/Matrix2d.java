@@ -1,5 +1,7 @@
 package com.mrgoddavid.matrix;
 
+import java.io.Serializable;
+
 /**
  * This class represents a 2x2 matrix. Each element of this matrix is an integer.
  *

@@ -2,13 +2,15 @@ package com.mrgoddavid.matrix;
 
 import com.mrgoddavid.vector.Vector3i;
 
+import java.io.Serializable;
+
 /**
  * This is the root interface of matrices. This interface contains all operations of matrices.
  *
  * @author Mr. GodDavid
  * @since 6/9/2026
  */
-public interface Matrix<T> {
+public interface Matrix<T> extends Serializable {
 
     /**
      * Contains operations of square matrices.

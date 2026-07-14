@@ -3,13 +3,15 @@ package com.mrgoddavid.vector.space.plane;
 import com.mrgoddavid.vector.Vector3i;
 import com.mrgoddavid.vector.space.line.Line3;
 
+import java.io.Serializable;
+
 /**
  * The interface of a three-dimensional plane. The definition of three-dimensional plane is {@code Ax + By + Cz = D}
  *
  * @author Mr. GodDavid
  * @since 7/13/2026
  */
-public interface Plane3 {
+public interface Plane3 extends Serializable {
 
     /**
      * The intersection of two three-dimensional planes is a three-dimensional line. This method finds that intersecting

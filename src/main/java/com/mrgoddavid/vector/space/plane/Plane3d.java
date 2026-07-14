@@ -56,6 +56,10 @@ public final class Plane3d implements Plane3 {
     public Line3 intersect(Plane3d plane3) {
         Vector3i direction = this.getNormal().crossProduct(plane3.getNormal(), true);
         Point3 point = this.findPointOnLine(plane3);
+        if (point == null) {
+            System.out.println("The two planes are parallel, no line of intersection!");
+            return null;
+        }
         return new Line3(point, direction);
     }
 
@@ -138,6 +142,6 @@ public final class Plane3d implements Plane3 {
 
     @Override
     public String toString() {
-        return A + "x + " + B + "y " + C + "z = " + D;
+        return A + "x + " + B + "y + " + C + "z = " + D;
     }
 }

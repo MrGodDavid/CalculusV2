@@ -1,5 +1,7 @@
 package com.mrgoddavid.vector;
 
+import java.io.Serializable;
+
 /**
  * Interface of custom vector class. Define the operation of two-dimensional vector.
  *
@@ -7,7 +9,7 @@ package com.mrgoddavid.vector;
  * @author David Liu.
  * @since 3/16/2026
  */
-public interface Vector<T> {
+public interface Vector<T> extends Serializable {
 
     enum ComparisonCommand {
         LESS_THAN_OR_EQUALS_TO,
