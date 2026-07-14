@@ -1,44 +1,40 @@
 package com.mrgoddavid.vector;
 
-import com.mrgoddavid.matrix.Matrix3i;
+import com.mrgoddavid.matrix.Matrix3d;
 
 /**
  * Three-dimensional vector. Each component of this vector is integer.
  *
  * @author Mr. GodDavid
- * @since 7/9/2026
+ * @since 7/13/2026
  */
-public class Vector3i implements Vector3<Vector3i> {
+public class Vector3d implements Vector3<Vector3d> {
 
-    private final int x;
-    private final int y;
-    private final int z;
+    private final double x;
+    private final double y;
+    private final double z;
 
-    public Vector3i() {
+    public Vector3d() {
         this(0, 0, 0);
     }
 
-    public Vector3i(int x, int y, int z) {
+    public Vector3d(double x, double y, double z) {
         this.x = x;
         this.y = y;
         this.z = z;
     }
 
     /**
-     * Calculates the cross product of two three-dimensional vectors.
+     * Calculate the cross product of two three-dimensional vectors.
      *
      * @param other three-dimensional vector that is not null.
      * @return the cross product of two three-dimensional vectors.
      */
     @Override
-    public Vector3i crossProduct(Vector3i other) {
-        Matrix3i matrix3VI = new Matrix3i(-999, -999, -999, this.x, this.y, this.z, other.x, other.y, other.z);
-        return matrix3VI.determinantToVector();
+    public Vector3d crossProduct(Vector3d other) {
+        Matrix3d matrix3VD = new Matrix3d(-999, -999, -999, this.x, this.y, this.z, other.x, other.y, other.z);
+        return matrix3VD.determinantToVector();
     }
-
-    // =====================================> Cross Product Simplification Feature <=====================================
-    // author: Mr. GodDavid
-    // since 7/10/2026
 
     /**
      * Calculates the cross product of two three-dimensional vectors. This method simplifies the result by dividing it
@@ -50,10 +46,10 @@ public class Vector3i implements Vector3<Vector3i> {
      * @author Mr. GodDavid
      * @since 7/10/2026 added this method.
      */
-    public Vector3i crossProduct(Vector3i other, boolean simplify) {
-        Vector3i cross_product = this.crossProduct(other);
+    public Vector3d crossProduct(Vector3d other, boolean simplify) {
+        Vector3d cross_product = this.crossProduct(other);
         if (simplify) {
-            int gcf = findGCF(cross_product.x, cross_product.y, cross_product.z);
+            int gcf = findGCF((int) cross_product.x, (int) cross_product.y, (int) cross_product.z);
             cross_product = cross_product.scale(1d / gcf);
         }
         return cross_product;
@@ -90,6 +86,19 @@ public class Vector3i implements Vector3<Vector3i> {
     }
 
     /**
+     * Find the length of the shadow of itself on the second three-dimensional vector.
+     *
+     * @param second three-dimensional vector that is not null.
+     * @return the scalar projection of itself on the second vector.
+     * @author Mr. GodDavid
+     * @since 7/10/2026 added this method.
+     */
+    @Override
+    public double scalar_projection(Vector3d second) {
+        return 0;
+    }
+
+    /**
      * Performs entry addition of two vectors.
      * <p>Precondition: second vector is not null.</p>
      * <p>Postcondition: returns the sum of two vectors.</p>
@@ -98,8 +107,8 @@ public class Vector3i implements Vector3<Vector3i> {
      * @return the sum of two vectors.
      */
     @Override
-    public Vector3i add(Vector3i second) {
-        return new Vector3i(this.x + second.x, this.y + second.y, this.z + second.z);
+    public Vector3d add(Vector3d second) {
+        return new Vector3d(this.x + second.x, this.y + second.y, this.z + second.z);
     }
 
     /**
@@ -111,8 +120,8 @@ public class Vector3i implements Vector3<Vector3i> {
      * @return the difference between two vectors.
      */
     @Override
-    public Vector3i subtract(Vector3i second) {
-        return new Vector3i(this.x - second.x, this.y - second.y, this.z - second.z);
+    public Vector3d subtract(Vector3d second) {
+        return new Vector3d(this.x - second.x, this.y - second.y, this.z - second.z);
     }
 
     /**
@@ -124,8 +133,8 @@ public class Vector3i implements Vector3<Vector3i> {
      * @return the product of two vectors.
      */
     @Override
-    public Vector3i multiply(Vector3i second) {
-        return new Vector3i(this.x * second.x, this.y * second.y, this.z * second.z);
+    public Vector3d multiply(Vector3d second) {
+        return new Vector3d(this.x * second.x, this.y * second.y, this.z * second.z);
     }
 
     /**
@@ -137,17 +146,18 @@ public class Vector3i implements Vector3<Vector3i> {
      * @return the quotient of two vectors.
      */
     @Override
-    public Vector3i divide(Vector3i second) {
+    public Vector3d divide(Vector3d second) {
         if (containsZero(second)) {
             System.err.println("Vector3i" + second + "contains zero!");
-            return new Vector3i(0, 0, 0);
+            return new Vector3d(0, 0, 0);
         }
-        return new Vector3i(x / second.x, y / second.y, z / second.z);
+        return new Vector3d(x / second.x, y / second.y, z / second.z);
     }
 
-    private boolean containsZero(Vector3i vector) {
+    private boolean containsZero(Vector3d vector) {
         return vector.x == 0 || vector.y == 0 || vector.z == 0;
     }
+
 
     /**
      * Performs entry multiplication and then addition of a vector itself.
@@ -159,11 +169,11 @@ public class Vector3i implements Vector3<Vector3i> {
      * @return the vector that is  multiplied multiplier vector and by  of two vectors.
      */
     @Override
-    public Vector3i multiply_add(Vector3i multiplier, Vector3i adder) {
-        int x = multiplier.x * this.x + adder.x;
-        int y = multiplier.y * this.y + adder.y;
-        int z = multiplier.z * this.z + adder.z;
-        return new Vector3i(x, y, z);
+    public Vector3d multiply_add(Vector3d multiplier, Vector3d adder) {
+        double x = adder.x * multiplier.x;
+        double y = adder.y * multiplier.y;
+        double z = adder.z * multiplier.z;
+        return new Vector3d(x, y, z);
     }
 
     /**
@@ -173,25 +183,11 @@ public class Vector3i implements Vector3<Vector3i> {
      *
      * @param second vector that is not null.
      * @return the cross product of itself to the second input vector.
-     * @deprecated this method is not suitable for calculating the cross product of two three-dimensional vectors.
      */
     @Deprecated
     @Override
-    public double cross_product(Vector3i second) {
+    public double cross_product(Vector3d second) {
         return -999;
-    }
-
-    /**
-     * Find the length of the shadow of itself on the second three-dimensional vector.
-     *
-     * @param second three-dimensional vector that is not null.
-     * @return the scalar projection of itself on the second vector.
-     * @author Mr. GodDavid
-     * @since 7/10/2026 added this method.
-     */
-    public double scalar_projection(Vector3i second) {
-        double dot_product = this.dot_product(second);
-        return dot_product / second.length();
     }
 
     /**
@@ -201,15 +197,10 @@ public class Vector3i implements Vector3<Vector3i> {
      *
      * @param second vector that is not null.
      * @return the projection vector of the second vector.
-     * @deprecated Implementation of this method is working in progress.
-     *
      */
-    @Deprecated
     @Override
-    public Vector3i project(Vector3i second) {
-        double mag = second.length();
-        double length = this.dot_product(second) / mag / mag;
-        return this.scale(length);
+    public Vector3d project(Vector3d second) {
+        return null;
     }
 
     /**
@@ -219,11 +210,9 @@ public class Vector3i implements Vector3<Vector3i> {
      *
      * @param second vector that is not null.
      * @return the reflected vector around the normal of the second vector.
-     * @deprecated Implementation of this method is working in progress.
      */
-    @Deprecated
     @Override
-    public Vector3i reflect(Vector3i second) {
+    public Vector3d reflect(Vector3d second) {
         return null;
     }
 
@@ -236,11 +225,9 @@ public class Vector3i implements Vector3<Vector3i> {
      * @param incident  the vector being checked and itself is not null.
      * @param reference the surface normal used to determine the orientation and itself is not null.
      * @return the calculated vector that is either flipped or not.
-     * @deprecated Implementation of this method is working in progress.
      */
     @Override
-    @Deprecated
-    public Vector3i faceForward(Vector3i incident, Vector3i reference) {
+    public Vector3d faceForward(Vector3d incident, Vector3d reference) {
         return null;
     }
 
@@ -253,7 +240,7 @@ public class Vector3i implements Vector3<Vector3i> {
      * @return the dot product of itself and the second vector.
      */
     @Override
-    public double dot_product(Vector3i second) {
+    public double dot_product(Vector3d second) {
         return second.x * this.x + second.y * this.y + second.z * this.z;
     }
 
@@ -266,10 +253,10 @@ public class Vector3i implements Vector3<Vector3i> {
      * @return the distance between itself and the second vector.
      */
     @Override
-    public double distance(Vector3i second) {
-        int dx = Math.abs(this.x - second.x);
-        int dy = Math.abs(this.y - second.y);
-        int dz = Math.abs(this.z - second.z);
+    public double distance(Vector3d second) {
+        double dx = Math.abs(second.x - this.x);
+        double dy = Math.abs(second.y - this.y);
+        double dz = Math.abs(second.z - this.z);
         return Math.sqrt(dx * dx + dy * dy + dz * dz);
     }
 
@@ -294,8 +281,8 @@ public class Vector3i implements Vector3<Vector3i> {
      * @return the result of multiplying itself by the scalar input <code>scale</code>.
      */
     @Override
-    public Vector3i scale(double scale) {
-        return new Vector3i((int) (this.x * scale), (int) (this.y * scale), (int) (this.z * scale));
+    public Vector3d scale(double scale) {
+        return new Vector3d(x * scale, y * scale, z * scale);
     }
 
     /**
@@ -306,9 +293,9 @@ public class Vector3i implements Vector3<Vector3i> {
      * @return the normalized vector.
      */
     @Override
-    public Vector3i normalize() {
-        return length() == 0 ? new Vector3i(0, 0, 0) : new Vector3i(
-                (int) (this.x / length()), (int) (this.y / length()), (int) (this.z / length())
+    public Vector3d normalize() {
+        return length() == 0 ? new Vector3d(0, 0, 0) : new Vector3d(
+                this.x / length(), this.y / length(), this.z / length()
         );
     }
 
@@ -320,8 +307,8 @@ public class Vector3i implements Vector3<Vector3i> {
      * @return a new vector2 that contains the entrywise absolute value of itself.
      */
     @Override
-    public Vector3i absolute() {
-        return new Vector3i(Math.abs(this.x), Math.abs(this.y), Math.abs(this.z));
+    public Vector3d absolute() {
+        return new Vector3d(Math.abs(this.x), Math.abs(this.y), Math.abs(this.z));
     }
 
     /**
@@ -333,8 +320,9 @@ public class Vector3i implements Vector3<Vector3i> {
      * @return a new vector2 that contains the entrywise power operator where the Base raised to the power of Exponent.
      */
     @Override
-    public Vector3i power(double exp) {
-        return new Vector3i((int) Math.pow(this.x, exp), (int) Math.pow(this.y, exp), (int) Math.pow(this.z, exp));
+    public Vector3d power(double exp) {
+        return new Vector3d(Math.pow(this.x, exp), Math.pow(this.y, exp), Math.pow(this.z, exp));
+
     }
 
     /**
@@ -347,11 +335,11 @@ public class Vector3i implements Vector3<Vector3i> {
      * @return a new vector that represents the sign of each component value.
      */
     @Override
-    public Vector3i sign() {
+    public Vector3d sign() {
         int signX = this.x < 0 ? -1 : 1;
         int signY = this.y < 0 ? -1 : 1;
         int signZ = this.z < 0 ? -1 : 1;
-        return new Vector3i(signX, signY, signZ);
+        return new Vector3d(signX, signY, signZ);
     }
 
     /**
@@ -363,8 +351,8 @@ public class Vector3i implements Vector3<Vector3i> {
      * @return a new vector that contains entrywise minimum of itself and the second vector
      */
     @Override
-    public Vector3i minimum(Vector3i second) {
-        return new Vector3i(Math.min(this.x, second.x), Math.min(this.y, second.y), Math.min(this.z, second.z));
+    public Vector3d minimum(Vector3d second) {
+        return new Vector3d(Math.min(this.x, second.x), Math.min(this.y, second.y), Math.min(this.z, second.z));
     }
 
     /**
@@ -376,8 +364,8 @@ public class Vector3i implements Vector3<Vector3i> {
      * @return a new vector that contains entrywise maximum of itself and the second vector
      */
     @Override
-    public Vector3i maximum(Vector3i second) {
-        return new Vector3i(Math.max(this.x, second.x), Math.max(this.y, second.y), Math.max(this.z, second.z));
+    public Vector3d maximum(Vector3d second) {
+        return new Vector3d(Math.max(this.x, second.x), Math.max(this.y, second.y), Math.max(this.z, second.z));
     }
 
     /**
@@ -388,8 +376,8 @@ public class Vector3i implements Vector3<Vector3i> {
      * @return a new vector with its each component entrywise down to the nearest integer.
      */
     @Override
-    public Vector3i floor() {
-        return getSelf();
+    public Vector3d floor() {
+        return new Vector3d(Math.floor(this.x), Math.floor(this.y), Math.floor(this.z));
     }
 
     /**
@@ -400,8 +388,8 @@ public class Vector3i implements Vector3<Vector3i> {
      * @return a new vector with its each component entrywise up to the nearest integer.
      */
     @Override
-    public Vector3i ceil() {
-        return getSelf();
+    public Vector3d ceil() {
+        return new Vector3d(Math.ceil(this.x), Math.ceil(this.y), Math.ceil(this.z));
     }
 
     /**
@@ -412,8 +400,8 @@ public class Vector3i implements Vector3<Vector3i> {
      * @return the fractional part of the value entrywise.
      */
     @Override
-    public Vector3i fraction() {
-        return new Vector3i();
+    public Vector3d fraction() {
+        return null;
     }
 
     /**
@@ -425,8 +413,8 @@ public class Vector3i implements Vector3<Vector3i> {
      * @return the entrywise modulo of itself by the second vector.
      */
     @Override
-    public Vector3i modulo(Vector3i second) {
-        return new Vector3i(this.x % second.x, this.y % second.y, this.z % second.z);
+    public Vector3d modulo(Vector3d second) {
+        return new Vector3d(this.x % second.x, this.y % second.y, this.z % second.z);
     }
 
     /**
@@ -439,9 +427,8 @@ public class Vector3i implements Vector3<Vector3i> {
      * @param maximum : maximum threshold.
      * @return a new vector that is entrywise wrapped for each its component.
      */
-    @Deprecated
     @Override
-    public Vector3i wrap(Vector3i minimum, Vector3i maximum) {
+    public Vector3d wrap(Vector3d minimum, Vector3d maximum) {
         return null;
     }
 
@@ -453,9 +440,8 @@ public class Vector3i implements Vector3<Vector3i> {
      * @param second that is not null.
      * @return a new vector that is entrywise snapped for each its component.
      */
-    @Deprecated
     @Override
-    public Vector3i snap(Vector3i second) {
+    public Vector3d snap(Vector3d second) {
         return null;
     }
 
@@ -467,8 +453,8 @@ public class Vector3i implements Vector3<Vector3i> {
      * @return the entrywise of sine of itself.
      */
     @Override
-    public Vector3i sine() {
-        return new Vector3i((int) Math.sin(x), (int) Math.sin(y), (int) Math.sin(z));
+    public Vector3d sine() {
+        return new Vector3d(Math.sin(this.x), Math.cos(this.y), Math.sin(this.z));
     }
 
     /**
@@ -479,8 +465,8 @@ public class Vector3i implements Vector3<Vector3i> {
      * @return the entrywise of cosine of itself.
      */
     @Override
-    public Vector3i cosine() {
-        return new Vector3i((int) Math.cos(x), (int) Math.cos(y), (int) Math.cos(z));
+    public Vector3d cosine() {
+        return new Vector3d(Math.cos(this.x), Math.cos(this.y), Math.cos(this.z));
     }
 
     /**
@@ -491,8 +477,8 @@ public class Vector3i implements Vector3<Vector3i> {
      * @return the entrywise of tangent of itself.
      */
     @Override
-    public Vector3i tangent() {
-        return new Vector3i((int) Math.tan(x), (int) Math.tan(y), (int) Math.tan(z));
+    public Vector3d tangent() {
+        return new Vector3d(Math.tan(this.x), Math.tan(this.y), Math.tan(this.z));
     }
 
     /**
@@ -500,13 +486,12 @@ public class Vector3i implements Vector3<Vector3i> {
      * <p>Precondition: none.</p>
      * <p>Postcondition: returns a new reference of itself.</p>
      *
-     * @return a new reference of itself. See {@link Vector3i#getSelf()}.
-     * @since 6/9/2026
+     * @return a new reference of itself.
      */
     @Deprecated
     @Override
-    public Vector3i copy() {
-        return new Vector3i(this.x, this.y, this.z);
+    public Vector3d copy() {
+        return null;
     }
 
     /**
@@ -517,8 +502,8 @@ public class Vector3i implements Vector3<Vector3i> {
      * @return Return a reference of itself.
      */
     @Override
-    public Vector3i getSelf() {
-        return new Vector3i(this.x, this.y, this.z);
+    public Vector3d getSelf() {
+        return new Vector3d(this.x, this.y, this.z);
     }
 
     @Override

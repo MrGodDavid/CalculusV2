@@ -2,6 +2,7 @@ package com.mrgoddavid.vector.space.plane;
 
 import com.mrgoddavid.matrix.FixedMatrix;
 import com.mrgoddavid.matrix.Matrix2i;
+import com.mrgoddavid.vector.Vector3d;
 import com.mrgoddavid.vector.Vector3i;
 import com.mrgoddavid.vector.space.line.Line3;
 import com.mrgoddavid.vector.space.point.Point3;

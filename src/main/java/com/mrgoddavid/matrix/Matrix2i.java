@@ -4,7 +4,7 @@ package com.mrgoddavid.matrix;
  * This class represents a 2x2 matrix. Each element of this matrix is an integer.
  *
  * @author Mr. GodDavid
- * @since 6/9/2026
+ * @since 7/9/2026
  */
 public class Matrix2i implements Matrix.Matrix2<Matrix2i>, Matrix.SquareMatrix<Matrix2i> {
 
@@ -22,7 +22,7 @@ public class Matrix2i implements Matrix.Matrix2<Matrix2i>, Matrix.SquareMatrix<M
      * c = r1c2
      * d = r2c2
      */
-    private int a, b, c, d;
+    private final int a, b, c, d;
 
     public Matrix2i() {
         this(0, 0, 0, 0);
@@ -122,5 +122,11 @@ public class Matrix2i implements Matrix.Matrix2<Matrix2i>, Matrix.SquareMatrix<M
     @Override
     public double determinant() {
         return a * d - b * c;
+    }
+
+    @Override
+    public String toString() {
+        return "[" + a + " " + b + "]\n" +
+                "[" + c + " " + d + "]";
     }
 }
