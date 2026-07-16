@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Calculus:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Calculus_jar</output-path>
+    <root id="archive" name="Calculus.jar">
+      <element id="module-output" name="Calculus" />
+    </root>
+  </artifact>
+</component>

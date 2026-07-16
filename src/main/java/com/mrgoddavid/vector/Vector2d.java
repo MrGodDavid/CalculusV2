@@ -259,7 +259,8 @@ public class Vector2d implements Vector<Vector2d>, Comparable<Vector2d>, Compara
     }
 
     /**
-     * Extracts the sign of the input value. All positive numbers will output 1.0. All negative numbers will output -1.0.
+     * Extracts the sign of the input value. All positive numbers will output 1.0. All negative numbers will output
+     * -1.0.
      * And 0.0 will output 0.0.
      * <p>Precondition: none.</p>
      * <p>Postcondition: Extract the sign of each component.</p>
@@ -508,6 +509,14 @@ public class Vector2d implements Vector<Vector2d>, Comparable<Vector2d>, Compara
         return Objects.hash(x, y);
     }
 
+    /**
+     * Mutator of this class. Changes x and y values of this class.
+     *
+     * @param x component of two-dimensional vector.
+     * @param y component of two-dimensional vector.
+     * @deprecated since 7/14/2026 enhancing encapsulation of this class.
+     */
+    @Deprecated
     public void setValues(double x, double y) {
         this.x = x;
         this.y = y;

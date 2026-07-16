@@ -1,7 +1,7 @@
 package com.mrgoddavid.vector.space.line;
 
 import com.mrgoddavid.vector.Vector3i;
-import com.mrgoddavid.vector.space.point.Point3;
+import com.mrgoddavid.vector.space.point.Point3d;
 
 /**
  * The definition of a three-dimensional line is in this form:
@@ -12,15 +12,15 @@ import com.mrgoddavid.vector.space.point.Point3;
  */
 public final class Line3 {
 
-    private final Point3 startingPoint;
+    private final Point3d startingPoint;
     private final Vector3i direction;
 
-    public Line3(Point3 startingPoint, Vector3i direction) {
+    public Line3(Point3d startingPoint, Vector3i direction) {
         this.startingPoint = startingPoint;
         this.direction = direction;
     }
 
-    public Point3 getStartingPoint() {
+    public Point3d getStartingPoint() {
         return startingPoint;
     }
 

@@ -9,7 +9,7 @@ package com.mrgoddavid.matrix;
 public final class FixedMatrix {
 
     /**
-     * Special 2x1 matrix. This matrix has two rows and one column.
+     * This is a fixed matrix. This matrix has two rows and one column.
      *
      * @param a11 element at the position row 1 and column 1.
      * @param a21 element at the position row 2 and column 2.

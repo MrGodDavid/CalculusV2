@@ -2,10 +2,13 @@ package com.mrgoddavid.vector.space.plane;
 
 import com.mrgoddavid.matrix.FixedMatrix;
 import com.mrgoddavid.matrix.Matrix2i;
+import com.mrgoddavid.utils.NumberFormatter;
 import com.mrgoddavid.vector.Vector3d;
 import com.mrgoddavid.vector.Vector3i;
 import com.mrgoddavid.vector.space.line.Line3;
-import com.mrgoddavid.vector.space.point.Point3;
+import com.mrgoddavid.vector.space.point.Point3d;
+
+import java.text.DecimalFormat;
 
 /**
  * This class creates a three-dimensional plane in three-dimensional space.
@@ -55,7 +58,7 @@ public final class Plane3d implements Plane3 {
     @Override
     public Line3 intersect(Plane3d plane3) {
         Vector3i direction = this.getNormal().crossProduct(plane3.getNormal(), true);
-        Point3 point = this.findPointOnLine(plane3);
+        Point3d point = this.findPointOnLine(plane3);
         if (point == null) {
             System.out.println("The two planes are parallel, no line of intersection!");
             return null;
@@ -63,8 +66,8 @@ public final class Plane3d implements Plane3 {
         return new Line3(point, direction);
     }
 
-    private Point3 findPointOnLine(Plane3d plane3) {
-        Point3 point = this.assumeZeroAt(plane3, "x");
+    private Point3d findPointOnLine(Plane3d plane3) {
+        Point3d point = this.assumeZeroAt(plane3, "x");
         if (point == null) {
             point = this.assumeZeroAt(plane3, "y");
         }
@@ -81,7 +84,7 @@ public final class Plane3d implements Plane3 {
      * @param coordinate that is assumed to be 0.
      * @return the point on the line of intersection.
      */
-    private Point3 assumeZeroAt(Plane3d plane3, String coordinate) {
+    private Point3d assumeZeroAt(Plane3d plane3, String coordinate) {
         if (A == 0 || B == 0 || C == 0) {
             return null;
         }
@@ -100,7 +103,7 @@ public final class Plane3d implements Plane3 {
                     return null;
                 }
                 FixedMatrix.Matrix21i answer = inverse.multiply(constantMatrix);
-                return new Point3(0, answer.a11(), answer.a21());
+                return new Point3d(0, answer.a11(), answer.a21());
             }
 
             // y = 0
@@ -111,7 +114,7 @@ public final class Plane3d implements Plane3 {
                     return null;
                 }
                 FixedMatrix.Matrix21i answer = inverse.multiply(constantMatrix);
-                return new Point3(answer.a11(), 0, answer.a21());
+                return new Point3d(answer.a11(), 0, answer.a21());
             }
 
             // z = 0
@@ -122,7 +125,7 @@ public final class Plane3d implements Plane3 {
                     return null;
                 }
                 FixedMatrix.Matrix21i answer = inverse.multiply(constantMatrix);
-                return new Point3(answer.a11(), answer.a21(), 0);
+                return new Point3d(answer.a11(), answer.a21(), 0);
             }
         }
         System.err.println("[ERROR]: Unknown command: " + coordinate);
@@ -138,6 +141,69 @@ public final class Plane3d implements Plane3 {
     @Override
     public Vector3i getNormal() {
         return new Vector3i(A, B, C);
+    }
+
+    /**
+     * Calculates the distance between two three-dimensional parallel planes. Note that if two planes have
+     * intersection, the distance between these two planes is zero. You can easily tell whether two planes are parallel
+     * by looking at the coefficients of two planes. The two planes are parallel if the first plane's and second plane's
+     * x, y, and z coefficients are the same.
+     *
+     * @param other plane that is not null.
+     * @return the distance between this plane and the other plane.
+     * @author Mr. GodDavid
+     * @since 7/14/2026 part of Plane-to-Plane-Distance equation update.
+     */
+    @Override
+    public double distance(Plane3d other) {
+        if (this.A != other.A || this.B != other.B || this.C != other.C) {
+            return 0;
+        }
+        return Math.abs(this.D - other.D) / Math.sqrt(this.A * this.A + this.B * this.B + this.C * this.C);
+    }
+
+    /**
+     * This method returns the formatted distance between two parallel planes. I know this is kind of redundant to
+     * {@link Plane3#distance(Plane3d)}, but I don't want to change this method to something like "formatted_distance"
+     * or something else that sounds too long. I want every method name to read as simple as possible.
+     *
+     * @param other  plane that is not null.
+     * @param format a boolean flag for user to choose whether to format the answer.
+     * @return the formatted distance between two planes if "format" boolean flag is true.
+     * @author Mr. GodDavid
+     * @since 7/15/2026
+     */
+    public double distance(Plane3d other, boolean format) {
+        return format ? NumberFormatter.format(this.distance(other)) : this.distance(other);
+    }
+
+    /**
+     * Calculate the distance from a plane to point.
+     *
+     * @param other point that is not null.
+     * @return the distance from plane to point.
+     * @author Mr. GodDavid
+     * @since 7/14/2026 part of Plane-to-Plane-Distance equation update.
+     */
+    @Override
+    public double distance(Point3d other) {
+        Point3d pt = new Point3d(0, 0, this.C);
+        Vector3i direction = new Vector3i((int) (other.getX() - pt.getX()), (int) (other.getY() - pt.getY()), (int) (other.getZ() - pt.getZ()));
+        Vector3i normal = this.getNormal();
+        return direction.dot_product(normal) / normal.length();
+    }
+
+    /**
+     * Similar to {@link Plane3d#distance(Plane3d, boolean)}. Gives the formatted distance between a plane and a point.
+     *
+     * @param other  three-dimensional point that is not null.
+     * @param format a boolean flag that allows user to choose whether format the answer or not.
+     * @return the formatted distance between a point and a point if the "format" boolean flag is true.
+     * @author Mr. GodDaivd
+     * @since 7/16/2026
+     */
+    public double distance(Point3d other, boolean format) {
+        return format ? NumberFormatter.format(this.distance(other)) : this.distance(other);
     }
 
     @Override

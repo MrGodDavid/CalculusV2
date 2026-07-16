@@ -2,6 +2,7 @@ package com.mrgoddavid.vector.space.plane;
 
 import com.mrgoddavid.vector.Vector3i;
 import com.mrgoddavid.vector.space.line.Line3;
+import com.mrgoddavid.vector.space.point.Point3d;
 
 import java.io.Serializable;
 
@@ -29,4 +30,24 @@ public interface Plane3 extends Serializable {
      * @return the normal vector of this plane.
      */
     Vector3i getNormal();
+
+    /**
+     * Calculates the distance between two three-dimensional parallel planes.
+     *
+     * @param other plane that is not null.
+     * @return the distance between this plane and the other plane.
+     * @author Mr. GodDavid
+     * @since 7/14/2026 part of Plane-to-Plane-Distance equation update.
+     */
+    double distance(Plane3d other);
+
+    /**
+     * Calculate the distance from a plane to point.
+     *
+     * @param other point that is not null.
+     * @return the distance from plane to point.
+     * @author Mr. GodDavid
+     * @since 7/14/2026 part of Plane-to-Plane-Distance equation update.
+     */
+    double distance(Point3d other);
 }
