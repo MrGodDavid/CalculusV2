@@ -2,7 +2,7 @@ package com.mrgoddavid.test;
 
 import com.mrgoddavid.vector.Vector;
 import com.mrgoddavid.vector.Vector3i;
-import com.mrgoddavid.vector.space.plane.Plane3d;
+import com.mrgoddavid.vector.space.plane.RestrictedPlane3d;
 
 public class Main {
 
@@ -45,8 +45,10 @@ public class Main {
 
 
 
-        Plane3d plane1 = new Plane3d("2x + 3y + 2z = 12"); // x + y + z = 1
-        Plane3d plane2 = new Plane3d("2x + 3y + 2z = 1"); // x + 2y + z = 1
+        RestrictedPlane3d plane1 = new RestrictedPlane3d("2x + 3y + 2z = 12"); // x + y + z = 1
+        RestrictedPlane3d plane2 = new RestrictedPlane3d("2x + 3y + 2z = 1"); // x + 2y + z = 1
         System.out.println(plane1.distance(plane2, true));
+
+        System.out.println(new Vector3i(2,3,1).compareWith(new Vector3i(2,3,1), Vector.ComparisonCommand.EQUALS));
     }
 }

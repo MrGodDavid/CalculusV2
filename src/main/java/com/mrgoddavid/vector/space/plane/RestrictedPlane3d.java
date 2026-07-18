@@ -8,22 +8,21 @@ import com.mrgoddavid.vector.Vector3i;
 import com.mrgoddavid.vector.space.line.Line3;
 import com.mrgoddavid.vector.space.point.Point3d;
 
-import java.text.DecimalFormat;
-
 /**
- * This class creates a three-dimensional plane in three-dimensional space.
+ * This class creates a three-dimensional plane in three-dimensional space. The plane is restricted to the form
+ * "Ax + By + Cz = D".
  *
  * @author Mr. GodDavid
  * @since 7/13/2026
  */
-public final class Plane3d implements Plane3 {
+public final class RestrictedPlane3d implements Plane3 {
 
     private final int A; // x coefficient
     private final int B; // y coefficient
     private final int C; // z coefficient
     private final int D; // Ax + By + Cz = D
 
-    public Plane3d(int a, int b, int c, int d) {
+    public RestrictedPlane3d(int a, int b, int c, int d) {
         A = a;
         B = b;
         C = c;
@@ -38,7 +37,7 @@ public final class Plane3d implements Plane3 {
      * @author Mr. GodDavid
      * @since 7/13/2026 added this new feature, which allows user to construct three-dimensional plane easier.
      */
-    public Plane3d(String equation) {
+    public RestrictedPlane3d(String equation) {
         int indexOfX = equation.indexOf('x');
         int indexOfY = equation.indexOf('y');
         int indexOfZ = equation.indexOf('z');
@@ -56,7 +55,7 @@ public final class Plane3d implements Plane3 {
      * @return the intersecting line of this plane and the parameter plane3.
      */
     @Override
-    public Line3 intersect(Plane3d plane3) {
+    public Line3 intersect(RestrictedPlane3d plane3) {
         Vector3i direction = this.getNormal().crossProduct(plane3.getNormal(), true);
         Point3d point = this.findPointOnLine(plane3);
         if (point == null) {
@@ -66,7 +65,7 @@ public final class Plane3d implements Plane3 {
         return new Line3(point, direction);
     }
 
-    private Point3d findPointOnLine(Plane3d plane3) {
+    private Point3d findPointOnLine(RestrictedPlane3d plane3) {
         Point3d point = this.assumeZeroAt(plane3, "x");
         if (point == null) {
             point = this.assumeZeroAt(plane3, "y");
@@ -84,7 +83,7 @@ public final class Plane3d implements Plane3 {
      * @param coordinate that is assumed to be 0.
      * @return the point on the line of intersection.
      */
-    private Point3d assumeZeroAt(Plane3d plane3, String coordinate) {
+    private Point3d assumeZeroAt(RestrictedPlane3d plane3, String coordinate) {
         if (A == 0 || B == 0 || C == 0) {
             return null;
         }
@@ -155,7 +154,7 @@ public final class Plane3d implements Plane3 {
      * @since 7/14/2026 part of Plane-to-Plane-Distance equation update.
      */
     @Override
-    public double distance(Plane3d other) {
+    public double distance(RestrictedPlane3d other) {
         if (this.A != other.A || this.B != other.B || this.C != other.C) {
             return 0;
         }
@@ -164,7 +163,8 @@ public final class Plane3d implements Plane3 {
 
     /**
      * This method returns the formatted distance between two parallel planes. I know this is kind of redundant to
-     * {@link Plane3#distance(Plane3d)}, but I don't want to change this method to something like "formatted_distance"
+     * {@link Plane3#distance(RestrictedPlane3d)}, but I don't want to change this method to something like
+     * "formatted_distance"
      * or something else that sounds too long. I want every method name to read as simple as possible.
      *
      * @param other  plane that is not null.
@@ -173,7 +173,7 @@ public final class Plane3d implements Plane3 {
      * @author Mr. GodDavid
      * @since 7/15/2026
      */
-    public double distance(Plane3d other, boolean format) {
+    public double distance(RestrictedPlane3d other, boolean format) {
         return format ? NumberFormatter.format(this.distance(other)) : this.distance(other);
     }
 
@@ -194,11 +194,55 @@ public final class Plane3d implements Plane3 {
     }
 
     /**
-     * Similar to {@link Plane3d#distance(Plane3d, boolean)}. Gives the formatted distance between a plane and a point.
+     * Calculate the distance from a line to the plane. If the line is not parallel to the plane, the distance between
+     * them is zero.
+     *
+     * @param other three-dimensional line that is not null.
+     * @return the distance between line and plane.
+     * @author Mr. GodDavid
+     * @since 7/17/2026
+     */
+    @Override
+    public double distance(Line3 other) {
+        if (!isParallel(other)) return 0;
+        Point3d pointOnPlane = new Point3d(0, 0, this.C);
+        Point3d pointOnLine = other.getStartingPoint();
+        return pointOnPlane.toVector3d(pointOnLine).scalar_projection(new Vector3d(this.getNormal()));
+    }
+
+    /**
+     * Similar to {@link RestrictedPlane3d#distance(RestrictedPlane3d, boolean)}. Gives the formatted distance between a
+     * plane and a line.
+     *
+     * @param other  three-dimensional line that is not null.
+     * @param format a boolean flag that allows user to choose whether format the answer or not.
+     * @return the formatted distance between a plane and a line if the "format" boolean flag is true.
+     * @author Mr. GodDaivd
+     * @since 7/17/2026
+     */
+    public double distance(Line3 other, boolean format) {
+        return format ? NumberFormatter.format(this.distance(other)) : this.distance(other);
+    }
+
+    /**
+     * Determines if the line is parallel to the plane.
+     *
+     * @param other three-dimensional line that is not null.
+     * @return true if the plane is parallel to the line.
+     * @author Mr. GodDavid
+     * @since 7/17/2026 helper method of {@link RestrictedPlane3d#distance(Line3)}.
+     */
+    private boolean isParallel(Line3 other) {
+        return this.getNormal().dot_product(other.getDirection()) == 0d;
+    }
+
+    /**
+     * Similar to {@link RestrictedPlane3d#distance(RestrictedPlane3d, boolean)}. Gives the formatted distance between a
+     * plane and a point.
      *
      * @param other  three-dimensional point that is not null.
      * @param format a boolean flag that allows user to choose whether format the answer or not.
-     * @return the formatted distance between a point and a point if the "format" boolean flag is true.
+     * @return the formatted distance between a plane and a point if the "format" boolean flag is true.
      * @author Mr. GodDaivd
      * @since 7/16/2026
      */

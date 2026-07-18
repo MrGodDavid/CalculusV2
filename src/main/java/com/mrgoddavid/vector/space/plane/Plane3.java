@@ -21,7 +21,7 @@ public interface Plane3 extends Serializable {
      * @param plane3 other three-dimensional plane that is not null.
      * @return the intersecting line of this plane and the parameter plane3.
      */
-    Line3 intersect(Plane3d plane3);
+    Line3 intersect(RestrictedPlane3d plane3);
 
     /**
      * Gets the normal vector of this three-dimensional plane. The normal vector of a plane is the three-dimensional
@@ -39,7 +39,7 @@ public interface Plane3 extends Serializable {
      * @author Mr. GodDavid
      * @since 7/14/2026 part of Plane-to-Plane-Distance equation update.
      */
-    double distance(Plane3d other);
+    double distance(RestrictedPlane3d other);
 
     /**
      * Calculate the distance from a plane to point.
@@ -50,4 +50,15 @@ public interface Plane3 extends Serializable {
      * @since 7/14/2026 part of Plane-to-Plane-Distance equation update.
      */
     double distance(Point3d other);
+
+    /**
+     * Calculate the distance from a line to the plane. If the line is not parallel to the plane, the distance between
+     * them is zero.
+     *
+     * @param other three-dimensional line that is not null.
+     * @return the distance between line and plane.
+     * @author Mr. GodDavid
+     * @since 7/17/2026
+     */
+    double distance(Line3 other);
 }

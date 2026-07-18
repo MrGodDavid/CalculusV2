@@ -1,5 +1,7 @@
 package com.mrgoddavid.vector.space.point;
 
+import com.mrgoddavid.vector.Vector3d;
+
 /**
  * A three-dimensional point in three-dimensional space. The point has three coordinates: the x coordinate, the y
  * coordinate, and the z coordinate. Formal notation is {@code (X, y, z)}.
@@ -50,5 +52,20 @@ public final class Point3d implements Point.Point3<Point3d> {
         double dy = Math.abs(y - other.y);
         double dz = Math.abs(z - other.z);
         return Math.sqrt(dx * dx + dy * dy + dz * dz);
+    }
+
+    /**
+     * Calculates the vector from this point, which is the starting point, to the ending point, which is given in
+     * the
+     * parameter.
+     *
+     * @param endpoint that is not null.
+     * @return the vector that starts from this point to the ending point.
+     * @author Mr. GodDavid
+     * @since 7/17/2026
+     */
+    @Override
+    public Vector3d toVector3d(Point3d endpoint) {
+        return new Vector3d(endpoint.x - x, endpoint.y - y, endpoint.z - z);
     }
 }

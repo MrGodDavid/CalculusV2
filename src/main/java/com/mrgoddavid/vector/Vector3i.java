@@ -24,6 +24,12 @@ public class Vector3i implements Vector3<Vector3i> {
         this.z = z;
     }
 
+    public Vector3i(Vector3d other) {
+        this.x = (int) other.getX();
+        this.y = (int) other.getY();
+        this.z = (int) other.getZ();
+    }
+
     /**
      * Calculates the cross product of two three-dimensional vectors.
      *
@@ -524,5 +530,17 @@ public class Vector3i implements Vector3<Vector3i> {
     @Override
     public String toString() {
         return "<" + x + ", " + y + ", " + z + ">";
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public int getZ() {
+        return z;
     }
 }

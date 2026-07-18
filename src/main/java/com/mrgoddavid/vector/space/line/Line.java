@@ -18,5 +18,14 @@ public interface Line {
      */
     interface Line3 extends Line {
 
+        /**
+         * Calculates the distance between this three-dimensional line to the {@code other} three-dimensional line.
+         *
+         * @param other line that is not null.
+         * @return the distance between this line and other line.
+         * @author Mr. GodDavid
+         * @since 7/17/2026
+         */
+        double distance(com.mrgoddavid.vector.space.line.Line3 other);
     }
 }
