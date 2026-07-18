@@ -11,11 +11,29 @@ import java.io.Serializable;
  */
 public interface Vector<T> extends Serializable {
 
+    /**
+     * Comparison command.
+     */
     enum ComparisonCommand {
+        /**
+         * Less-than-or-equal-to command.
+         */
         LESS_THAN_OR_EQUALS_TO,
+        /**
+         * Less-than command.
+         */
         LESS_THAN,
+        /**
+         * Equal command.
+         */
         EQUALS,
+        /**
+         * Greater-than command.
+         */
         GREATER_THAN,
+        /**
+         * Greater-than-or-equal-to command.
+         */
         GREATER_THAN_OR_EQUALS_TO;
     }
 
@@ -102,7 +120,6 @@ public interface Vector<T> extends Serializable {
 
     /**
      * Orients a vector A (itself) to point away from a surface B as defined by its normal C.
-     * Computes (dot(incident, reference) < 0) ? A : -A)
      * <p>Precondition: incident vector and reference vector are not null.</p>
      * <p>Postcondition: calculate the orientation of vector.</p>
      *
@@ -473,6 +490,9 @@ public interface Vector<T> extends Serializable {
  */
 interface Vector3<T> extends Vector<T> {
 
+    /**
+     * Zero three-dimensional vector.
+     */
     Vector3i ZERO_VECTOR = new Vector3i();
 
     /**
@@ -488,7 +508,6 @@ interface Vector3<T> extends Vector<T> {
      *
      * @param second three-dimensional vector that is not null.
      * @return the scalar projection of itself on the second vector.
-     * @author Mr. GodDavid
      * @since 7/10/2026 added this method.
      */
     double scalar_projection(T second);

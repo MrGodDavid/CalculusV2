@@ -9,6 +9,12 @@ package com.mrgoddavid.matrix;
 public final class FixedMatrix {
 
     /**
+     * Empty constructor.
+     */
+    public FixedMatrix() {
+    }
+
+    /**
      * This is a fixed matrix. This matrix has two rows and one column.
      *
      * @param a11 element at the position row 1 and column 1.
@@ -43,7 +49,6 @@ public final class FixedMatrix {
          *
          * @param scalar multiplier.
          * @return the scaled matrix.
-         * @author Me. GodDavid
          * @since 7/13/2026 added this method.
          */
         @Override

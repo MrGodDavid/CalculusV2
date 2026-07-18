@@ -24,12 +24,38 @@ public class Matrix2d implements Matrix.Matrix2<Matrix2d>, Matrix.SquareMatrix<M
      * c = r1c2
      * d = r2c2
      */
-    private final double a, b, c, d;
+    /**
+     * The element at row 1 and column 1.
+     */
+    private final double a;
+    /**
+     * The element at row 1 and column 2.
+     */
+    private final double b;
+    /**
+     * The element at row 2 and column 1.
+     */
+    private final double c;
+    /**
+     * The element at row 2 and column 2.
+     */
+    private final double d;
 
+    /**
+     * Default constructor of this class.
+     */
     public Matrix2d() {
         this(0, 0, 0, 0);
     }
 
+    /**
+     * Constructs a 2x2 matrix. Each element is a double.
+     *
+     * @param a the element at row 1 and column 1.
+     * @param b the element at row 1 and column 2.
+     * @param c the element at row 2 and column 1.
+     * @param d the element at row 2 and column 2.
+     */
     public Matrix2d(double a, double b, double c, double d) {
         this.a = a;
         this.b = b;
@@ -37,6 +63,12 @@ public class Matrix2d implements Matrix.Matrix2<Matrix2d>, Matrix.SquareMatrix<M
         this.d = d;
     }
 
+    /**
+     * Multiplies two 2x2 matrices.
+     *
+     * @param other matrix that is not null.
+     * @return the product of two 2x2 matrices.
+     */
     public Matrix2d multiply(Matrix2d other) {
         return new Matrix2d(
                 this.a * other.a + this.b * other.c, this.a * other.b + this.b * other.d,
@@ -59,7 +91,6 @@ public class Matrix2d implements Matrix.Matrix2<Matrix2d>, Matrix.SquareMatrix<M
      * Calculates the inverse of 2x2 matrix.
      *
      * @return the inverse matrix of this 2x2 matrix.
-     * @author Mr. GodDavid
      * @since 7/13/2026 added this method. Part of Plane-Intersection-Feature update in 7/13/2026.
      */
     @Override
@@ -111,7 +142,6 @@ public class Matrix2d implements Matrix.Matrix2<Matrix2d>, Matrix.SquareMatrix<M
      *
      * @param scalar multiplier.
      * @return the scaled matrix.
-     * @author Me. GodDavid
      * @since 7/13/2026 added this method.
      */
     @Override

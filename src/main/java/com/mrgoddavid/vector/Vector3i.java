@@ -10,20 +10,44 @@ import com.mrgoddavid.matrix.Matrix3i;
  */
 public class Vector3i implements Vector3<Vector3i> {
 
+    /**
+     * X coordinate of this vector.
+     */
     private final int x;
+    /**
+     * Y coordinate of this vector.
+     */
     private final int y;
+    /**
+     * Z coordinate of this vector.
+     */
     private final int z;
 
+    /**
+     * Default constructor of this class.
+     */
     public Vector3i() {
         this(0, 0, 0);
     }
 
+    /**
+     * Constructs a three-dimensional vector from the parameters.
+     *
+     * @param x coordinate of this vector.
+     * @param y coordinate of this vector.
+     * @param z coordinate of this vector.
+     */
     public Vector3i(int x, int y, int z) {
         this.x = x;
         this.y = y;
         this.z = z;
     }
 
+    /**
+     * Constructs a three-dimensional vector from the vector given by the parameter.
+     *
+     * @param other vector that is not null.
+     */
     public Vector3i(Vector3d other) {
         this.x = (int) other.getX();
         this.y = (int) other.getY();
@@ -53,7 +77,6 @@ public class Vector3i implements Vector3<Vector3i> {
      * @param other    three-dimensional vector that is not null.
      * @param simplify a boolean key allows user to choose whether to simplify the cross product or not.
      * @return the simplified cross product if {@code simplify = true} and original cross product if {@code simplify = false}
-     * @author Mr. GodDavid
      * @since 7/10/2026 added this method.
      */
     public Vector3i crossProduct(Vector3i other, boolean simplify) {
@@ -73,8 +96,7 @@ public class Vector3i implements Vector3<Vector3i> {
      * @param b is the second integer.
      * @param c is the third integer.
      * @return the greatest common factor of a, b, and c.
-     * @author Mr. GodDavid
-     * @since 6/10/2026 added this method.
+     * @since 7/10/2026 added this method.
      */
     private int findGCF(int a, int b, int c) {
         return doFindGCF(doFindGCF(a, b), c);
@@ -192,7 +214,6 @@ public class Vector3i implements Vector3<Vector3i> {
      *
      * @param second three-dimensional vector that is not null.
      * @return the scalar projection of itself on the second vector.
-     * @author Mr. GodDavid
      * @since 7/10/2026 added this method.
      */
     public double scalar_projection(Vector3i second) {
@@ -235,7 +256,6 @@ public class Vector3i implements Vector3<Vector3i> {
 
     /**
      * Orients a vector A (itself) to point away from a surface B as defined by its normal C.
-     * Computes (dot(incident, reference) < 0) ? A : -A)
      * <p>Precondition: incident vector and reference vector are not null.</p>
      * <p>Postcondition: calculate the orientation of vector.</p>
      *
@@ -532,14 +552,29 @@ public class Vector3i implements Vector3<Vector3i> {
         return "<" + x + ", " + y + ", " + z + ">";
     }
 
+    /**
+     * Accessor of x coordinate.
+     *
+     * @return the x coordinate.
+     */
     public int getX() {
         return x;
     }
 
+    /**
+     * Accessor of y coordinate.
+     *
+     * @return the y coordinate.
+     */
     public int getY() {
         return y;
     }
 
+    /**
+     * Accessor of z coordinate.
+     *
+     * @return the z coordinate.
+     */
     public int getZ() {
         return z;
     }

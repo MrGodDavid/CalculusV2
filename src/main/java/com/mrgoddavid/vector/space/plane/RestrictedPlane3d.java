@@ -17,11 +17,31 @@ import com.mrgoddavid.vector.space.point.Point3d;
  */
 public final class RestrictedPlane3d implements Plane3 {
 
+    /**
+     * X coefficient.
+     */
     private final int A; // x coefficient
+    /**
+     * Y coefficient.
+     */
     private final int B; // y coefficient
+    /**
+     * Z coefficient.
+     */
     private final int C; // z coefficient
+    /**
+     * Constant.
+     */
     private final int D; // Ax + By + Cz = D
 
+    /**
+     * Constructs a three-dimensional plane that is in the form {@code Ax + By + Cz = D}.
+     *
+     * @param a coefficient of x.
+     * @param b coefficient of y.
+     * @param c coefficient of z.
+     * @param d constant.
+     */
     public RestrictedPlane3d(int a, int b, int c, int d) {
         A = a;
         B = b;
@@ -34,7 +54,6 @@ public final class RestrictedPlane3d implements Plane3 {
      * {@code Ax + By + Cz = D}.
      *
      * @param equation of the three-dimensional plane.
-     * @author Mr. GodDavid
      * @since 7/13/2026 added this new feature, which allows user to construct three-dimensional plane easier.
      */
     public RestrictedPlane3d(String equation) {
@@ -150,7 +169,6 @@ public final class RestrictedPlane3d implements Plane3 {
      *
      * @param other plane that is not null.
      * @return the distance between this plane and the other plane.
-     * @author Mr. GodDavid
      * @since 7/14/2026 part of Plane-to-Plane-Distance equation update.
      */
     @Override
@@ -170,7 +188,6 @@ public final class RestrictedPlane3d implements Plane3 {
      * @param other  plane that is not null.
      * @param format a boolean flag for user to choose whether to format the answer.
      * @return the formatted distance between two planes if "format" boolean flag is true.
-     * @author Mr. GodDavid
      * @since 7/15/2026
      */
     public double distance(RestrictedPlane3d other, boolean format) {
@@ -182,7 +199,6 @@ public final class RestrictedPlane3d implements Plane3 {
      *
      * @param other point that is not null.
      * @return the distance from plane to point.
-     * @author Mr. GodDavid
      * @since 7/14/2026 part of Plane-to-Plane-Distance equation update.
      */
     @Override
@@ -199,7 +215,6 @@ public final class RestrictedPlane3d implements Plane3 {
      *
      * @param other three-dimensional line that is not null.
      * @return the distance between line and plane.
-     * @author Mr. GodDavid
      * @since 7/17/2026
      */
     @Override
@@ -217,7 +232,6 @@ public final class RestrictedPlane3d implements Plane3 {
      * @param other  three-dimensional line that is not null.
      * @param format a boolean flag that allows user to choose whether format the answer or not.
      * @return the formatted distance between a plane and a line if the "format" boolean flag is true.
-     * @author Mr. GodDaivd
      * @since 7/17/2026
      */
     public double distance(Line3 other, boolean format) {
@@ -229,7 +243,6 @@ public final class RestrictedPlane3d implements Plane3 {
      *
      * @param other three-dimensional line that is not null.
      * @return true if the plane is parallel to the line.
-     * @author Mr. GodDavid
      * @since 7/17/2026 helper method of {@link RestrictedPlane3d#distance(Line3)}.
      */
     private boolean isParallel(Line3 other) {
@@ -243,7 +256,6 @@ public final class RestrictedPlane3d implements Plane3 {
      * @param other  three-dimensional point that is not null.
      * @param format a boolean flag that allows user to choose whether format the answer or not.
      * @return the formatted distance between a plane and a point if the "format" boolean flag is true.
-     * @author Mr. GodDaivd
      * @since 7/16/2026
      */
     public double distance(Point3d other, boolean format) {

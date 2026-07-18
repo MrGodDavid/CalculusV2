@@ -10,20 +10,40 @@ import java.util.Objects;
  * @author Mr. GodDavid.
  * @since 3/30/2026
  */
-public class Vector2i implements Vector<Vector2i>, Comparable<Vector2i>, Comparator<Vector2i> , Serializable {
+public class Vector2i implements Vector<Vector2i>, Comparable<Vector2i>, Comparator<Vector2i>, Serializable {
 
-    private int x;
-    private int y;
+    /**
+     * X coordinate of this vector.
+     */
+    private final int x;
+    /**
+     * Y coordinate of this vector.
+     */
+    private final int y;
 
+    /**
+     * Default constructor.
+     */
     public Vector2i() {
         this(0, 0);
     }
 
+    /**
+     * Constructs a 2d vector by the given parameters.
+     *
+     * @param x coordinate of this vector.
+     * @param y coordinate of this vector.
+     */
     public Vector2i(int x, int y) {
         this.x = x;
         this.y = y;
     }
 
+    /**
+     * Constructs a 2d vector from the given in parameter.
+     *
+     * @param vector that is not null.
+     */
     public Vector2i(Vector2i vector) {
         this(vector.x, vector.y);
     }
@@ -150,7 +170,6 @@ public class Vector2i implements Vector<Vector2i>, Comparable<Vector2i>, Compara
 
     /**
      * Orients a vector A (itself) to point away from a surface B as defined by its normal C.
-     * Computes (dot(incident, reference) < 0) ? A : -A)
      * <p>Precondition: incident vector and reference vector are not null.</p>
      * <p>Postcondition: calculate the orientation of vector.</p>
      *
@@ -257,7 +276,8 @@ public class Vector2i implements Vector<Vector2i>, Comparable<Vector2i>, Compara
     }
 
     /**
-     * Extracts the sign of the input value. All positive numbers will output 1.0. All negative numbers will output -1.0.
+     * Extracts the sign of the input value. All positive numbers will output 1.0. All negative numbers will output
+     * -1.0.
      * And 0.0 will output 0.0.
      * <p>Precondition: none.</p>
      * <p>Postcondition: Extract the sign of each component.</p>
@@ -436,38 +456,6 @@ public class Vector2i implements Vector<Vector2i>, Comparable<Vector2i>, Compara
         return this;
     }
 
-    /**
-     * Compares this object with the specified object for order.  Returns a
-     * negative integer, zero, or a positive integer as this object is less
-     * than, equal to, or greater than the specified object.
-     *
-     * <p>The implementor must ensure {@link Integer#signum
-     * signum}{@code (x.compareTo(y)) == -signum(y.compareTo(x))} for
-     * all {@code x} and {@code y}.  (This implies that {@code
-     * x.compareTo(y)} must throw an exception if and only if {@code
-     * y.compareTo(x)} throws an exception.)
-     *
-     * <p>The implementor must also ensure that the relation is transitive:
-     * {@code (x.compareTo(y) > 0 && y.compareTo(z) > 0)} implies
-     * {@code x.compareTo(z) > 0}.
-     *
-     * <p>Finally, the implementor must ensure that {@code
-     * x.compareTo(y)==0} implies that {@code signum(x.compareTo(z))
-     * == signum(y.compareTo(z))}, for all {@code z}.
-     *
-     * @param o the object to be compared.
-     * @return a negative integer, zero, or a positive integer as this object
-     * is less than, equal to, or greater than the specified object.
-     * @throws NullPointerException if the specified object is null
-     * @throws ClassCastException   if the specified object's type prevents it
-     *                              from being compared to this object.
-     * @apiNote It is strongly recommended, but <i>not</i> strictly required that
-     * {@code (x.compareTo(y)==0) == (x.equals(y))}.  Generally speaking, any
-     * class that implements the {@code Comparable} interface and violates
-     * this condition should clearly indicate this fact.  The recommended
-     * language is "Note: this class has a natural ordering that is
-     * inconsistent with equals."
-     */
     @Override
     public int compareTo(Vector2i o) {
         if (this.x != o.getX()) {
@@ -481,77 +469,14 @@ public class Vector2i implements Vector<Vector2i>, Comparable<Vector2i>, Compara
                 : Integer.compare((int) this.length(), (int) o.length());
     }
 
-    /**
-     * Compares its two arguments for order.  Returns a negative integer,
-     * zero, or a positive integer as the first argument is less than, equal
-     * to, or greater than the second.<p>
-     * <p>
-     * The implementor must ensure that {@link Integer#signum
-     * signum}{@code (compare(x, y)) == -signum(compare(y, x))} for
-     * all {@code x} and {@code y}.  (This implies that {@code
-     * compare(x, y)} must throw an exception if and only if {@code
-     * compare(y, x)} throws an exception.)<p>
-     * <p>
-     * The implementor must also ensure that the relation is transitive:
-     * {@code ((compare(x, y)>0) && (compare(y, z)>0))} implies
-     * {@code compare(x, z)>0}.<p>
-     * <p>
-     * Finally, the implementor must ensure that {@code compare(x,
-     * y)==0} implies that {@code signum(compare(x,
-     * z))==signum(compare(y, z))} for all {@code z}.
-     *
-     * @param o1 the first object to be compared.
-     * @param o2 the second object to be compared.
-     * @return a negative integer, zero, or a positive integer as the
-     * first argument is less than, equal to, or greater than the
-     * second.
-     * @throws NullPointerException if an argument is null and this
-     *                              comparator does not permit null arguments
-     * @throws ClassCastException   if the arguments' types prevent them from
-     *                              being compared by this comparator.
-     * @apiNote It is generally the case, but <i>not</i> strictly required that
-     * {@code (compare(x, y)==0) == (x.equals(y))}.  Generally speaking,
-     * any comparator that violates this condition should clearly indicate
-     * this fact.  The recommended language is "Note: this comparator
-     * imposes orderings that are inconsistent with equals."
-     */
     @Override
     public int compare(Vector2i o1, Vector2i o2) {
         return o1.compareTo(o2);
     }
 
-    /**
-     * {@return a string representation of the object}
-     * <p>
-     * Satisfying this method's contract implies a non-{@code null}
-     * result must be returned.
-     *
-     * @apiNote In general, the
-     * {@code toString} method returns a string that
-     * "textually represents" this object. The result should
-     * be a concise but informative representation that is easy for a
-     * person to read.
-     * It is recommended that all subclasses override this method.
-     * The string output is not necessarily stable over time or across
-     * JVM invocations.
-     * @implSpec The {@code toString} method for class {@code Object}
-     * returns a string consisting of the name of the class of which the
-     * object is an instance, the at-sign character `{@code @}', and
-     * the unsigned hexadecimal representation of the hash code of the
-     * object. In other words, this method returns a string equal to the
-     * value of:
-     * {@snippet lang = java:
-     * getClass().getName() + '@' + Integer.toHexString(hashCode())
-     *}
-     * The {@link Objects#toIdentityString(Object)
-     * Objects.toIdentityString} method returns the string for an
-     * object equal to the string that would be returned if neither
-     * the {@code toString} nor {@code hashCode} methods were
-     * overridden by the object's class.
-     */
     @Override
     public String toString() {
-        return "["  + x + ", " + y + "]";
+        return "[" + x + ", " + y + "]";
     }
 
     @Override
@@ -566,16 +491,22 @@ public class Vector2i implements Vector<Vector2i>, Comparable<Vector2i>, Compara
         return Objects.hash(x, y);
     }
 
+    /**
+     * Accessor of the x coordinate.
+     *
+     * @return the value of x coordinate.
+     */
     public int getX() {
         return x;
     }
 
+    /**
+     * Accessor of the y coordinate.
+     *
+     * @return the value of y coordinate.
+     */
     public int getY() {
         return y;
     }
 
-    public void setValues(int x, int y) {
-        this.x = x;
-        this.y = y;
-    }
 }

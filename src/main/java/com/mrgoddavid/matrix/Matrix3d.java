@@ -11,13 +11,25 @@ import com.mrgoddavid.vector.Vector3i;
  */
 public class Matrix3d implements Matrix.SquareMatrix<Matrix3d> {
 
+    /**
+     * Special 3x3 matrix that contains i, j, and k in the first row.
+     *
+     * @author Mr. GodDavid
+     * @since 7/13/2026
+     */
     public class MatrixV3d implements Matrix.VectorMatrix<MatrixV3d> {
+
+        /**
+         * Default constructor. Empty constructor.
+         */
+        public MatrixV3d() {
+        }
 
         /**
          * Calculates the determinant of this special vector.
          *
          * @return the determinant (which is also a three-dimensional vector).
-         * @deprecated not suitable for this class.
+         * @deprecated not suitable for this class. The returned result should be doubles instead of integers.
          */
         @Override
         @Deprecated
@@ -25,6 +37,11 @@ public class Matrix3d implements Matrix.SquareMatrix<Matrix3d> {
             return null;
         }
 
+        /**
+         * Converts its determinant to three-dimensional vector with double in each component.
+         *
+         * @return the three-dimensional vector that has double for each its component.
+         */
         public Vector3d determinantToVector3d() {
             double i = firstDeterminant();
             double j = secondDeterminant();
@@ -75,7 +92,6 @@ public class Matrix3d implements Matrix.SquareMatrix<Matrix3d> {
          *
          * @param scalar multiplier.
          * @return the scaled matrix.
-         * @author Me. GodDavid
          * @since 7/13/2026 added this method.
          * @deprecated not suitable for using this method here.
          */
@@ -98,12 +114,63 @@ public class Matrix3d implements Matrix.SquareMatrix<Matrix3d> {
      *
      *      Entry aij is located at row i, column j.
      */
-    private final double a11, a12, a13, a21, a22, a23, a31, a32, a33;
+    /**
+     * The element at row 1 and column 1.
+     */
+    private final double a11;
+    /**
+     * The element at row 1 and column 2.
+     */
+    private final double a12;
+    /**
+     * The element at row 1 and column 3.
+     */
+    private final double a13;
+    /**
+     * The element at row 2 and column 1.
+     */
+    private final double a21;
+    /**
+     * The element at row 2 and column 2.
+     */
+    private final double a22;
+    /**
+     * The element at row 2 and column 3.
+     */
+    private final double a23;
+    /**
+     * The element at row 3 and column 1.
+     */
+    private final double a31;
+    /**
+     * The element at row 3 and column 2.
+     */
+    private final double a32;
+    /**
+     * The element at row 3 and column 3.
+     */
+    private final double a33;
 
+    /**
+     * Constructs a default 3x3 matrix.
+     */
     public Matrix3d() {
         this(0, 0, 0, 0, 0, 0, 0, 0, 0);
     }
 
+    /**
+     * Constructs a 3x3 matrix with each element is a double.
+     *
+     * @param a11 the element at row 1 and column 1.
+     * @param a12 the element at row 1 and column 2.
+     * @param a13 the element at row 1 and column 3.
+     * @param a21 the element at row 2 and column 1.
+     * @param a22 the element at row 2 and column 2.
+     * @param a23 the element at row 2 and column 3.
+     * @param a31 the element at row 3 and column 1.
+     * @param a32 the element at row 3 and column 2.
+     * @param a33 the element at row 3 and column 3.
+     */
     public Matrix3d(double a11, double a12, double a13, double a21, double a22, double a23, double a31, double a32, double a33) {
         this.a11 = a11;
         this.a12 = a12;
@@ -116,6 +183,11 @@ public class Matrix3d implements Matrix.SquareMatrix<Matrix3d> {
         this.a33 = a33;
     }
 
+    /**
+     * Constructs a 3x3 matrix from the 3x3 2d array.
+     *
+     * @param matrix 3x3 2d array that is not null.
+     */
     public Matrix3d(double[][] matrix) {
         if (matrix.length != 3 || matrix[0].length != 3) {
             throw new IllegalArgumentException("Matrix length must be == 3");
@@ -131,6 +203,11 @@ public class Matrix3d implements Matrix.SquareMatrix<Matrix3d> {
         this.a33 = matrix[2][2];
     }
 
+    /**
+     * Converts its determinant to 3d vector.
+     *
+     * @return the converted 3d vector from its determinant.
+     */
     public Vector3d determinantToVector() {
         return new MatrixV3d().determinantToVector3d();
     }
@@ -211,7 +288,6 @@ public class Matrix3d implements Matrix.SquareMatrix<Matrix3d> {
      *
      * @param scalar multiplier.
      * @return the scaled matrix.
-     * @author Me. GodDavid
      * @since 7/13/2026 added this method.
      */
     @Override

@@ -36,7 +36,6 @@ public interface Plane3 extends Serializable {
      *
      * @param other plane that is not null.
      * @return the distance between this plane and the other plane.
-     * @author Mr. GodDavid
      * @since 7/14/2026 part of Plane-to-Plane-Distance equation update.
      */
     double distance(RestrictedPlane3d other);
@@ -46,7 +45,6 @@ public interface Plane3 extends Serializable {
      *
      * @param other point that is not null.
      * @return the distance from plane to point.
-     * @author Mr. GodDavid
      * @since 7/14/2026 part of Plane-to-Plane-Distance equation update.
      */
     double distance(Point3d other);
@@ -57,7 +55,6 @@ public interface Plane3 extends Serializable {
      *
      * @param other three-dimensional line that is not null.
      * @return the distance between line and plane.
-     * @author Mr. GodDavid
      * @since 7/17/2026
      */
     double distance(Line3 other);

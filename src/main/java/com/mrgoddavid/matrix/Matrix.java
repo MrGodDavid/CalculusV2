@@ -7,6 +7,7 @@ import java.io.Serializable;
 /**
  * This is the root interface of matrices. This interface contains all operations of matrices.
  *
+ * @param <T> Class type for the class that implements this interface.
  * @author Mr. GodDavid
  * @since 6/9/2026
  */
@@ -50,7 +51,6 @@ public interface Matrix<T> extends Serializable {
          * Calculates the inverse of 2x2 matrix.
          *
          * @return the inverse matrix of this 2x2 matrix.
-         * @author Mr. GodDavid
          * @since 7/13/2026 added this method. Part of Plane-Intersection-Feature update in 7/13/2026.
          */
         T inverse();
@@ -79,7 +79,7 @@ public interface Matrix<T> extends Serializable {
      *
      * @param <T> Class type of implementation of this interface.
      * @author Mr. GodDavid
-     * @since 6/9/2026
+     * @since 7/9/2026
      */
     interface Matrix3<T> extends SquareMatrix<T> {
 
@@ -90,7 +90,7 @@ public interface Matrix<T> extends Serializable {
      *
      * @param <T> Class type of implementation of this interface.
      * @author Mr. GodDavid
-     * @since 6/9/2026
+     * @since 7/9/2026
      */
     interface VectorMatrix<T> extends Matrix3<T> {
 
@@ -123,7 +123,6 @@ public interface Matrix<T> extends Serializable {
      *
      * @param scalar multiplier.
      * @return the scaled matrix.
-     * @author Me. GodDavid
      * @since 7/13/2026 added this method.
      */
     T scale(double scalar);

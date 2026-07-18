@@ -12,19 +12,39 @@ import java.util.Objects;
  */
 public class Vector2d implements Vector<Vector2d>, Comparable<Vector2d>, Comparator<Vector2d>, Serializable {
 
+    /**
+     * X coordinate of this vector.
+     */
     private double x;
+    /**
+     * Y coordinate of this vector.
+     */
     private double y;
 
+    /**
+     * Default constructor of Vector2d.
+     */
     public Vector2d() {
         this.x = 0d;
         this.y = 0d;
     }
 
+    /**
+     * Constructs a two-dimensional vector with give x and y coordinates.
+     *
+     * @param x coordinate of this vector.
+     * @param y coordinate of this vector.
+     */
     public Vector2d(double x, double y) {
         this.x = x;
         this.y = y;
     }
 
+    /**
+     * Constructs a new two-dimensional vector from the given two-dimensional vector.
+     *
+     * @param v that is not null.
+     */
     public Vector2d(Vector2d v) {
         this.x = v.x;
         this.y = v.y;
@@ -152,7 +172,6 @@ public class Vector2d implements Vector<Vector2d>, Comparable<Vector2d>, Compara
 
     /**
      * Orients a vector A (itself) to point away from a surface B as defined by its normal C.
-     * Computes (dot(incident, reference) < 0) ? A : -A)
      * <p>Precondition: incident vector and reference vector are not null.</p>
      * <p>Postcondition: calculate the orientation of vector.</p>
      *
@@ -436,10 +455,20 @@ public class Vector2d implements Vector<Vector2d>, Comparable<Vector2d>, Compara
         return "[" + x + ", " + y + "]";
     }
 
+    /**
+     * Accessor of the x coordinate.
+     *
+     * @return the value of x coordinate.
+     */
     public double getX() {
         return x;
     }
 
+    /**
+     * Accessor of the y coordinate.
+     *
+     * @return the value of y coordinate.
+     */
     public double getY() {
         return y;
     }
@@ -457,40 +486,6 @@ public class Vector2d implements Vector<Vector2d>, Comparable<Vector2d>, Compara
                 : Double.compare(this.length(), o.length());
     }
 
-    /**
-     * Compares its two arguments for order.  Returns a negative integer,
-     * zero, or a positive integer as the first argument is less than, equal
-     * to, or greater than the second.<p>
-     * <p>
-     * The implementor must ensure that {@link Integer#signum
-     * signum}{@code (compare(x, y)) == -signum(compare(y, x))} for
-     * all {@code x} and {@code y}.  (This implies that {@code
-     * compare(x, y)} must throw an exception if and only if {@code
-     * compare(y, x)} throws an exception.)<p>
-     * <p>
-     * The implementor must also ensure that the relation is transitive:
-     * {@code ((compare(x, y)>0) && (compare(y, z)>0))} implies
-     * {@code compare(x, z)>0}.<p>
-     * <p>
-     * Finally, the implementor must ensure that {@code compare(x,
-     * y)==0} implies that {@code signum(compare(x,
-     * z))==signum(compare(y, z))} for all {@code z}.
-     *
-     * @param o1 the first object to be compared.
-     * @param o2 the second object to be compared.
-     * @return a negative integer, zero, or a positive integer as the
-     * first argument is less than, equal to, or greater than the
-     * second.
-     * @throws NullPointerException if an argument is null and this
-     *                              comparator does not permit null arguments
-     * @throws ClassCastException   if the arguments' types prevent them from
-     *                              being compared by this comparator.
-     * @apiNote It is generally the case, but <i>not</i> strictly required that
-     * {@code (compare(x, y)==0) == (x.equals(y))}.  Generally speaking,
-     * any comparator that violates this condition should clearly indicate
-     * this fact.  The recommended language is "Note: this comparator
-     * imposes orderings that are inconsistent with equals."
-     */
     @Override
     public int compare(Vector2d o1, Vector2d o2) {
         return o1.compareTo(o2);

@@ -19,6 +19,12 @@ public class Matrix3i implements Matrix.SquareMatrix<Matrix3i> {
     public class MatrixV3i implements Matrix.VectorMatrix<MatrixV3i> {
 
         /**
+         * Empty constructor.
+         */
+        public MatrixV3i() {
+        }
+
+        /**
          * Calculates the determinant of this special vector.
          *
          * @return the determinant (which is also a three-dimensional vector).
@@ -74,7 +80,6 @@ public class Matrix3i implements Matrix.SquareMatrix<Matrix3i> {
          *
          * @param scalar multiplier.
          * @return the scaled matrix.
-         * @author Me. GodDavid
          * @since 7/13/2026 added this method.
          * @deprecated not suitable for using this method here.
          */
@@ -97,12 +102,63 @@ public class Matrix3i implements Matrix.SquareMatrix<Matrix3i> {
      *
      *      Entry aij is located at row i, column j.
      */
-    private final int a11, a12, a13, a21, a22, a23, a31, a32, a33;
+    /**
+     * The element at row 1 and column 1.
+     */
+    private final int a11;
+    /**
+     * The element at row 1 and column 2.
+     */
+    private final int a12;
+    /**
+     * The element at row 1 and column 3.
+     */
+    private final int a13;
+    /**
+     * The element at row 2 and column 1.
+     */
+    private final int a21;
+    /**
+     * The element at row 2 and column 2.
+     */
+    private final int a22;
+    /**
+     * The element at row 2 and column 3.
+     */
+    private final int a23;
+    /**
+     * The element at row 3 and column 1.
+     */
+    private final int a31;
+    /**
+     * The element at row 3 and column 2.
+     */
+    private final int a32;
+    /**
+     * The element at row 3 and column 3.
+     */
+    private final int a33;
 
+    /**
+     * Constructs a default 3x3 matrix.
+     */
     public Matrix3i() {
         this(0, 0, 0, 0, 0, 0, 0, 0, 0);
     }
 
+    /**
+     * Constructs a 3x3 matrix with each element is an integer.
+     *
+     * @param a11 the element at row 1 and column 1.
+     * @param a12 the element at row 1 and column 2.
+     * @param a13 the element at row 1 and column 3.
+     * @param a21 the element at row 2 and column 1.
+     * @param a22 the element at row 2 and column 2.
+     * @param a23 the element at row 2 and column 3.
+     * @param a31 the element at row 3 and column 1.
+     * @param a32 the element at row 3 and column 2.
+     * @param a33 the element at row 3 and column 3.
+     */
     public Matrix3i(int a11, int a12, int a13, int a21, int a22, int a23, int a31, int a32, int a33) {
         this.a11 = a11;
         this.a12 = a12;
@@ -115,6 +171,11 @@ public class Matrix3i implements Matrix.SquareMatrix<Matrix3i> {
         this.a33 = a33;
     }
 
+    /**
+     * Constructs a 3x3 matrix from the 3x3 2d array.
+     *
+     * @param matrix 3x3 2d array that is not null.
+     */
     public Matrix3i(int[][] matrix) {
         if (matrix.length != 3 || matrix[0].length != 3) {
             throw new IllegalArgumentException("Matrix length must be == 3");
@@ -214,7 +275,6 @@ public class Matrix3i implements Matrix.SquareMatrix<Matrix3i> {
      *
      * @param scalar multiplier.
      * @return the scaled matrix.
-     * @author Me. GodDavid
      * @since 7/13/2026 added this method.
      */
     @Override

@@ -16,15 +16,31 @@ public final class Line3 implements Line.Line3 {
     private final Point3d startingPoint;
     private final Vector3i direction;
 
+    /**
+     * Constructs a three-dimensional line with starting point and direction vector.
+     *
+     * @param startingPoint of the line and it is not null.
+     * @param direction     the direction vector of this line and it is not null.
+     */
     public Line3(Point3d startingPoint, Vector3i direction) {
         this.startingPoint = startingPoint;
         this.direction = direction;
     }
 
+    /**
+     * Accessor of the instance field {@code startingPoint} of this class.
+     *
+     * @return the value of the instance field {@code startingPoint}.
+     */
     public Point3d getStartingPoint() {
         return startingPoint;
     }
 
+    /**
+     * Accessor of the instance field {@code direction} of this class.
+     *
+     * @return the value of the instance field {@code direction}.
+     */
     public Vector3i getDirection() {
         return direction;
     }
@@ -40,7 +56,6 @@ public final class Line3 implements Line.Line3 {
      *
      * @param other line that is not null.
      * @return the distance between this line and other line.
-     * @author Mr. GodDavid
      * @since 7/17/2026
      */
     @Override
@@ -56,7 +71,6 @@ public final class Line3 implements Line.Line3 {
      *
      * @param point other point that is not null.
      * @return true if the point is on the line and false otherwise.
-     * @author Mr. GodDavid
      * @since 7/17/2026
      */
     private boolean isPointOnLine(Point3d point) {
@@ -71,7 +85,6 @@ public final class Line3 implements Line.Line3 {
      *
      * @param other line that is not null.
      * @return true if this line is parallel to {@code other} line.
-     * @author Mr. GodDavid
      * @since 7/17/2026
      */
     private boolean isParallel(com.mrgoddavid.vector.space.line.Line3 other) {

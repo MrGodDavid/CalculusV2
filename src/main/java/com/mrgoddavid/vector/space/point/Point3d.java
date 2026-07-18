@@ -11,26 +11,62 @@ import com.mrgoddavid.vector.Vector3d;
  */
 public final class Point3d implements Point.Point3<Point3d> {
 
-    private final double x, y, z;
+    /**
+     * X coordinate.
+     */
+    private final double x;
+    /**
+     * Y coordinate.
+     */
+    private final double y;
+    /**
+     * Z coordinate.
+     */
+    private final double z;
 
+    /**
+     * Default constructor that constructs a three-dimensional point.
+     */
     public Point3d() {
         this(0, 0, 0);
     }
 
+    /**
+     * Constructs a three-dimensional point.
+     *
+     * @param x coordinate of the point.
+     * @param y coordinate of the point.
+     * @param z coordinate of the point.
+     */
     public Point3d(double x, double y, double z) {
         this.x = x;
         this.y = y;
         this.z = z;
     }
 
+    /**
+     * Accessor of the x coordinate.
+     *
+     * @return the value of the x coordinate.
+     */
     public double getX() {
         return x;
     }
 
+    /**
+     * Accessor of the y coordinate.
+     *
+     * @return the value of the y coordinate.
+     */
     public double getY() {
         return y;
     }
 
+    /**
+     * Accessor of the z coordinate.
+     *
+     * @return the value of the z coordinate.
+     */
     public double getZ() {
         return z;
     }
@@ -61,7 +97,6 @@ public final class Point3d implements Point.Point3<Point3d> {
      *
      * @param endpoint that is not null.
      * @return the vector that starts from this point to the ending point.
-     * @author Mr. GodDavid
      * @since 7/17/2026
      */
     @Override

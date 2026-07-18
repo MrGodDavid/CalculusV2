@@ -22,12 +22,38 @@ public class Matrix2i implements Matrix.Matrix2<Matrix2i>, Matrix.SquareMatrix<M
      * c = r1c2
      * d = r2c2
      */
-    private final int a, b, c, d;
+    /**
+     * The element at row 1 and column 1.
+     */
+    private final int a;
+    /**
+     * The element at row 1 and column 2.
+     */
+    private final int b;
+    /**
+     * The element at row 2 and column 1.
+     */
+    private final int c;
+    /**
+     * The element at row 2 and column 2.
+     */
+    private final int d;
 
+    /**
+     * Default constructor of 2x2 matrix. Each element is an integer.
+     */
     public Matrix2i() {
         this(0, 0, 0, 0);
     }
 
+    /**
+     * Constructs a 2x2 matrix. Each element is an integer.
+     *
+     * @param a the element at row 1 and column 1.
+     * @param b the element at row 1 and column 2.
+     * @param c the element at row 2 and column 1.
+     * @param d the element at row 2 and column 2.
+     */
     public Matrix2i(int a, int b, int c, int d) {
         this.a = a;
         this.b = b;
@@ -35,6 +61,12 @@ public class Matrix2i implements Matrix.Matrix2<Matrix2i>, Matrix.SquareMatrix<M
         this.d = d;
     }
 
+    /**
+     * Multiplies two 2x2 matrices.
+     *
+     * @param other matrix that is not null.
+     * @return the product of two 2x2 matrices.
+     */
     public Matrix2i multiply(Matrix2i other) {
         return new Matrix2i(
                 this.a * other.a + this.b * other.c, this.a * other.b + this.b * other.d,
@@ -42,6 +74,12 @@ public class Matrix2i implements Matrix.Matrix2<Matrix2i>, Matrix.SquareMatrix<M
         );
     }
 
+    /**
+     * Multiplies a 2x2 matrix by a 2x1 matrix.
+     *
+     * @param other 2x1 matrix that is not null.
+     * @return the product of this multiplication.
+     */
     public FixedMatrix.Matrix21i multiply(FixedMatrix.Matrix21i other) {
         return new FixedMatrix.Matrix21i(
                 this.a * other.a11() + this.b * other.a21(),
@@ -76,7 +114,6 @@ public class Matrix2i implements Matrix.Matrix2<Matrix2i>, Matrix.SquareMatrix<M
      *
      * @param scalar multiplier.
      * @return the scaled matrix.
-     * @author Me. GodDavid
      * @since 7/13/2026 added this method.
      */
     @Override
@@ -99,7 +136,6 @@ public class Matrix2i implements Matrix.Matrix2<Matrix2i>, Matrix.SquareMatrix<M
      * Calculates the inverse of 2x2 matrix.
      *
      * @return the inverse matrix of this 2x2 matrix.
-     * @author Mr. GodDavid
      * @since 7/13/2026 added this method. Part of Plane-Intersection-Feature update in 7/13/2026.
      */
     @Override
