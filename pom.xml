@@ -1,17 +1,165 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="
+            http://maven.apache.org/POM/4.0.0
+            https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.mrgoddavid.calculus.vector_math</groupId>
-    <artifactId>Calculus</artifactId>
-    <version>1.2</version>
+    <!-- ========================================================= -->
+    <!-- Project Information                                       -->
+    <!-- ========================================================= -->
+
+    <groupId>io.github.MrGodDavid</groupId>
+    <artifactId>CalculusV2</artifactId>
+    <version>1.2.0</version>
+    <packaging>jar</packaging>
+
+    <name>CalculusV2</name>
+
+    <description>
+        A Java vector and matrix mathematics library designed for
+        Calculus III, linear algebra, computer graphics,
+        game development, and scientific computing.
+    </description>
+
+    <url>https://github.com/MrGodDavid/CalculusV2</url>
+
+    <!-- ========================================================= -->
+    <!-- License                                                   -->
+    <!-- ========================================================= -->
+
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>https://opensource.org/licenses/MIT</url>
+        </license>
+    </licenses>
+
+    <!-- ========================================================= -->
+    <!-- Developer Information                                     -->
+    <!-- ========================================================= -->
+
+    <developers>
+        <developer>
+            <id>MrGodDavid</id>
+            <name>Bodong Liu</name>
+            <url>https://github.com/MrGodDavid</url>
+        </developer>
+    </developers>
+
+    <!-- ========================================================= -->
+    <!-- Source Control                                            -->
+    <!-- ========================================================= -->
+
+    <scm>
+        <url>https://github.com/MrGodDavid/CalculusV2</url>
+
+        <connection>
+            scm:git:https://github.com/MrGodDavid/CalculusV2.git
+        </connection>
+
+        <developerConnection>
+            scm:git:ssh://git@github.com/MrGodDavid/CalculusV2.git
+        </developerConnection>
+
+        <tag>HEAD</tag>
+    </scm>
+
+    <!-- ========================================================= -->
+    <!-- Project Properties                                        -->
+    <!-- ========================================================= -->
 
     <properties>
-        <maven.compiler.source>23</maven.compiler.source>
-        <maven.compiler.target>23</maven.compiler.target>
+
+        <!-- Java Version -->
+        <maven.compiler.release>21</maven.compiler.release>
+
+        <!-- Encoding -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <!-- Plugin Versions -->
+        <maven.compiler.plugin.version>3.14.0</maven.compiler.plugin.version>
+        <maven.jar.plugin.version>3.4.2</maven.jar.plugin.version>
+        <maven.source.plugin.version>3.3.1</maven.source.plugin.version>
+        <maven.javadoc.plugin.version>3.11.2</maven.javadoc.plugin.version>
+
     </properties>
 
+    <!-- ========================================================= -->
+    <!-- Dependencies                                              -->
+    <!-- ========================================================= -->
+
+    <dependencies>
+
+        <!-- JUnit 5 -->
+
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>5.13.4</version>
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
+
+    <!-- ========================================================= -->
+    <!-- Build                                                     -->
+    <!-- ========================================================= -->
+
+    <build>
+        <plugins>
+            <!-- Java Compiler -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven.compiler.plugin.version}</version>
+                <configuration>
+                    <release>${maven.compiler.release}</release>
+                </configuration>
+            </plugin>
+
+            <!-- Normal JAR -->
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>${maven.jar.plugin.version}</version>
+            </plugin>
+
+            <!-- Source JAR -->
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>${maven.source.plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Javadoc JAR -->
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>${maven.javadoc.plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>

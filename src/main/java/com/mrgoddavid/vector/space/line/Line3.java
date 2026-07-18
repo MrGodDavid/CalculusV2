@@ -48,7 +48,7 @@ public final class Line3 implements Line.Line3 {
         if (!isParallel(other)) {
             return 0;
         }
-        return -999;
+        return -999; // TODO
     }
 
     /**
