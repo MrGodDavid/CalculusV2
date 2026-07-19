@@ -44,7 +44,7 @@ public class Matrix3d implements Matrix.SquareMatrix<Matrix3d> {
          */
         public Vector3d determinantToVector3d() {
             double i = firstDeterminant();
-            double j = secondDeterminant();
+            double j = -secondDeterminant();
             double k = thirdDeterminant();
             return new Vector3d(i, j, k);
         }

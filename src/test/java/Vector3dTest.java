@@ -69,7 +69,7 @@ public class Vector3dTest {
         Vector3d a = new Vector3d(2, 4, -1);
         Vector3d b = new Vector3d(10, 25, 20);
 
-        Vector3d result = a.crossProduct(b);
+        Vector3d result = a.crossProduct(b, false);
         assertEquals(105, result.getX(), DELTA);
         assertEquals(-50, result.getY(), DELTA);
         assertEquals(10, result.getZ(), DELTA);

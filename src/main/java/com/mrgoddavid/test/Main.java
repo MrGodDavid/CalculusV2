@@ -1,13 +1,14 @@
 package com.mrgoddavid.test;
 
 import com.mrgoddavid.vector.Vector;
+import com.mrgoddavid.vector.Vector3d;
 import com.mrgoddavid.vector.Vector3i;
 import com.mrgoddavid.vector.space.plane.RestrictedPlane3d;
 
 /**
  * Main class.
  */
-public class Main {
+class Main {
 
     /**
      * Empty constructor.
@@ -53,8 +54,8 @@ public class Main {
 //        Vector2i v2 = new Vector2i(3, 8);
 //
 //        System.out.println(v.compareWith(v2, Vector.ComparisonCommand.LESS_THAN));
-        Vector3i a =  new Vector3i(2,4,-1);
-        Vector3i b = new Vector3i(10,25,20);
+        Vector3d a =  new Vector3d(2,4,-1);
+        Vector3d b = new Vector3d(10,25,20);
         System.out.println(a.crossProduct(b, false));
 
 

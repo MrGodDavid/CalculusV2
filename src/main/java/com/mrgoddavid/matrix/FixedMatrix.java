@@ -1,7 +1,11 @@
 package com.mrgoddavid.matrix;
 
 /**
- * This class holds a collection of fixed matrices.
+ * This class holds a collection of fixed matrices. We call a matrix with known size a "Fixed Matrix". Follow this rule
+ * when reading the class names. The first number after the word "Matrix" indicates the number of rows in that matrix,
+ * and the second number indicates the number of columns of that matrix. The last letter is the first-letter initial of
+ * the data type of each element in that matrix. For instance, "i" represents integers, "d" represents double, "l"
+ * represents long, and "f" represents float.
  *
  * @author Mr. GodDavid
  * @since 7/13/2026
@@ -15,7 +19,7 @@ public final class FixedMatrix {
     }
 
     /**
-     * This is a fixed matrix. This matrix has two rows and one column.
+     * This is a fixed matrix. This matrix has two rows and one column. Each element of this matrix is an integer.
      *
      * @param a11 element at the position row 1 and column 1.
      * @param a21 element at the position row 2 and column 2.

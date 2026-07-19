@@ -12,7 +12,7 @@
     <!-- Project Information                                       -->
     <!-- ========================================================= -->
 
-    <groupId>io.github.MrGodDavid</groupId>
+    <groupId>io.github.mrgoddavid</groupId>
     <artifactId>CalculusV2</artifactId>
     <version>1.2.0</version>
     <packaging>jar</packaging>
@@ -22,7 +22,7 @@
     <description>
         A Java vector and matrix mathematics library designed for
         Calculus III, linear algebra, computer graphics,
-        game development, and scientific computing.
+        game development, and scientific computing. This library is still developing!
     </description>
 
     <url>https://github.com/MrGodDavid/CalculusV2</url>
