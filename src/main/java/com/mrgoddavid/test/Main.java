@@ -53,9 +53,9 @@ public class Main {
 //        Vector2i v2 = new Vector2i(3, 8);
 //
 //        System.out.println(v.compareWith(v2, Vector.ComparisonCommand.LESS_THAN));
-//        Vector3i a =  new Vector3i(1,0,1);
-//        Vector3i b = new Vector3i(-1,1,0);
-//        System.out.println(a.crossProduct(b, false));
+        Vector3i a =  new Vector3i(2,4,-1);
+        Vector3i b = new Vector3i(10,25,20);
+        System.out.println(a.crossProduct(b, false));
 
 
         RestrictedPlane3d plane1 = new RestrictedPlane3d("2x + 3y + 2z = 12"); // x + y + z = 1
