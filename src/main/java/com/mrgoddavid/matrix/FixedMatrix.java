@@ -60,4 +60,41 @@ public final class FixedMatrix {
             return new Matrix21i((int) (this.a11 * scalar), (int) (this.a21 * scalar));
         }
     }
+
+    public record Matrix21d(double a11, double a21) implements Matrix<Matrix21d> {
+
+        /**
+         * Addition of two same-sized matrices.
+         *
+         * @param other matrix that is not null.
+         * @return the sum of the two matrices.
+         */
+        @Override
+        public Matrix21d add(Matrix21d other) {
+            return new Matrix21d(a11 + other.a11, a21 + other.a21);
+        }
+
+        /**
+         * Subtraction of two same-sized matrices.
+         *
+         * @param other matrix that is not null.
+         * @return the difference of the two matrices.
+         */
+        @Override
+        public Matrix21d subtract(Matrix21d other) {
+            return new Matrix21d(a11 - other.a11, a21 - other.a21);
+        }
+
+        /**
+         * Scalar multiplication of matrix.
+         *
+         * @param scalar multiplier.
+         * @return the scaled matrix.
+         * @since 7/13/2026 added this method.
+         */
+        @Override
+        public Matrix21d scale(double scalar) {
+            return new Matrix21d(a11 * scalar, a21 * scalar);
+        }
+    }
 }

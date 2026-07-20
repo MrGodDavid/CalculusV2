@@ -77,6 +77,19 @@ public class Matrix2d implements Matrix.Matrix2<Matrix2d>, Matrix.SquareMatrix<M
     }
 
     /**
+     * Multiplies a 2x2 matrix by a 2x1 matrix.
+     *
+     * @param other 2x1 matrix that is not null.
+     * @return the product of this multiplication.
+     */
+    public FixedMatrix.Matrix21d multiply(FixedMatrix.Matrix21d other) {
+        return new FixedMatrix.Matrix21d(
+                this.a * other.a11() + this.b * other.a21(),
+                this.c * other.a11() + this.d * other.a21()
+        );
+    }
+
+    /**
      * The transpose of a matrix is a new matrix formed by swapping its rows and columns. The rows of the original
      * matrix become the columns of the transposed matrix, and vice versa.
      *

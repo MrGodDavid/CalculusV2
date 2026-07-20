@@ -3,7 +3,9 @@ package com.mrgoddavid.test;
 import com.mrgoddavid.vector.Vector;
 import com.mrgoddavid.vector.Vector3d;
 import com.mrgoddavid.vector.Vector3i;
+import com.mrgoddavid.vector.space.line.Line3d;
 import com.mrgoddavid.vector.space.plane.RestrictedPlane3d;
+import com.mrgoddavid.vector.space.point.Point3d;
 
 /**
  * Main class.
@@ -59,10 +61,16 @@ class Main {
         System.out.println(a.crossProduct(b, false));
 
 
-        RestrictedPlane3d plane1 = new RestrictedPlane3d("2x + 3y + 2z = 12"); // x + y + z = 1
-        RestrictedPlane3d plane2 = new RestrictedPlane3d("2x + 3y + 2z = 1"); // x + 2y + z = 1
-        System.out.println(plane1.distance(plane2, true));
-
         System.out.println(new Vector3i(2, 3, 1).compareWith(new Vector3i(2, 3, 1), Vector.ComparisonCommand.EQUALS));
+
+        Line3d line1 = new Line3d(new Point3d(0, 0, 0), new Vector3d(1, 0, 0));
+        Line3d line2 = new Line3d(new Point3d(1, 1, 9), new Vector3d(1, 0, 1));
+        System.out.println(line1.intersect(line2));
+        System.out.println(line1.distance(line2));
+
+        Point3d A = new Point3d(2,4,1);
+        // RestrictedPlane3d planeA = new RestrictedPlane3d(4, -2, 7, 4);
+        RestrictedPlane3d planeA = new RestrictedPlane3d("4x -2y + 7z = 4");
+        System.out.println(planeA.distance(A, true));
     }
 }

@@ -1,11 +1,12 @@
 package com.mrgoddavid.vector.space.plane;
 
 import com.mrgoddavid.matrix.FixedMatrix;
+import com.mrgoddavid.matrix.Matrix2d;
 import com.mrgoddavid.matrix.Matrix2i;
 import com.mrgoddavid.utils.NumberFormatter;
 import com.mrgoddavid.vector.Vector3d;
 import com.mrgoddavid.vector.Vector3i;
-import com.mrgoddavid.vector.space.line.Line3;
+import com.mrgoddavid.vector.space.line.Line3d;
 import com.mrgoddavid.vector.space.point.Point3d;
 
 /**
@@ -20,19 +21,19 @@ public final class RestrictedPlane3d implements Plane3 {
     /**
      * X coefficient.
      */
-    private final int A; // x coefficient
+    private final double A; // x coefficient
     /**
      * Y coefficient.
      */
-    private final int B; // y coefficient
+    private final double B; // y coefficient
     /**
      * Z coefficient.
      */
-    private final int C; // z coefficient
+    private final double C; // z coefficient
     /**
      * Constant.
      */
-    private final int D; // Ax + By + Cz = D
+    private final double D; // Ax + By + Cz = D
 
     /**
      * Constructs a three-dimensional plane that is in the form {@code Ax + By + Cz = D}.
@@ -42,7 +43,7 @@ public final class RestrictedPlane3d implements Plane3 {
      * @param c coefficient of z.
      * @param d constant.
      */
-    public RestrictedPlane3d(int a, int b, int c, int d) {
+    public RestrictedPlane3d(double a, double b, double c, double d) {
         A = a;
         B = b;
         C = c;
@@ -50,13 +51,16 @@ public final class RestrictedPlane3d implements Plane3 {
     }
 
     /**
-     * Constructs a plane based on the equation in constructor. The constructor MUST be in the following form:
+     * Constructs a plane based on the equation in constructor. The equation in the following form:
      * {@code Ax + By + Cz = D}.
      *
-     * @param equation of the three-dimensional plane.
+     * @param equation   of the three-dimensional plane.
+     * @param deprecated this constructor does nothing in this class.
      * @since 7/13/2026 added this new feature, which allows user to construct three-dimensional plane easier.
+     * @deprecated detracted since 7/19/2026.
      */
-    public RestrictedPlane3d(String equation) {
+    @Deprecated
+    public RestrictedPlane3d(String equation, char deprecated) {
         int indexOfX = equation.indexOf('x');
         int indexOfY = equation.indexOf('y');
         int indexOfZ = equation.indexOf('z');
@@ -67,6 +71,59 @@ public final class RestrictedPlane3d implements Plane3 {
     }
 
     /**
+     * Constructs a plane based on the equation in constructor. The equation in following form:
+     * {@code Ax + By + Cz = D}.
+     *
+     * @param equation the string representation of the equation of the plane.
+     * @since 7/20/2026 this is the newer version of the constructor RestrictedPlane3d(String equation).
+     */
+    public RestrictedPlane3d(String equation) {
+        String[] parts = equation.split(" ");
+        // Ax
+        int xIndex = parts[0].indexOf('x');
+        String str = parts[0].substring(0, xIndex);
+        if (str.isEmpty()) {
+            A = 1.0;
+        } else if (str.length() == 1 || str.length() == 2) {
+            A = Double.parseDouble(str);
+        } else {
+            A = Double.MIN_VALUE;
+        }
+
+        // By
+        int yIndex = parts[1].indexOf('y');
+        str = parts[1].substring(0, yIndex);
+        if (str.isEmpty()) {
+            B = 1.0;
+        } else if (str.length() == 1 || str.length() == 2) {
+            B = Double.parseDouble(str);
+        } else {
+            B = Double.MIN_VALUE;
+        }
+
+        // Cz
+        int zIndex = parts[3].indexOf('z');
+        str = parts[3].substring(0, zIndex);
+        if (str.isEmpty()) {
+            C = 1.0;
+        } else if (str.length() == 1 || str.length() == 2) {
+            C = Double.parseDouble(str);
+        } else {
+            C = Double.MIN_VALUE;
+        }
+
+        // D
+        str = parts[parts.length - 1];
+        if (str.isEmpty()) {
+            D = 1.0;
+        } else if (str.length() == 1  || str.length() == 2) {
+            D = Double.parseDouble(str);
+        } else  {
+            D = Double.MIN_VALUE;
+        }
+    }
+
+    /**
      * The intersection of two three-dimensional planes is a three-dimensional line. This method finds that intersecting
      * line of this plane and the plane in the parameter of this method.
      *
@@ -74,14 +131,14 @@ public final class RestrictedPlane3d implements Plane3 {
      * @return the intersecting line of this plane and the parameter plane3.
      */
     @Override
-    public Line3 intersect(RestrictedPlane3d plane3) {
-        Vector3i direction = this.getNormal().crossProduct(plane3.getNormal(), true);
+    public Line3d intersect(RestrictedPlane3d plane3) {
+        Vector3d direction = this.getNormal().crossProduct(plane3.getNormal(), true);
         Point3d point = this.findPointOnLine(plane3);
         if (point == null) {
             System.out.println("The two planes are parallel, no line of intersection!");
             return null;
         }
-        return new Line3(point, direction);
+        return new Line3d(point, direction);
     }
 
     private Point3d findPointOnLine(RestrictedPlane3d plane3) {
@@ -110,39 +167,39 @@ public final class RestrictedPlane3d implements Plane3 {
             return null;
         }
 
-        Matrix2i coefficientMatrix;
-        FixedMatrix.Matrix21i constantMatrix = new FixedMatrix.Matrix21i(this.D, plane3.D);
+        Matrix2d coefficientMatrix;
+        FixedMatrix.Matrix21d constantMatrix = new FixedMatrix.Matrix21d(this.D, plane3.D);
         switch (coordinate) {
             // x = 0
             case "x" -> {
-                coefficientMatrix = new Matrix2i(this.B, this.C, plane3.B, plane3.C);
-                Matrix2i inverse = coefficientMatrix.inverse();
+                coefficientMatrix = new Matrix2d(this.B, this.C, plane3.B, plane3.C);
+                Matrix2d inverse = coefficientMatrix.inverse();
                 if (inverse == null) {
                     return null;
                 }
-                FixedMatrix.Matrix21i answer = inverse.multiply(constantMatrix);
+                FixedMatrix.Matrix21d answer = inverse.multiply(constantMatrix);
                 return new Point3d(0, answer.a11(), answer.a21());
             }
 
             // y = 0
             case "y" -> {
-                coefficientMatrix = new Matrix2i(this.A, this.C, plane3.A, plane3.C);
-                Matrix2i inverse = coefficientMatrix.inverse();
+                coefficientMatrix = new Matrix2d(this.A, this.C, plane3.A, plane3.C);
+                Matrix2d inverse = coefficientMatrix.inverse();
                 if (inverse == null) {
                     return null;
                 }
-                FixedMatrix.Matrix21i answer = inverse.multiply(constantMatrix);
+                FixedMatrix.Matrix21d answer = inverse.multiply(constantMatrix);
                 return new Point3d(answer.a11(), 0, answer.a21());
             }
 
             // z = 0
             case "z" -> {
-                coefficientMatrix = new Matrix2i(this.A, this.B, plane3.A, plane3.B);
-                Matrix2i inverse = coefficientMatrix.inverse();
+                coefficientMatrix = new Matrix2d(this.A, this.B, plane3.A, plane3.B);
+                Matrix2d inverse = coefficientMatrix.inverse();
                 if (inverse == null) {
                     return null;
                 }
-                FixedMatrix.Matrix21i answer = inverse.multiply(constantMatrix);
+                FixedMatrix.Matrix21d answer = inverse.multiply(constantMatrix);
                 return new Point3d(answer.a11(), answer.a21(), 0);
             }
         }
@@ -157,8 +214,8 @@ public final class RestrictedPlane3d implements Plane3 {
      * @return the normal vector of this plane.
      */
     @Override
-    public Vector3i getNormal() {
-        return new Vector3i(A, B, C);
+    public Vector3d getNormal() {
+        return new Vector3d(A, B, C);
     }
 
     /**
@@ -203,10 +260,10 @@ public final class RestrictedPlane3d implements Plane3 {
      */
     @Override
     public double distance(Point3d other) {
-        Point3d pt = new Point3d(0, 0, this.C);
-        Vector3i direction = new Vector3i((int) (other.getX() - pt.getX()), (int) (other.getY() - pt.getY()), (int) (other.getZ() - pt.getZ()));
-        Vector3i normal = this.getNormal();
-        return direction.dot_product(normal) / normal.length();
+        Point3d pt = new Point3d(0, 0, this.D / this.C);
+        Vector3d direction = new Vector3d((other.getX() - pt.getX()), (other.getY() - pt.getY()), (other.getZ() - pt.getZ()));
+        Vector3d normal = this.getNormal();
+        return Math.abs(direction.dot_product(normal)) / normal.length();
     }
 
     /**
@@ -218,11 +275,11 @@ public final class RestrictedPlane3d implements Plane3 {
      * @since 7/17/2026
      */
     @Override
-    public double distance(Line3 other) {
+    public double distance(Line3d other) {
         if (!isParallel(other)) return 0;
         Point3d pointOnPlane = new Point3d(0, 0, this.C);
         Point3d pointOnLine = other.getStartingPoint();
-        return pointOnPlane.toVector3d(pointOnLine).scalar_projection(new Vector3d(this.getNormal()));
+        return pointOnPlane.toVector3d(pointOnLine).scalar_projection(this.getNormal());
     }
 
     /**
@@ -234,7 +291,7 @@ public final class RestrictedPlane3d implements Plane3 {
      * @return the formatted distance between a plane and a line if the "format" boolean flag is true.
      * @since 7/17/2026
      */
-    public double distance(Line3 other, boolean format) {
+    public double distance(Line3d other, boolean format) {
         return format ? NumberFormatter.format(this.distance(other)) : this.distance(other);
     }
 
@@ -243,9 +300,9 @@ public final class RestrictedPlane3d implements Plane3 {
      *
      * @param other three-dimensional line that is not null.
      * @return true if the plane is parallel to the line.
-     * @since 7/17/2026 helper method of {@link RestrictedPlane3d#distance(Line3)}.
+     * @since 7/17/2026 helper method of {@link RestrictedPlane3d#distance(Line3d)}.
      */
-    private boolean isParallel(Line3 other) {
+    private boolean isParallel(Line3d other) {
         return this.getNormal().dot_product(other.getDirection()) == 0d;
     }
 

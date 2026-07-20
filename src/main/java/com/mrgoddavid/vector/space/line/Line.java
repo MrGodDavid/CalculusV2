@@ -25,6 +25,6 @@ public interface Line {
          * @return the distance between this line and other line.
          * @since 7/17/2026
          */
-        double distance(com.mrgoddavid.vector.space.line.Line3 other);
+        double distance(Line3d other);
     }
 }

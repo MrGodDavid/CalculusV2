@@ -1,7 +1,7 @@
 package com.mrgoddavid.vector.space.plane;
 
-import com.mrgoddavid.vector.Vector3i;
-import com.mrgoddavid.vector.space.line.Line3;
+import com.mrgoddavid.vector.Vector3d;
+import com.mrgoddavid.vector.space.line.Line3d;
 import com.mrgoddavid.vector.space.point.Point3d;
 
 import java.io.Serializable;
@@ -21,7 +21,7 @@ public interface Plane3 extends Serializable {
      * @param plane3 other three-dimensional plane that is not null.
      * @return the intersecting line of this plane and the parameter plane3.
      */
-    Line3 intersect(RestrictedPlane3d plane3);
+    Line3d intersect(RestrictedPlane3d plane3);
 
     /**
      * Gets the normal vector of this three-dimensional plane. The normal vector of a plane is the three-dimensional
@@ -29,7 +29,7 @@ public interface Plane3 extends Serializable {
      *
      * @return the normal vector of this plane.
      */
-    Vector3i getNormal();
+    Vector3d getNormal();
 
     /**
      * Calculates the distance between two three-dimensional parallel planes.
@@ -57,5 +57,5 @@ public interface Plane3 extends Serializable {
      * @return the distance between line and plane.
      * @since 7/17/2026
      */
-    double distance(Line3 other);
+    double distance(Line3d other);
 }

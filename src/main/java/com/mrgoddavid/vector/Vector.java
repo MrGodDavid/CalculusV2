@@ -491,9 +491,14 @@ public interface Vector<T> extends Serializable {
 interface Vector3<T> extends Vector<T> {
 
     /**
-     * Zero three-dimensional vector.
+     * Zero three-dimensional vector. Each component of this vector is an integer.
      */
-    Vector3i ZERO_VECTOR = new Vector3i();
+    Vector3i ZERO_VECTOR3I = new Vector3i();
+
+    /**
+     * Zero three-dimensional vector. Each component of this vector is a double.
+     */
+    Vector3d ZERO_VECTOR3D = new Vector3d();
 
     /**
      * Calculate the cross product of two three-dimensional vectors.

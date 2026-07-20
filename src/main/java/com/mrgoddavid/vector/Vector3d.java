@@ -122,7 +122,7 @@ public class Vector3d implements Vector3<Vector3d> {
      */
     @Override
     public double scalar_projection(Vector3d second) {
-        return 0;
+        return this.dot_product(second) / second.length();
     }
 
     /**
