@@ -1,4 +1,4 @@
-package com.mrgoddavid.vector.space.point;
+package com.mrgoddavid.geometry.point;
 
 import com.mrgoddavid.vector.Vector3d;
 

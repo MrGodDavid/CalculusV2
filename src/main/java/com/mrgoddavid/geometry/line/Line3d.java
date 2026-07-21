@@ -1,12 +1,10 @@
-package com.mrgoddavid.vector.space.line;
+package com.mrgoddavid.geometry.line;
 
 import com.mrgoddavid.matrix.FixedMatrix;
 import com.mrgoddavid.matrix.Matrix2d;
-import com.mrgoddavid.utils.Constants;
 import com.mrgoddavid.vector.Vector;
 import com.mrgoddavid.vector.Vector3d;
-import com.mrgoddavid.vector.Vector3i;
-import com.mrgoddavid.vector.space.point.Point3d;
+import com.mrgoddavid.geometry.point.Point3d;
 
 import static com.mrgoddavid.utils.Constants.EPSILON;
 

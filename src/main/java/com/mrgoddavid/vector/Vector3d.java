@@ -197,9 +197,9 @@ public class Vector3d implements Vector3<Vector3d> {
      */
     @Override
     public Vector3d multiply_add(Vector3d multiplier, Vector3d adder) {
-        double x = adder.x * multiplier.x;
-        double y = adder.y * multiplier.y;
-        double z = adder.z * multiplier.z;
+        double x = this.x * multiplier.x + adder.x;
+        double y = this.y * multiplier.y + adder.y;
+        double z = this.z * multiplier.z + adder.z;
         return new Vector3d(x, y, z);
     }
 

@@ -1,13 +1,11 @@
-package com.mrgoddavid.vector.space.plane;
+package com.mrgoddavid.geometry.plane;
 
 import com.mrgoddavid.matrix.FixedMatrix;
 import com.mrgoddavid.matrix.Matrix2d;
-import com.mrgoddavid.matrix.Matrix2i;
 import com.mrgoddavid.utils.NumberFormatter;
 import com.mrgoddavid.vector.Vector3d;
-import com.mrgoddavid.vector.Vector3i;
-import com.mrgoddavid.vector.space.line.Line3d;
-import com.mrgoddavid.vector.space.point.Point3d;
+import com.mrgoddavid.geometry.line.Line3d;
+import com.mrgoddavid.geometry.point.Point3d;
 
 /**
  * This class creates a three-dimensional plane in three-dimensional space. The plane is restricted to the form

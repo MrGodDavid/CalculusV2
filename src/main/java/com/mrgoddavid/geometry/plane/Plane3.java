@@ -1,8 +1,8 @@
-package com.mrgoddavid.vector.space.plane;
+package com.mrgoddavid.geometry.plane;
 
 import com.mrgoddavid.vector.Vector3d;
-import com.mrgoddavid.vector.space.line.Line3d;
-import com.mrgoddavid.vector.space.point.Point3d;
+import com.mrgoddavid.geometry.line.Line3d;
+import com.mrgoddavid.geometry.point.Point3d;
 
 import java.io.Serializable;
 

@@ -1,4 +1,4 @@
-package com.mrgoddavid.vector.space.line;
+package com.mrgoddavid.geometry.line;
 
 
 /**

@@ -71,7 +71,7 @@ Designed for topics commonly covered in Multivariable Calculus:
 Example:
 
 ```java
-import com.mrgoddavid.vector.space.plane.RestrictedPlane3d;
+import com.mrgoddavid.geometry.plane.RestrictedPlane3d;
 
 RestrictedPlane3d plane = new RestrictedPlane3d(
         2.3, 1.2, 1.1, 7.5

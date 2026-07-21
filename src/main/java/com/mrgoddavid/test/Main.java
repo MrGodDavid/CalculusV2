@@ -3,9 +3,9 @@ package com.mrgoddavid.test;
 import com.mrgoddavid.vector.Vector;
 import com.mrgoddavid.vector.Vector3d;
 import com.mrgoddavid.vector.Vector3i;
-import com.mrgoddavid.vector.space.line.Line3d;
-import com.mrgoddavid.vector.space.plane.RestrictedPlane3d;
-import com.mrgoddavid.vector.space.point.Point3d;
+import com.mrgoddavid.geometry.line.Line3d;
+import com.mrgoddavid.geometry.plane.RestrictedPlane3d;
+import com.mrgoddavid.geometry.point.Point3d;
 
 /**
  * Main class.
