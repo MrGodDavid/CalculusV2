@@ -61,6 +61,12 @@ public final class FixedMatrix {
         }
     }
 
+    /**
+     * This is a fixed matrix. This matrix has two rows and one column. Each element of this matrix is a double.
+     *
+     * @param a11 element at the position row 1 and column 1.
+     * @param a21 element at the position row 2 and column 2.
+     */
     public record Matrix21d(double a11, double a21) implements Matrix<Matrix21d> {
 
         /**

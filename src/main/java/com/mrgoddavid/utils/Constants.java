@@ -10,6 +10,9 @@ import com.mrgoddavid.format.exception.UninstantiableClassInstantiationException
  */
 public final class Constants {
 
+    /**
+     * Threshold in the float-point comparison of two numbers.
+     */
     public static final double EPSILON = 1E-10;
 
     /**
