@@ -1,5 +1,7 @@
 package com.mrgoddavid.utils;
 
+import com.mrgoddavid.format.exception.UninstantiableClassInstantiationException;
+
 import java.text.DecimalFormat;
 
 /**
@@ -21,7 +23,7 @@ public final class NumberFormatter {
      * @throws IllegalAccessException because this utility class cannot be instantiated.
      */
     private NumberFormatter() throws IllegalAccessException {
-        throw new IllegalAccessException("You cannot instantiate this class because \"NumberFormatter\" is an utility class!");
+        throw new UninstantiableClassInstantiationException();
     }
 
     /**

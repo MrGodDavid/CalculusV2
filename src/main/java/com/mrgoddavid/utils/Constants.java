@@ -1,5 +1,7 @@
 package com.mrgoddavid.utils;
 
+import com.mrgoddavid.format.exception.UninstantiableClassInstantiationException;
+
 /**
  * Holds mathematics constants.
  *
@@ -16,8 +18,6 @@ public final class Constants {
      * @throws IllegalAccessException because user cannot instantiate this class.
      */
     private Constants() throws IllegalAccessException {
-        throw new IllegalAccessException("You cannot instantiate this class because this is an utility class.");
+        throw new UninstantiableClassInstantiationException();
     }
-
-
 }
