@@ -288,8 +288,8 @@ public class Vector2d implements Vector2<Vector2d>, Comparable<Vector2d>, Compar
      */
     @Override
     public Vector2d sign() {
-        double signX = x > 0 ? 1 : -1;
-        double signY = y > 0 ? 1 : -1;
+        double signX = x > 0 ? 1 : x == 0 ? 0 : -1;
+        double signY = y > 0 ? 1 : y == 0 ? 0 : -1;
         return new Vector2d(signX, signY);
     }
 

@@ -16,6 +16,16 @@ public final class Constants {
     public static final double EPSILON = 1E-10;
 
     /**
+     * Ten decimal places of the square root of 2.
+     */
+    public static final double SQRT_2 = 1.41421356237310;
+
+    /**
+     * Ten decimal places of the square root of 3.
+     */
+    public static final double SQRT_3 = 1.73205080756888;
+
+    /**
      * Private constructor.
      *
      * @throws IllegalAccessException because user cannot instantiate this class.

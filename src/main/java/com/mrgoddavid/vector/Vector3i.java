@@ -374,9 +374,9 @@ public class Vector3i implements Vector3<Vector3i> {
      */
     @Override
     public Vector3i sign() {
-        int signX = this.x < 0 ? -1 : 1;
-        int signY = this.y < 0 ? -1 : 1;
-        int signZ = this.z < 0 ? -1 : 1;
+        int signX = this.x < 0 ? -1 : this.x == 0 ? 0 : 1;
+        int signY = this.y < 0 ? -1 : this.y == 0 ? 0 : 1;
+        int signZ = this.z < 0 ? -1 : this.z == 0 ? 0 : 1;
         return new Vector3i(signX, signY, signZ);
     }
 

@@ -288,8 +288,8 @@ public class Vector2f implements Vector2<Vector2f>, Comparator<Vector2f>, Compar
      */
     @Override
     public Vector2f sign() {
-        float signX = this.x < 0f ? 1 : -1;
-        float signY = this.y < 0f ? 1 : -1;
+        float signX = this.x < 0f ? 1 : this.x == 0f ? 0 : -1;
+        float signY = this.y < 0f ? 1 : this.y == 0f ? 0 : -1;
         return new Vector2f(signX, signY);
     }
 

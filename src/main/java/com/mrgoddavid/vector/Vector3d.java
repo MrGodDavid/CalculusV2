@@ -362,9 +362,9 @@ public class Vector3d implements Vector3<Vector3d> {
      */
     @Override
     public Vector3d sign() {
-        int signX = this.x < 0 ? -1 : 1;
-        int signY = this.y < 0 ? -1 : 1;
-        int signZ = this.z < 0 ? -1 : 1;
+        int signX = this.x < 0 ? -1 : this.x == 0 ? 0 : 1;
+        int signY = this.y < 0 ? -1 : this.y == 0 ? 0 : 1;
+        int signZ = this.z < 0 ? -1 : this.z == 0 ? 0 : 1;
         return new Vector3d(signX, signY, signZ);
     }
 
@@ -427,7 +427,7 @@ public class Vector3d implements Vector3<Vector3d> {
      */
     @Override
     public Vector3d fraction() {
-        return null;
+        return this.subtract(this.floor());
     }
 
     /**
@@ -487,7 +487,7 @@ public class Vector3d implements Vector3<Vector3d> {
      */
     @Override
     public Vector3d sine() {
-        return new Vector3d(Math.sin(this.x), Math.cos(this.y), Math.sin(this.z));
+        return new Vector3d(Math.sin(this.x), Math.sin(this.y), Math.sin(this.z));
     }
 
     /**

@@ -4,6 +4,9 @@ import org.junit.jupiter.params.provider.Arguments;
 
 import java.util.stream.Stream;
 
+import static com.mrgoddavid.utils.Constants.SQRT_2;
+import static com.mrgoddavid.utils.Constants.SQRT_3;
+
 /**
  * This is the root class of all test suites of this library.
  *
@@ -91,6 +94,166 @@ public class TestSuites {
                 Arguments.of(new Vector3d(7.2, -1.8, 5.4), new Vector3d(7.2, -1.8, 5.4), 0.0),
                 Arguments.of(new Vector3d(3.5, -2.5, 1.0), new Vector3d(-0.5, 1.5, -2.0), Math.sqrt(41.0)),
                 Arguments.of(new Vector3d(-4.2, 8.1, -6.3), new Vector3d(1.8, 0.1, -0.3), Math.sqrt(136.0))
+        );
+    }
+
+    static Stream<Arguments> vector3dLengthProvider() {
+        return Stream.of(
+                Arguments.of(new Vector3d(3.0, 4.0, 0.0), 5.0),
+                Arguments.of(new Vector3d(1.0, 2.0, 2.0), 3.0),
+                Arguments.of(new Vector3d(-6.0, 8.0, 0.0), 10.0),
+                Arguments.of(new Vector3d(0.0, 0.0, 0.0), 0.0),
+                Arguments.of(new Vector3d(2.0, 3.0, 6.0), 7.0)
+        );
+    }
+
+    static Stream<Arguments> vector3dScaleProvider() {
+        return Stream.of(
+                Arguments.of(new Vector3d(1.0, 2.0, 3.0), 2.0, new Vector3d(2.0, 4.0, 6.0)),
+                Arguments.of(new Vector3d(-4.0, 5.0, -6.0), -0.5, new Vector3d(2.0, -2.5, 3.0)),
+                Arguments.of(new Vector3d(2.5, -1.5, 4.0), 3.0, new Vector3d(7.5, -4.5, 12.0)),
+                Arguments.of(new Vector3d(8.0, 1.0, -2.0), 0.0, new Vector3d(0.0, 0.0, 0.0)),
+                Arguments.of(new Vector3d(-3.2, 6.4, 1.6), 0.5, new Vector3d(-1.6, 3.2, 0.8))
+        );
+    }
+
+    static Stream<Arguments> vector3dNormalizeProvider() {
+        return Stream.of(
+                Arguments.of(new Vector3d(3.0, 4.0, 0.0), new Vector3d(0.6, 0.8, 0.0)),
+                Arguments.of(new Vector3d(1.0, 2.0, 2.0), new Vector3d(1.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0)),
+                Arguments.of(new Vector3d(-6.0, 8.0, 0.0), new Vector3d(-0.6, 0.8, 0.0)),
+                Arguments.of(new Vector3d(0.0, 5.0, 0.0), new Vector3d(0.0, 1.0, 0.0)),
+                Arguments.of(new Vector3d(0.0, 0.0, -2.0), new Vector3d(0.0, 0.0, -1.0))
+        );
+    }
+
+    static Stream<Arguments> vector3dAbsoluteProvider() {
+        return Stream.of(
+                Arguments.of(new Vector3d(-1.5, 2.0, -3.4), new Vector3d(1.5, 2.0, 3.4)),
+                Arguments.of(new Vector3d(0.0, -5.2, 4.8), new Vector3d(0.0, 5.2, 4.8)),
+                Arguments.of(new Vector3d(-7.0, -8.0, -9.0), new Vector3d(7.0, 8.0, 9.0)),
+                Arguments.of(new Vector3d(3.1, 4.2, 5.3), new Vector3d(3.1, 4.2, 5.3)),
+                Arguments.of(new Vector3d(-0.1, 0.2, -0.3), new Vector3d(0.1, 0.2, 0.3))
+        );
+    }
+
+    static Stream<Arguments> vector3dPowerProvider() {
+        return Stream.of(
+                Arguments.of(new Vector3d(2.0, 3.0, 4.0), 2.0, new Vector3d(4.0, 9.0, 16.0)),
+                Arguments.of(new Vector3d(9.0, 16.0, 25.0), 0.5, new Vector3d(3.0, 4.0, 5.0)),
+                Arguments.of(new Vector3d(5.0, 4.0, 2.1), 1.0, new Vector3d(5.0, 4.0, 2.1)),
+                Arguments.of(new Vector3d(4.0, 8.0, 27.0), 2.5, new Vector3d(32.0, 128 * SQRT_2, 2187 * SQRT_3)),
+                Arguments.of(new Vector3d(1000.0, 100.0, 10.0), 0.0, new Vector3d(1.0, 1.0, 1.0))
+        );
+    }
+
+    static Stream<Arguments> HadamardVector3dPowerProvider() {
+        return Stream.of(
+                Arguments.of(new Vector3d(2.0, 3.0, 4.0), new Vector3d(3.0, 2.0, 0.5), new Vector3d(8.0, 9.0, 2.0)),
+                Arguments.of(new Vector3d(9.0, 16.0, 25.0), new Vector3d(0.5, 0.5, 0.5), new Vector3d(3.0, 4.0, 5.0)),
+                Arguments.of(new Vector3d(5.0, 2.0, 10.0), new Vector3d(1.0, 3.0, 2.0), new Vector3d(5.0, 8.0, 100.0)),
+                Arguments.of(new Vector3d(4.0, 8.0, 27.0), new Vector3d(2.0, 1.0, 1.0 / 3.0), new Vector3d(16.0, 8.0, 3.0)),
+                Arguments.of(new Vector3d(1.0, 7.0, 9.0), new Vector3d(5.0, 0.0, 2.0), new Vector3d(1.0, 1.0, 81.0))
+        );
+    }
+
+    static Stream<Arguments> vector3dSignProvider() {
+        return Stream.of(
+                Arguments.of(new Vector3d(-2.5, 0.0, 3.6), new Vector3d(-1.0, 0.0, 1.0)),
+                Arguments.of(new Vector3d(5.0, -7.0, 0.0), new Vector3d(1.0, -1.0, 0.0)),
+                Arguments.of(new Vector3d(0.1, -0.2, 0.3), new Vector3d(1.0, -1.0, 1.0)),
+                Arguments.of(new Vector3d(0.0, 0.0, 0.0), new Vector3d(0.0, 0.0, 0.0)),
+                Arguments.of(new Vector3d(-8.0, 4.0, -6.0), new Vector3d(-1.0, 1.0, -1.0))
+        );
+    }
+
+    static Stream<Arguments> vector3dMinimumProvider() {
+        return Stream.of(
+                Arguments.of(new Vector3d(2.0, 8.0, -1.0), new Vector3d(-1.0, 0.0, 1.0), new Vector3d(-1.0, 0.0, -1.0)),
+                Arguments.of(new Vector3d(5.5, 3.3, 9.1), new Vector3d(-2.0, -2.0, -2.0), new Vector3d(-2.0, -2.0, -2.0)),
+                Arguments.of(new Vector3d(-4.0, -7.0, -2.0), new Vector3d(), new Vector3d(-4.0, -7.0, -2.0)),
+                Arguments.of(new Vector3d(0.0, 1.0, -5.0), new Vector3d(2.0, -10.3, -5.9), new Vector3d(0.0, -10.3, -5.9)),
+                Arguments.of(new Vector3d(6.0, 6.0, 6.0), new Vector3d(5.0, 7.0, -1.0), new Vector3d(5.0, 6.0, -1.0))
+        );
+    }
+
+    static Stream<Arguments> vector3dMaximumProvider() {
+        return Stream.of(
+                Arguments.of(new Vector3d(2.0, 8.0, -1.0), new Vector3d(), new Vector3d(2.0, 8.0, 0.0)),
+                Arguments.of(new Vector3d(5.5, 3.3, 9.1), new Vector3d(5.4, 3.4, 9.0), new Vector3d(5.5, 3.4, 9.1)),
+                Arguments.of(new Vector3d(-4.0, -7.0, -2.0), new Vector3d(), new Vector3d()),
+                Arguments.of(new Vector3d(0.0, 1.0, -5.0), new Vector3d(-10.0, 0.5, -4.3), new Vector3d(0.0, 1.0, -4.3)),
+                Arguments.of(new Vector3d(6.0, 6.0, 6.0), new Vector3d(), new Vector3d(6.0, 6.0, 6.0))
+        );
+    }
+
+    static Stream<Arguments> vector3dFloorProvider() {
+        return Stream.of(
+                Arguments.of(new Vector3d(2.9, -3.1, 4.0), new Vector3d(2.0, -4.0, 4.0)),
+                Arguments.of(new Vector3d(-1.2, 5.8, 0.5), new Vector3d(-2.0, 5.0, 0.0)),
+                Arguments.of(new Vector3d(7.0, 8.9, -6.4), new Vector3d(7.0, 8.0, -7.0)),
+                Arguments.of(new Vector3d(-0.1, -0.9, 2.3), new Vector3d(-1.0, -1.0, 2.0)),
+                Arguments.of(new Vector3d(9.99, 4.01, -8.99), new Vector3d(9.0, 4.0, -9.0))
+        );
+    }
+
+    static Stream<Arguments> vector3dCeilProvider() {
+        return Stream.of(
+                Arguments.of(new Vector3d(2.1, -3.1, 4.0), new Vector3d(3.0, -3.0, 4.0)),
+                Arguments.of(new Vector3d(-1.2, 5.8, 0.5), new Vector3d(-1.0, 6.0, 1.0)),
+                Arguments.of(new Vector3d(7.0, 8.1, -6.4), new Vector3d(7.0, 9.0, -6.0)),
+                Arguments.of(new Vector3d(-0.1, -0.9, 2.3), new Vector3d(0.0, 0.0, 3.0)),
+                Arguments.of(new Vector3d(9.01, 4.99, -8.01), new Vector3d(10.0, 5.0, -8.0))
+        );
+    }
+
+    static Stream<Arguments> vector3dFractionProvider() {
+        return Stream.of(
+                Arguments.of(new Vector3d(2.75, -3.25, 4.5), new Vector3d(0.75, 0.75, 0.5)),
+                Arguments.of(new Vector3d(-1.1, 5.9, 0.125), new Vector3d(0.9, 0.9, 0.125)),
+                Arguments.of(new Vector3d(7.0, 8.25, -6.75), new Vector3d(0.0, 0.25, 0.25)),
+                Arguments.of(new Vector3d(-0.5, -0.01, 2.99), new Vector3d(0.5, 0.99, 0.99)),
+                Arguments.of(new Vector3d(9.99, 4.01, -8.5), new Vector3d(0.99, 0.01, 0.5))
+        );
+    }
+
+    static Stream<Arguments> vector3dModuloProvider() {
+        return Stream.of(
+                Arguments.of(new Vector3d(5.5, 8.2, 10.7), new Vector3d(2.0, 3.0, 4.0), new Vector3d(1.5, 2.2, 2.7)),
+                Arguments.of(new Vector3d(9.0, 14.5, 20.0), new Vector3d(4.0, 5.0, 6.0), new Vector3d(1.0, 4.5, 2.0)),
+                Arguments.of(new Vector3d(12.75, 6.25, 3.5), new Vector3d(5.0, 2.0, 1.5), new Vector3d(2.75, 0.25, 0.5)),
+                Arguments.of(new Vector3d(7.2, 9.8, 11.4), new Vector3d(2.5, 4.0, 5.0), new Vector3d(2.2, 1.8, 1.4)),
+                Arguments.of(new Vector3d(15.0, 16.0, 17.0), new Vector3d(4.0, 7.0, 5.0), new Vector3d(3.0, 2.0, 2.0))
+        );
+    }
+
+    static Stream<Arguments> vector3dSineProvider() {
+        return Stream.of(
+                Arguments.of(new Vector3d(0.0, Math.PI / 2.0, Math.PI), new Vector3d(0.0, 1.0, 0.0)),
+                Arguments.of(new Vector3d(Math.PI / 6.0, Math.PI / 4.0, Math.PI / 3.0), new Vector3d(0.5, Math.sqrt(2.0) / 2.0, Math.sqrt(3.0) / 2.0)),
+                Arguments.of(new Vector3d(-Math.PI / 2.0, 0.0, Math.PI / 2.0), new Vector3d(-1.0, 0.0, 1.0)),
+                Arguments.of(new Vector3d(Math.PI, 2.0 * Math.PI, 3.0 * Math.PI / 2.0), new Vector3d(0.0, 0.0, -1.0)),
+                Arguments.of(new Vector3d(Math.PI / 4.0, -Math.PI / 4.0, 0.0), new Vector3d(Math.sqrt(2.0) / 2.0, -Math.sqrt(2.0) / 2.0, 0.0))
+        );
+    }
+
+    static Stream<Arguments> vector3dCosineProvider() {
+        return Stream.of(
+                Arguments.of(new Vector3d(0.0, Math.PI / 2.0, Math.PI), new Vector3d(1.0, 0.0, -1.0)),
+                Arguments.of(new Vector3d(Math.PI / 3.0, Math.PI / 4.0, Math.PI / 6.0), new Vector3d(0.5, Math.sqrt(2.0) / 2.0, Math.sqrt(3.0) / 2.0)),
+                Arguments.of(new Vector3d(-Math.PI / 2.0, 0.0, Math.PI / 2.0), new Vector3d(0.0, 1.0, 0.0)),
+                Arguments.of(new Vector3d(Math.PI, 2.0 * Math.PI, 3.0 * Math.PI / 2.0), new Vector3d(-1.0, 1.0, 0.0)),
+                Arguments.of(new Vector3d(Math.PI / 4.0, -Math.PI / 4.0, 0.0), new Vector3d(Math.sqrt(2.0) / 2.0, Math.sqrt(2.0) / 2.0, 1.0))
+        );
+    }
+
+    static Stream<Arguments> vector3dTangentProvider() {
+        return Stream.of(
+                Arguments.of(new Vector3d(0.0, Math.PI / 4.0, -Math.PI / 4.0), new Vector3d(0.0, 1.0, -1.0)),
+                Arguments.of(new Vector3d(Math.PI / 6.0, Math.PI / 3.0, 0.0), new Vector3d(Math.sqrt(3.0) / 3.0, Math.sqrt(3.0), 0.0)),
+                Arguments.of(new Vector3d(-Math.PI / 4.0, Math.PI, 2.0 * Math.PI), new Vector3d(-1.0, 0.0, 0.0)),
+                Arguments.of(new Vector3d(Math.PI / 8.0, -Math.PI / 8.0, Math.PI / 4.0), new Vector3d(Math.tan(Math.PI / 8.0), Math.tan(-Math.PI / 8.0), 1.0)),
+                Arguments.of(new Vector3d(0.1, -0.2, 0.3), new Vector3d(Math.tan(0.1), Math.tan(-0.2), Math.tan(0.3)))
         );
     }
 }

@@ -288,8 +288,8 @@ public class Vector2l implements Vector2<Vector2l>, Comparable<Vector2l>, Compar
      */
     @Override
     public Vector2l sign() {
-        long signX = this.x < 0 ? -1 : 1;
-        long signY = this.y < 0 ? -1 : 1;
+        long signX = this.x < 0 ? -1 : x == 0 ? 0 : 1;
+        long signY = this.y < 0 ? -1 : y == 0 ? 0 : 1;
         return new Vector2l(signX, signY);
     }
 

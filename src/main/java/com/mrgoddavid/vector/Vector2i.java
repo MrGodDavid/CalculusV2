@@ -286,8 +286,8 @@ public class Vector2i implements Vector2<Vector2i>, Comparable<Vector2i>, Compar
      */
     @Override
     public Vector2i sign() {
-        int signX = x > 0 ? 1 : -1;
-        int signY = y > 0 ? 1 : -1;
+        int signX = x > 0 ? 1 : x == 0 ? 0 : -1;
+        int signY = y > 0 ? 1 : y == 0 ? 0 : -1;
         return new Vector2i(signX, signY);
     }
 

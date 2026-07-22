@@ -229,7 +229,7 @@ public class Matrix3d implements Matrix.SquareMatrix<Matrix3d> {
      * @return the determinant of submatrix.
      */
     public double firstDeterminant() {
-        return (int) new Matrix2d(a22, a23, a32, a33).determinant();
+        return new Matrix2d(a22, a23, a32, a33).determinant();
     }
 
     /**
@@ -239,7 +239,7 @@ public class Matrix3d implements Matrix.SquareMatrix<Matrix3d> {
      * @return the determinant of submatrix.
      */
     public double secondDeterminant() {
-        return (int) new Matrix2d(a21, a23, a31, a33).determinant();
+        return new Matrix2d(a21, a23, a31, a33).determinant();
     }
 
     /**
@@ -249,7 +249,7 @@ public class Matrix3d implements Matrix.SquareMatrix<Matrix3d> {
      * @return the determinant of submatrix.
      */
     public double thirdDeterminant() {
-        return (int) new Matrix2d(a21, a22, a31, a32).determinant();
+        return new Matrix2d(a21, a22, a31, a32).determinant();
     }
 
 
