@@ -70,6 +70,7 @@ public final class Line3d implements Line.Line3 {
      * @return true if two three-dimensional intersect each other and false otherwise.
      * @since 7/19/2026 added this method.
      */
+    @Override
     public boolean intersect(Line3d other) {
         if (isParallel(other)) {
             return false;
@@ -204,7 +205,8 @@ public final class Line3d implements Line.Line3 {
      * @return true if the point is on the line and false otherwise.
      * @since 7/17/2026
      */
-    private boolean isPointOnLine(Point3d point) {
+    @Override
+    public boolean contains(Point3d point) {
         double t_x = (startingPoint.getX() - point.getX()) / (double) direction.getX();
         double t_y = (startingPoint.getY() - point.getY()) / (double) direction.getY();
         double t_z = (startingPoint.getZ() - point.getZ()) / (double) direction.getZ();
@@ -218,7 +220,8 @@ public final class Line3d implements Line.Line3 {
      * @return true if this line is parallel to {@code other} line.
      * @since 7/17/2026
      */
-    private boolean isParallel(Line3d other) {
+    @Override
+    public boolean isParallel(Line3d other) {
         return this.direction.crossProduct(other.getDirection()).compareWith(Vector3d.ZERO_VECTOR3D, Vector.ComparisonCommand.EQUALS);
     }
 }

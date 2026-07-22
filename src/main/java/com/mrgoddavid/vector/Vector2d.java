@@ -7,17 +7,17 @@ import java.util.Objects;
 /**
  * Custom 2d vector class. Parameters are double variable.
  *
- * @author Mr. GodDavid.
+ * @author Mr. GodDavid
  * @since 3/16/2026
  */
 public class Vector2d implements Vector<Vector2d>, Comparable<Vector2d>, Comparator<Vector2d>, Serializable {
 
     /**
-     * X coordinate of this vector.
+     * X component of this vector.
      */
     private double x;
     /**
-     * Y coordinate of this vector.
+     * Y component of this vector.
      */
     private double y;
 
@@ -30,10 +30,10 @@ public class Vector2d implements Vector<Vector2d>, Comparable<Vector2d>, Compara
     }
 
     /**
-     * Constructs a two-dimensional vector with give x and y coordinates.
+     * Constructs a two-dimensional vector with given x and y components.
      *
-     * @param x coordinate of this vector.
-     * @param y coordinate of this vector.
+     * @param x component of this vector.
+     * @param y component of this vector.
      */
     public Vector2d(double x, double y) {
         this.x = x;
@@ -99,7 +99,7 @@ public class Vector2d implements Vector<Vector2d>, Comparable<Vector2d>, Compara
      */
     @Override
     public Vector2d divide(Vector2d second) {
-        if (isVectorComponentZero(second.getX(), second.getY())) {
+        if (!compContainsZero(second.getX(), second.getY())) {
             return new Vector2d(x / second.x, y / second.y);
         }
         return new Vector2d(second);
@@ -149,8 +149,8 @@ public class Vector2d implements Vector<Vector2d>, Comparable<Vector2d>, Compara
             return new Vector2d();
         }
         double dotProduct = dot_product(second);
-        double scaleVector = dotProduct / (length * length);
-        return second.scale(scaleVector);
+        double scaleFactor = dotProduct / (length * length);
+        return second.scale(scaleFactor);
     }
 
     /**
@@ -452,22 +452,22 @@ public class Vector2d implements Vector<Vector2d>, Comparable<Vector2d>, Compara
 
     @Override
     public String toString() {
-        return "[" + x + ", " + y + "]";
+        return "<" + x + ", " + y + ">";
     }
 
     /**
-     * Accessor of the x coordinate.
+     * Accessor of the x component.
      *
-     * @return the value of x coordinate.
+     * @return the value of x component.
      */
     public double getX() {
         return x;
     }
 
     /**
-     * Accessor of the y coordinate.
+     * Accessor of the y component.
      *
-     * @return the value of y coordinate.
+     * @return the value of y component.
      */
     public double getY() {
         return y;

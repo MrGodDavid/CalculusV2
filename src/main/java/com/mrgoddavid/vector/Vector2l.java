@@ -2,50 +2,51 @@ package com.mrgoddavid.vector;
 
 import java.io.Serializable;
 import java.util.Comparator;
-import java.util.Objects;
 
 /**
- * Custom 2i vector class. Parameters are integer variable.
+ * This class defines a two-dimensional vector that each coordinate is a long number.
  *
- * @author Mr. GodDavid.
- * @since 3/30/2026
+ * @author Mr. GodDavid
+ * @since 7/21/2026 added this class.
  */
-public class Vector2i implements Vector<Vector2i>, Comparable<Vector2i>, Comparator<Vector2i>, Serializable {
+public class Vector2l implements Vector<Vector2l>, Comparable<Vector2l>, Comparator<Vector2l>, Serializable {
 
     /**
-     * X coordinate of this vector.
+     * x component of this vector.
      */
-    private final int x;
-    /**
-     * Y coordinate of this vector.
-     */
-    private final int y;
+    private final long x;
 
     /**
-     * Default constructor.
+     * y component of this vector.
      */
-    public Vector2i() {
-        this(0, 0);
+    private final long y;
+
+    /**
+     * Default constructor of this vector. Constructs a (0L, 0L).
+     */
+    public Vector2l() {
+        this(0L, 0L);
     }
 
     /**
-     * Constructs a 2d vector by the given parameters.
+     * Constructs a two-dimensional vector with given x and y components.
      *
-     * @param x coordinate of this vector.
-     * @param y coordinate of this vector.
+     * @param x x component of this vector.
+     * @param y y component of this vector.
      */
-    public Vector2i(int x, int y) {
+    public Vector2l(long x, long y) {
         this.x = x;
         this.y = y;
     }
 
     /**
-     * Constructs a 2d vector from the given in parameter.
+     * Constructs a new two-dimensional vector from the given two-dimensional vector.
      *
-     * @param vector that is not null.
+     * @param v that is not null.
      */
-    public Vector2i(Vector2i vector) {
-        this(vector.x, vector.y);
+    public Vector2l(Vector2l v) {
+        this.x = v.x;
+        this.y = v.y;
     }
 
     /**
@@ -57,8 +58,8 @@ public class Vector2i implements Vector<Vector2i>, Comparable<Vector2i>, Compara
      * @return the sum of two vectors.
      */
     @Override
-    public Vector2i add(Vector2i second) {
-        return new Vector2i(x + second.x, y + second.y);
+    public Vector2l add(Vector2l second) {
+        return new Vector2l(this.x + second.x, this.y + second.y);
     }
 
     /**
@@ -70,8 +71,8 @@ public class Vector2i implements Vector<Vector2i>, Comparable<Vector2i>, Compara
      * @return the difference between two vectors.
      */
     @Override
-    public Vector2i subtract(Vector2i second) {
-        return new Vector2i(x - second.x, y - second.y);
+    public Vector2l subtract(Vector2l second) {
+        return new Vector2l(this.x - second.x, this.y - second.y);
     }
 
     /**
@@ -83,8 +84,8 @@ public class Vector2i implements Vector<Vector2i>, Comparable<Vector2i>, Compara
      * @return the product of two vectors.
      */
     @Override
-    public Vector2i multiply(Vector2i second) {
-        return new Vector2i(x * second.x, y * second.y);
+    public Vector2l multiply(Vector2l second) {
+        return new Vector2l(this.x * second.x, this.y * second.y);
     }
 
     /**
@@ -96,11 +97,11 @@ public class Vector2i implements Vector<Vector2i>, Comparable<Vector2i>, Compara
      * @return the quotient of two vectors.
      */
     @Override
-    public Vector2i divide(Vector2i second) {
-        if (compContainsZero(second.x, second.y)) {
-            return new Vector2i(x / second.x, y / second.y);
+    public Vector2l divide(Vector2l second) {
+        if (!compContainsZero(second.getX(), second.getY())) {
+            return new Vector2l(this.x / second.getX(), this.y / second.getY());
         }
-        return second;
+        return new Vector2l(second);
     }
 
     /**
@@ -113,10 +114,11 @@ public class Vector2i implements Vector<Vector2i>, Comparable<Vector2i>, Compara
      * @return the vector that is  multiplied multiplier vector and by  of two vectors.
      */
     @Override
-    public Vector2i multiply_add(Vector2i multiplier, Vector2i adder) {
-        int newX = x * multiplier.x + adder.x;
-        int newY = y * multiplier.y + adder.y;
-        return new Vector2i(newX, newY);
+    public Vector2l multiply_add(Vector2l multiplier, Vector2l adder) {
+        return new Vector2l(
+                this.x * multiplier.getX() + adder.getX(),
+                this.y * multiplier.getY() + adder.getY()
+        );
     }
 
     /**
@@ -128,7 +130,7 @@ public class Vector2i implements Vector<Vector2i>, Comparable<Vector2i>, Compara
      * @return the cross product of itself to the second input vector.
      */
     @Override
-    public double cross_product(Vector2i second) {
+    public double cross_product(Vector2l second) {
         return x * second.y - y * second.x;
     }
 
@@ -141,14 +143,14 @@ public class Vector2i implements Vector<Vector2i>, Comparable<Vector2i>, Compara
      * @return the projection vector of the second vector.
      */
     @Override
-    public Vector2i project(Vector2i second) {
+    public Vector2l project(Vector2l second) {
         double length = second.length();
         if (length == 0) {
-            return new Vector2i();
+            return new Vector2l();
         }
         double dotProduct = dot_product(second);
-        double scaleVector = dotProduct / (length * length);
-        return second.scale(scaleVector);
+        double scaleFactor = dotProduct / (length * length);
+        return second.scale(scaleFactor);
     }
 
     /**
@@ -160,11 +162,11 @@ public class Vector2i implements Vector<Vector2i>, Comparable<Vector2i>, Compara
      * @return the reflected vector around the normal of the second vector.
      */
     @Override
-    public Vector2i reflect(Vector2i second) {
-        if (second.length() == 0) return new Vector2i();
-        Vector2i n = second.normalize();
+    public Vector2l reflect(Vector2l second) {
+        if (second.length() == 0) return new Vector2l();
+        Vector2l n = second.normalize();
         double dotProduct = dot_product(n);
-        Vector2i a = second.scale(dotProduct * 2);
+        Vector2l a = second.scale(dotProduct * 2);
         return this.subtract(a);
     }
 
@@ -178,8 +180,8 @@ public class Vector2i implements Vector<Vector2i>, Comparable<Vector2i>, Compara
      * @return the calculated vector that is either flipped or not.
      */
     @Override
-    public Vector2i faceForward(Vector2i incident, Vector2i reference) {
-        return (incident.dot_product(reference) < 0) ? new Vector2i(this) : new Vector2i(this.scale(-1d));
+    public Vector2l faceForward(Vector2l incident, Vector2l reference) {
+        return (incident.dot_product(reference) < 0) ? new Vector2l(this) : new Vector2l(this.scale(-1d));
     }
 
     /**
@@ -191,8 +193,8 @@ public class Vector2i implements Vector<Vector2i>, Comparable<Vector2i>, Compara
      * @return the dot product of itself and the second vector.
      */
     @Override
-    public double dot_product(Vector2i second) {
-        return x * second.x + y * second.y;
+    public double dot_product(Vector2l second) {
+        return this.x * second.x + this.y * second.y;
     }
 
     /**
@@ -204,9 +206,9 @@ public class Vector2i implements Vector<Vector2i>, Comparable<Vector2i>, Compara
      * @return the distance between itself and the second vector.
      */
     @Override
-    public double distance(Vector2i second) {
-        int dx = x - second.x;
-        int dy = y - second.y;
+    public double distance(Vector2l second) {
+        long dx = this.x - second.x;
+        long dy = this.y - second.y;
         return Math.sqrt(dx * dx + dy * dy);
     }
 
@@ -219,7 +221,7 @@ public class Vector2i implements Vector<Vector2i>, Comparable<Vector2i>, Compara
      */
     @Override
     public double length() {
-        return Math.sqrt(x * x + y * y);
+        return Math.sqrt(this.x * this.x + this.y * this.y);
     }
 
     /**
@@ -231,8 +233,8 @@ public class Vector2i implements Vector<Vector2i>, Comparable<Vector2i>, Compara
      * @return the result of multiplying itself by the scalar input <code>scale</code>.
      */
     @Override
-    public Vector2i scale(double scale) {
-        return new Vector2i(x * (int) scale, y * (int) scale);
+    public Vector2l scale(double scale) {
+        return new Vector2l((long) (x * scale), (long) (y * scale));
     }
 
     /**
@@ -243,11 +245,11 @@ public class Vector2i implements Vector<Vector2i>, Comparable<Vector2i>, Compara
      * @return the normalized vector.
      */
     @Override
-    public Vector2i normalize() {
-        if (length() == 0) {
-            return new Vector2i();
+    public Vector2l normalize() {
+        if (this.length() == 0) {
+            return new Vector2l();
         }
-        return new Vector2i((int) (x / length()), (int) (y / length()));
+        return new Vector2l((long) (x / length()), (long) (y / length()));
     }
 
     /**
@@ -258,8 +260,8 @@ public class Vector2i implements Vector<Vector2i>, Comparable<Vector2i>, Compara
      * @return a new vector2 that contains the entrywise absolute value of itself.
      */
     @Override
-    public Vector2i absolute() {
-        return new Vector2i(Math.abs(x), Math.abs(y));
+    public Vector2l absolute() {
+        return new Vector2l(Math.abs(this.x), Math.abs(this.y));
     }
 
     /**
@@ -271,8 +273,8 @@ public class Vector2i implements Vector<Vector2i>, Comparable<Vector2i>, Compara
      * @return a new vector2 that contains the entrywise power operator where the Base raised to the power of Exponent.
      */
     @Override
-    public Vector2i power(double exp) {
-        return new Vector2i((int) Math.pow(x, exp), (int) Math.pow(x, exp));
+    public Vector2l power(double exp) {
+        return new Vector2l((long) Math.pow(x, exp), (long) Math.pow(y, exp));
     }
 
     /**
@@ -285,10 +287,10 @@ public class Vector2i implements Vector<Vector2i>, Comparable<Vector2i>, Compara
      * @return a new vector that represents the sign of each component value.
      */
     @Override
-    public Vector2i sign() {
-        int signX = x > 0 ? 1 : -1;
-        int signY = y > 0 ? 1 : -1;
-        return new Vector2i(signX, signY);
+    public Vector2l sign() {
+        long signX = this.x < 0 ? -1 : 1;
+        long signY = this.y < 0 ? -1 : 1;
+        return new Vector2l(signX, signY);
     }
 
     /**
@@ -300,8 +302,8 @@ public class Vector2i implements Vector<Vector2i>, Comparable<Vector2i>, Compara
      * @return a new vector that contains entrywise minimum of itself and the second vector
      */
     @Override
-    public Vector2i minimum(Vector2i second) {
-        return new Vector2i(Math.min(x, second.x), Math.min(y, second.y));
+    public Vector2l minimum(Vector2l second) {
+        return new Vector2l(Math.min(this.x, second.x), Math.min(this.y, second.y));
     }
 
     /**
@@ -313,8 +315,8 @@ public class Vector2i implements Vector<Vector2i>, Comparable<Vector2i>, Compara
      * @return a new vector that contains entrywise maximum of itself and the second vector
      */
     @Override
-    public Vector2i maximum(Vector2i second) {
-        return new Vector2i(Math.max(x, second.x), Math.max(y, second.y));
+    public Vector2l maximum(Vector2l second) {
+        return new Vector2l(Math.max(this.x, second.x), Math.max(this.y, second.y));
     }
 
     /**
@@ -325,8 +327,8 @@ public class Vector2i implements Vector<Vector2i>, Comparable<Vector2i>, Compara
      * @return a new vector with its each component entrywise down to the nearest integer.
      */
     @Override
-    public Vector2i floor() {
-        return new Vector2i((int) Math.floor(x), (int) Math.floor(y));
+    public Vector2l floor() {
+        return new Vector2l((long) Math.floor(x), (long) Math.floor(y));
     }
 
     /**
@@ -337,8 +339,8 @@ public class Vector2i implements Vector<Vector2i>, Comparable<Vector2i>, Compara
      * @return a new vector with its each component entrywise up to the nearest integer.
      */
     @Override
-    public Vector2i ceil() {
-        return new Vector2i((int) Math.ceil(x), (int) Math.ceil(y));
+    public Vector2l ceil() {
+        return new Vector2l((long) Math.ceil(x), (long) Math.ceil(y));
     }
 
     /**
@@ -349,7 +351,7 @@ public class Vector2i implements Vector<Vector2i>, Comparable<Vector2i>, Compara
      * @return the fractional part of the value entrywise.
      */
     @Override
-    public Vector2i fraction() {
+    public Vector2l fraction() {
         return this.subtract(this.floor());
     }
 
@@ -362,8 +364,8 @@ public class Vector2i implements Vector<Vector2i>, Comparable<Vector2i>, Compara
      * @return the entrywise modulo of itself by the second vector.
      */
     @Override
-    public Vector2i modulo(Vector2i second) {
-        return new Vector2i(x % second.x, y % second.y);
+    public Vector2l modulo(Vector2l second) {
+        return new Vector2l(x % second.x, y % second.y);
     }
 
     /**
@@ -377,9 +379,9 @@ public class Vector2i implements Vector<Vector2i>, Comparable<Vector2i>, Compara
      * @return a new vector that is entrywise wrapped for each its component.
      */
     @Override
-    public Vector2i wrap(Vector2i minimum, Vector2i maximum) {
-        Vector2i v1 = this.subtract(minimum);
-        Vector2i range = maximum.subtract(minimum);
+    public Vector2l wrap(Vector2l minimum, Vector2l maximum) {
+        Vector2l v1 = this.subtract(minimum);
+        Vector2l range = maximum.subtract(minimum);
         return this.subtract(range.multiply(v1.divide(range)).floor());
     }
 
@@ -392,7 +394,7 @@ public class Vector2i implements Vector<Vector2i>, Comparable<Vector2i>, Compara
      * @return a new vector that is entrywise snapped for each its component.
      */
     @Override
-    public Vector2i snap(Vector2i second) {
+    public Vector2l snap(Vector2l second) {
         return this.divide(second).floor().multiply(second);
     }
 
@@ -404,8 +406,8 @@ public class Vector2i implements Vector<Vector2i>, Comparable<Vector2i>, Compara
      * @return the entrywise of sine of itself.
      */
     @Override
-    public Vector2i sine() {
-        return new Vector2i((int) Math.sin(x), (int) Math.sin(y));
+    public Vector2l sine() {
+        return new Vector2l((long) Math.sin(x), (long) Math.cos(y));
     }
 
     /**
@@ -416,8 +418,8 @@ public class Vector2i implements Vector<Vector2i>, Comparable<Vector2i>, Compara
      * @return the entrywise of cosine of itself.
      */
     @Override
-    public Vector2i cosine() {
-        return new Vector2i((int) Math.cos(x), (int) Math.cos(y));
+    public Vector2l cosine() {
+        return new Vector2l((long) Math.cos(x), (long) Math.sin(y));
     }
 
     /**
@@ -428,8 +430,8 @@ public class Vector2i implements Vector<Vector2i>, Comparable<Vector2i>, Compara
      * @return the entrywise of tangent of itself.
      */
     @Override
-    public Vector2i tangent() {
-        return new Vector2i((int) Math.tan(x), (int) Math.tan(y));
+    public Vector2l tangent() {
+        return new Vector2l((long) Math.tan(x), (long) Math.tan(y));
     }
 
     /**
@@ -438,10 +440,12 @@ public class Vector2i implements Vector<Vector2i>, Comparable<Vector2i>, Compara
      * <p>Postcondition: returns a new reference of itself.</p>
      *
      * @return a new reference of itself.
+     * @deprecated since 7/21/2026. The constructor of this class already handled copying reference of the instance.
      */
+    @Deprecated
     @Override
-    public Vector2i copy() {
-        return new Vector2i(this.x, this.y);
+    public Vector2l copy() {
+        return null;
     }
 
     /**
@@ -452,61 +456,48 @@ public class Vector2i implements Vector<Vector2i>, Comparable<Vector2i>, Compara
      * @return Return a reference of itself.
      */
     @Override
-    public Vector2i getSelf() {
-        return this;
+    public Vector2l getSelf() {
+        return new Vector2l(this.x, this.y);
     }
 
     @Override
-    public int compareTo(Vector2i o) {
-        if (this.x != o.getX()) {
-            return Integer.compare(x, o.getX());
+    public int compareTo(Vector2l vector2l) {
+        if (this.x != vector2l.getX()) {
+            return Long.compare(this.x, vector2l.getX());
         }
-        if (this.y != o.getY()) {
-            return Integer.compare(this.y, o.getY());
+        if (this.y != vector2l.getY()) {
+            return Long.compare(this.y, vector2l.getY());
         }
-        return (this.x == o.getX() && this.y == o.getY())
+        return (this.getX() == vector2l.getX())
                 ? 0
-                : Integer.compare((int) this.length(), (int) o.length());
+                : Double.compare(this.length(), vector2l.length());
     }
 
     @Override
-    public int compare(Vector2i o1, Vector2i o2) {
-        return o1.compareTo(o2);
-    }
-
-    @Override
-    public String toString() {
-        return "[" + x + ", " + y + "]";
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        Vector2i vector2i = (Vector2i) o;
-        return x == vector2i.x && y == vector2i.y;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(x, y);
+    public int compare(Vector2l vector2l, Vector2l t1) {
+        return vector2l.compareTo(t1);
     }
 
     /**
-     * Accessor of the x coordinate.
+     * Accessor of the x component.
      *
-     * @return the value of x coordinate.
+     * @return the value of x component.
      */
-    public int getX() {
+    public long getX() {
         return x;
     }
 
     /**
-     * Accessor of the y coordinate.
+     * Accessor of the y component.
      *
-     * @return the value of y coordinate.
+     * @return the value of y component.
      */
-    public int getY() {
+    public long getY() {
         return y;
     }
 
+    @Override
+    public String toString() {
+        return "<" + x + ", " + y + ">";
+    }
 }

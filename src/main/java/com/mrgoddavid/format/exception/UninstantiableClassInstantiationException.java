@@ -10,7 +10,7 @@ package com.mrgoddavid.format.exception;
 public class UninstantiableClassInstantiationException extends IllegalAccessException {
 
     /**
-     * UninstantiableClassInstantiationException constructor. Note that the error message is already provided.
+     * UninstantiableClassInstantiationException's constructor. Note that the error message is already provided.
      */
     public UninstantiableClassInstantiationException() {
         super("You cannot instantiate this class because this class is an utility class!");
