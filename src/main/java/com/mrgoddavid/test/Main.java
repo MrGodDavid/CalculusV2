@@ -56,8 +56,8 @@ class Main {
 //        Vector2i v2 = new Vector2i(3, 8);
 //
 //        System.out.println(v.compareWith(v2, Vector.ComparisonCommand.LESS_THAN));
-        Vector3d a =  new Vector3d(2,4,-1);
-        Vector3d b = new Vector3d(10,25,20);
+        Vector3d a =  new Vector3d(2,-1,-2);
+        Vector3d b = new Vector3d(4,-3,-3);
         System.out.println(a.crossProduct(b, false));
 
 
@@ -72,5 +72,9 @@ class Main {
         // RestrictedPlane3d planeA = new RestrictedPlane3d(4, -2, 7, 4);
         RestrictedPlane3d planeA = new RestrictedPlane3d("4x -2y + 7z = 4");
         System.out.println(planeA.distance(A, true));
+
+        RestrictedPlane3d PA = new RestrictedPlane3d(1,1,1,3);
+        RestrictedPlane3d PB = new RestrictedPlane3d(1,2,3,7);
+        System.out.println(PA.intersect(PB));
     }
 }

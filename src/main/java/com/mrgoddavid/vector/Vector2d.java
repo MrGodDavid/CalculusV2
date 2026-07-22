@@ -10,7 +10,7 @@ import java.util.Objects;
  * @author Mr. GodDavid
  * @since 3/16/2026
  */
-public class Vector2d implements Vector<Vector2d>, Comparable<Vector2d>, Comparator<Vector2d>, Serializable {
+public class Vector2d implements Vector2<Vector2d>, Comparable<Vector2d>, Comparator<Vector2d>, Serializable {
 
     /**
      * X component of this vector.
@@ -99,10 +99,10 @@ public class Vector2d implements Vector<Vector2d>, Comparable<Vector2d>, Compara
      */
     @Override
     public Vector2d divide(Vector2d second) {
-        if (!compContainsZero(second.getX(), second.getY())) {
+        if (compNotContainsZero(second.getX(), second.getY())) {
             return new Vector2d(x / second.x, y / second.y);
         }
-        return new Vector2d(second);
+        return Vector2.NAN_2D;
     }
 
     /**
@@ -365,7 +365,10 @@ public class Vector2d implements Vector<Vector2d>, Comparable<Vector2d>, Compara
      */
     @Override
     public Vector2d modulo(Vector2d second) {
-        return new Vector2d(x % second.x, y % second.y);
+        return new Vector2d(
+                this.x - second.x * Math.floor(this.x / second.x),
+                this.y - second.y * Math.floor(this.y / second.y)
+        );
     }
 
     /**

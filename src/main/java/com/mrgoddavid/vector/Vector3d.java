@@ -440,7 +440,14 @@ public class Vector3d implements Vector3<Vector3d> {
      */
     @Override
     public Vector3d modulo(Vector3d second) {
-        return new Vector3d(this.x % second.x, this.y % second.y, this.z % second.z);
+        if (compNotContainsZero(x, y, z)) {
+            return new Vector3d(
+                    this.x - second.x * Math.floor(this.x / second.x),
+                    this.y - second.y * Math.floor(this.y / second.y),
+                    this.z - second.z * Math.floor(this.z / second.z)
+            );
+        }
+        return Vector3.NAN_3D;
     }
 
     /**

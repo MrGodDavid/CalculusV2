@@ -437,7 +437,7 @@ public interface Vector<T> extends Serializable {
      * @param y y integer component of {@code Vector}.
      * @return true if none of the components of {@code Vector} is zero.
      */
-    default boolean compContainsZero(int x, int y) {
+    default boolean compNotContainsZero(int x, int y) {
         return x != 0 && y != 0;
     }
 
@@ -450,7 +450,7 @@ public interface Vector<T> extends Serializable {
      * @param y y double component of {@code Vector}.
      * @return true if none of the components of {@code Vector} is zero.
      */
-    default boolean compContainsZero(double x, double y) {
+    default boolean compNotContainsZero(double x, double y) {
         return x != 0d && y != 0d;
     }
 
@@ -463,7 +463,7 @@ public interface Vector<T> extends Serializable {
      * @param y y float component of {@code Vector}.
      * @return true if none of the components of {@code Vector} is zero.
      */
-    default boolean compContainsZero(float x, float y) {
+    default boolean compNotContainsZero(float x, float y) {
         return x != 0f && y != 0f;
     }
 
@@ -476,9 +476,39 @@ public interface Vector<T> extends Serializable {
      * @param y y long component of {@code Vector}.
      * @return true if none of the components of {@code Vector} is zero.
      */
-    default boolean compContainsZero(long x, long y) {
+    default boolean compNotContainsZero(long x, long y) {
         return x != 0L && y != 0L;
     }
+}
+
+/**
+ * Interface for operations of two-dimensional vectors. This interface extends {@link Vector}.
+ *
+ * @param <T> type parameter. Class type of implementation of this interface.
+ * @author Mr. GodDavid
+ * @since 7/21/2026
+ */
+interface Vector2<T> extends Vector<T> {
+
+    /**
+     * Not-a-number constants of vector2i. Use this when user accidentally divided some number by zero.
+     */
+    Vector2i NAN_2I = new Vector2i(Integer.MIN_VALUE, Integer.MIN_VALUE);
+
+    /**
+     * Not-a-number constants of vector2d. Use this when user accidentally divided some number by zero.
+     */
+    Vector2d NAN_2D = new Vector2d(Double.NaN, Double.NaN);
+
+    /**
+     * Not-a-number constants of vector2f. Use this when user accidentally divided some number by zero.
+     */
+    Vector2f NAN_2F = new Vector2f(Float.NaN, Float.NaN);
+
+    /**
+     * Not-a-number constants of vector2l. Use this when user accidentally divided some number by zero.
+     */
+    Vector2l NAN_2L = new Vector2l(Long.MIN_VALUE, Long.MIN_VALUE);
 }
 
 /**
@@ -486,7 +516,7 @@ public interface Vector<T> extends Serializable {
  *
  * @param <T> type parameter. Class type of implementation of this interface.
  * @author Mr. GodDavid
- * @since 6/9/2026
+ * @since 7/9/2026
  */
 interface Vector3<T> extends Vector<T> {
 
@@ -499,6 +529,16 @@ interface Vector3<T> extends Vector<T> {
      * Zero three-dimensional vector. Each component of this vector is a double.
      */
     Vector3d ZERO_VECTOR3D = new Vector3d();
+
+    /**
+     * Not-a-number Vector3i constant. This happens when user accidentally divide some number by zero.
+     */
+    Vector3i NAN_3I = new Vector3i(Integer.MIN_VALUE, Integer.MIN_VALUE, Integer.MIN_VALUE);
+
+    /**
+     * Not-a-number Vector3d constant. This happens when user accidentally divide some number by zero.
+     */
+    Vector3d NAN_3D = new Vector3d(Double.NaN, Double.NaN, Double.NaN);
 
     /**
      * Calculate the cross product of two three-dimensional vectors.
@@ -516,5 +556,61 @@ interface Vector3<T> extends Vector<T> {
      * @since 7/10/2026 added this method.
      */
     double scalar_projection(T second);
+
+    /**
+     * Checks if any of the component of three-dimensional vector is zero. This method returns true if NONE of the
+     * components is zero.
+     *
+     * @param x component of this vector.
+     * @param y component of this vector.
+     * @param z component of this vector.
+     * @return true if NONE of the components is zero and false if any of them is zero.
+     * @since 7/21/2026 added this method.
+     */
+    default boolean compNotContainsZero(int x, int y, int z) {
+        return x != 0 && y != 0 && z != 0;
+    }
+
+    /**
+     * Checks if any of the component of three-dimensional vector is zero. This method returns true if NONE of the
+     * components is zero.
+     *
+     * @param x component of this vector.
+     * @param y component of this vector.
+     * @param z component of this vector.
+     * @return true if NONE of the components is zero and false if any of them is zero.
+     * @since 7/21/2026 added this method.
+     */
+    default boolean compNotContainsZero(double x, double y, double z) {
+        return x != 0d && y != 0d && z != 0d;
+    }
+
+    /**
+     * Checks if any of the component of three-dimensional vector is zero. This method returns true if NONE of the
+     * components is zero.
+     *
+     * @param x component of this vector.
+     * @param y component of this vector.
+     * @param z component of this vector.
+     * @return true if NONE of the components is zero and false if any of them is zero.
+     * @since 7/21/2026 added this method.
+     */
+    default boolean compNotContainsZero(float x, float y, float z) {
+        return x != 0f && y != 0f && z != 0f;
+    }
+
+    /**
+     * Checks if any of the component of three-dimensional vector is zero. This method returns true if NONE of the
+     * components is zero.
+     *
+     * @param x component of this vector.
+     * @param y component of this vector.
+     * @param z component of this vector.
+     * @return true if NONE of the components is zero and false if any of them is zero.
+     * @since 7/21/2026 added this method.
+     */
+    default boolean compNotContainsZero(long x, long y, long z) {
+        return x != 0L && y != 0L && z != 0L;
+    }
 }
 

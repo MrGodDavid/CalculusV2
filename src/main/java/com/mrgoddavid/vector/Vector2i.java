@@ -10,7 +10,7 @@ import java.util.Objects;
  * @author Mr. GodDavid.
  * @since 3/30/2026
  */
-public class Vector2i implements Vector<Vector2i>, Comparable<Vector2i>, Comparator<Vector2i>, Serializable {
+public class Vector2i implements Vector2<Vector2i>, Comparable<Vector2i>, Comparator<Vector2i>, Serializable {
 
     /**
      * X coordinate of this vector.
@@ -97,10 +97,10 @@ public class Vector2i implements Vector<Vector2i>, Comparable<Vector2i>, Compara
      */
     @Override
     public Vector2i divide(Vector2i second) {
-        if (compContainsZero(second.x, second.y)) {
+        if (compNotContainsZero(second.x, second.y)) {
             return new Vector2i(x / second.x, y / second.y);
         }
-        return second;
+        return Vector2.NAN_2I;
     }
 
     /**

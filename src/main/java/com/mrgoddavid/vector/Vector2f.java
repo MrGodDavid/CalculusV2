@@ -9,7 +9,7 @@ import java.util.Comparator;
  * @author Mr. GodDavid
  * @since 7/21/2026 added this class.
  */
-public class Vector2f implements Vector<Vector2f>, Comparator<Vector2f>, Comparable<Vector2f>, Serializable {
+public class Vector2f implements Vector2<Vector2f>, Comparator<Vector2f>, Comparable<Vector2f>, Serializable {
 
     /**
      * X component of this vector.
@@ -98,10 +98,10 @@ public class Vector2f implements Vector<Vector2f>, Comparator<Vector2f>, Compara
      */
     @Override
     public Vector2f divide(Vector2f second) {
-        if (!compContainsZero(x, y)) {
+        if (compNotContainsZero(x, y)) {
             return new Vector2f(this.x / second.x, this.y / second.y);
         }
-        return new Vector2f();
+        return Vector2.NAN_2F;
     }
 
     /**
@@ -365,7 +365,10 @@ public class Vector2f implements Vector<Vector2f>, Comparator<Vector2f>, Compara
      */
     @Override
     public Vector2f modulo(Vector2f second) {
-        return new Vector2f(this.x % second.x, this.y % second.y);
+        return new Vector2f(
+                (float) (this.x - second.x * Math.floor(this.x / second.x)),
+                (float) (this.y - second.y * Math.floor(this.y / second.y))
+        );
     }
 
     /**
