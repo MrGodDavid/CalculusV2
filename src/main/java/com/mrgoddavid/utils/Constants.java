@@ -16,14 +16,24 @@ public final class Constants {
     public static final double EPSILON = 1E-10;
 
     /**
-     * Ten decimal places of the square root of 2.
+     * 14 decimal places of the square root of 2.
      */
     public static final double SQRT_2 = 1.41421356237310;
 
     /**
-     * Ten decimal places of the square root of 3.
+     * 14 decimal places of the square root of 3.
      */
     public static final double SQRT_3 = 1.73205080756888;
+
+    /**
+     * 14 decimal places of PI.
+     */
+    public static final double PI = 3.14159265358979;
+
+    /**
+     * e.
+     */
+    public static final double E = 2.718281828459045;
 
     /**
      * Private constructor.

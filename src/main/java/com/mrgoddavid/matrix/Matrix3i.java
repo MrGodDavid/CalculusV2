@@ -11,84 +11,13 @@ import com.mrgoddavid.vector.Vector3i;
 public class Matrix3i implements Matrix.SquareMatrix<Matrix3i> {
 
     /**
-     * Special 3x3 matrix that is used for calculating the cross product of two three-dimensional vectors.
-     *
-     * @author Mr. GodDavid
-     * @since 7/9/2026
+     * Identity matrix of this 3x3 matrix.
      */
-    public class MatrixV3i implements Matrix.VectorMatrix<MatrixV3i> {
-
-        /**
-         * Empty constructor.
-         */
-        public MatrixV3i() {
-        }
-
-        /**
-         * Calculates the determinant of this special vector.
-         *
-         * @return the determinant (which is also a three-dimensional vector).
-         */
-        @Override
-        public Vector3i determinantToVector() {
-            int i = firstDeterminant();
-            int j = -secondDeterminant();
-            int k = thirdDeterminant();
-            return new Vector3i(i, j, k);
-        }
-
-        /**
-         * Calculates the determinant of any square matrix.
-         *
-         * @return the determinant of a square matrix.
-         * @deprecated not suitable for this class usage.
-         */
-        @Deprecated
-        @Override
-        public double determinant() {
-            return -999;
-        }
-
-        /**
-         * Addition of two same-sized matrices.
-         *
-         * @param other matrix that is not null.
-         * @return the sum of the two matrices.
-         * @deprecated not suitable for using this method here.
-         */
-        @Deprecated
-        @Override
-        public MatrixV3i add(MatrixV3i other) {
-            return null;
-        }
-
-        /**
-         * Subtraction of two same-sized matrices.
-         *
-         * @param other matrix that is not null.
-         * @return the difference of the two matrices.
-         * @deprecated not suitable for using this method here.
-         */
-        @Deprecated
-        @Override
-        public MatrixV3i subtract(MatrixV3i other) {
-            return null;
-        }
-
-        /**
-         * Scalar multiplication of matrix.
-         *
-         * @param scalar multiplier.
-         * @return the scaled matrix.
-         * @since 7/13/2026 added this method.
-         * @deprecated not suitable for using this method here.
-         */
-        @Deprecated
-        @Override
-        public MatrixV3i scale(double scalar) {
-            return null;
-        }
-    }
+    public static final Matrix3i IDENTITY = new Matrix3i(
+            1, 0, 0,
+            0, 1, 0,
+            0, 0, 1
+    );
 
     /*
      *             c1    c2    c3
@@ -284,5 +213,85 @@ public class Matrix3i implements Matrix.SquareMatrix<Matrix3i> {
                 (int) (a21 * scalar), (int) (a22 * scalar), (int) (a23 * scalar),
                 (int) (a31 * scalar), (int) (a32 * scalar), (int) (a33 * scalar)
         );
+    }
+
+    /**
+     * Special 3x3 matrix that is used for calculating the cross product of two three-dimensional vectors.
+     *
+     * @author Mr. GodDavid
+     * @since 7/9/2026
+     */
+    public class MatrixV3i implements Matrix.VectorMatrix<MatrixV3i> {
+
+        /**
+         * Empty constructor.
+         */
+        public MatrixV3i() {
+        }
+
+        /**
+         * Calculates the determinant of this special vector.
+         *
+         * @return the determinant (which is also a three-dimensional vector).
+         */
+        @Override
+        public Vector3i determinantToVector() {
+            int i = firstDeterminant();
+            int j = -secondDeterminant();
+            int k = thirdDeterminant();
+            return new Vector3i(i, j, k);
+        }
+
+        /**
+         * Calculates the determinant of any square matrix.
+         *
+         * @return the determinant of a square matrix.
+         * @deprecated not suitable for this class usage.
+         */
+        @Deprecated
+        @Override
+        public double determinant() {
+            return -999;
+        }
+
+        /**
+         * Addition of two same-sized matrices.
+         *
+         * @param other matrix that is not null.
+         * @return the sum of the two matrices.
+         * @deprecated not suitable for using this method here.
+         */
+        @Deprecated
+        @Override
+        public MatrixV3i add(MatrixV3i other) {
+            return null;
+        }
+
+        /**
+         * Subtraction of two same-sized matrices.
+         *
+         * @param other matrix that is not null.
+         * @return the difference of the two matrices.
+         * @deprecated not suitable for using this method here.
+         */
+        @Deprecated
+        @Override
+        public MatrixV3i subtract(MatrixV3i other) {
+            return null;
+        }
+
+        /**
+         * Scalar multiplication of matrix.
+         *
+         * @param scalar multiplier.
+         * @return the scaled matrix.
+         * @since 7/13/2026 added this method.
+         * @deprecated not suitable for using this method here.
+         */
+        @Deprecated
+        @Override
+        public MatrixV3i scale(double scalar) {
+            return null;
+        }
     }
 }

@@ -12,95 +12,13 @@ import com.mrgoddavid.vector.Vector3i;
 public class Matrix3d implements Matrix.SquareMatrix<Matrix3d> {
 
     /**
-     * Special 3x3 matrix that contains i, j, and k in the first row.
-     *
-     * @author Mr. GodDavid
-     * @since 7/13/2026
+     * Identity matrix of this 3x3 square matrix.
      */
-    public class MatrixV3d implements Matrix.VectorMatrix<MatrixV3d> {
-
-        /**
-         * Default constructor. Empty constructor.
-         */
-        public MatrixV3d() {
-        }
-
-        /**
-         * Calculates the determinant of this special vector.
-         *
-         * @return the determinant (which is also a three-dimensional vector).
-         * @deprecated not suitable for this class. The returned result should be doubles instead of integers.
-         */
-        @Override
-        @Deprecated
-        public Vector3i determinantToVector() {
-            return null;
-        }
-
-        /**
-         * Converts its determinant to three-dimensional vector with double in each component.
-         *
-         * @return the three-dimensional vector that has double for each its component.
-         */
-        public Vector3d determinantToVector3d() {
-            double i = firstDeterminant();
-            double j = -secondDeterminant();
-            double k = thirdDeterminant();
-            return new Vector3d(i, j, k);
-        }
-
-        /**
-         * Calculates the determinant of any square matrix.
-         *
-         * @return the determinant of a square matrix.
-         * @deprecated not suitable for this class usage.
-         */
-        @Deprecated
-        @Override
-        public double determinant() {
-            return -999;
-        }
-
-        /**
-         * Addition of two same-sized matrices.
-         *
-         * @param other matrix that is not null.
-         * @return the sum of the two matrices.
-         * @deprecated not suitable for using this method here.
-         */
-        @Deprecated
-        @Override
-        public MatrixV3d add(MatrixV3d other) {
-            return null;
-        }
-
-        /**
-         * Subtraction of two same-sized matrices.
-         *
-         * @param other matrix that is not null.
-         * @return the difference of the two matrices.
-         * @deprecated not suitable for using this method here.
-         */
-        @Deprecated
-        @Override
-        public MatrixV3d subtract(MatrixV3d other) {
-            return null;
-        }
-
-        /**
-         * Scalar multiplication of matrix.
-         *
-         * @param scalar multiplier.
-         * @return the scaled matrix.
-         * @since 7/13/2026 added this method.
-         * @deprecated not suitable for using this method here.
-         */
-        @Deprecated
-        @Override
-        public MatrixV3d scale(double scalar) {
-            return null;
-        }
-    }
+    public static final Matrix3d IDENTITY = new Matrix3d(
+            1d, 0d, 0d,
+            0d, 1d, 0d,
+            0d, 0d, 1d
+    );
 
     /*
      *             c1    c2    c3
@@ -297,5 +215,96 @@ public class Matrix3d implements Matrix.SquareMatrix<Matrix3d> {
                 a21 * scalar, a22 * scalar, a23 * scalar,
                 a31 * scalar, a32 * scalar, a33 * scalar
         );
+    }
+
+    /**
+     * Special 3x3 matrix that contains i, j, and k in the first row.
+     *
+     * @author Mr. GodDavid
+     * @since 7/13/2026
+     */
+    public class MatrixV3d implements Matrix.VectorMatrix<MatrixV3d> {
+
+        /**
+         * Default constructor. Empty constructor.
+         */
+        public MatrixV3d() {
+        }
+
+        /**
+         * Calculates the determinant of this special vector.
+         *
+         * @return the determinant (which is also a three-dimensional vector).
+         * @deprecated not suitable for this class. The returned result should be doubles instead of integers.
+         */
+        @Override
+        @Deprecated
+        public Vector3i determinantToVector() {
+            return null;
+        }
+
+        /**
+         * Converts its determinant to three-dimensional vector with double in each component.
+         *
+         * @return the three-dimensional vector that has double for each its component.
+         */
+        public Vector3d determinantToVector3d() {
+            double i = firstDeterminant();
+            double j = -secondDeterminant();
+            double k = thirdDeterminant();
+            return new Vector3d(i, j, k);
+        }
+
+        /**
+         * Calculates the determinant of any square matrix.
+         *
+         * @return the determinant of a square matrix.
+         * @deprecated not suitable for this class usage.
+         */
+        @Deprecated
+        @Override
+        public double determinant() {
+            return -999;
+        }
+
+        /**
+         * Addition of two same-sized matrices.
+         *
+         * @param other matrix that is not null.
+         * @return the sum of the two matrices.
+         * @deprecated not suitable for using this method here.
+         */
+        @Deprecated
+        @Override
+        public MatrixV3d add(MatrixV3d other) {
+            return null;
+        }
+
+        /**
+         * Subtraction of two same-sized matrices.
+         *
+         * @param other matrix that is not null.
+         * @return the difference of the two matrices.
+         * @deprecated not suitable for using this method here.
+         */
+        @Deprecated
+        @Override
+        public MatrixV3d subtract(MatrixV3d other) {
+            return null;
+        }
+
+        /**
+         * Scalar multiplication of matrix.
+         *
+         * @param scalar multiplier.
+         * @return the scaled matrix.
+         * @since 7/13/2026 added this method.
+         * @deprecated not suitable for using this method here.
+         */
+        @Deprecated
+        @Override
+        public MatrixV3d scale(double scalar) {
+            return null;
+        }
     }
 }
