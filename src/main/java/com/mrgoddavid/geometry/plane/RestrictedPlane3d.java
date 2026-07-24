@@ -259,7 +259,7 @@ public final class RestrictedPlane3d implements Plane3 {
     @Override
     public double distance(Point3d other) {
         Point3d pt = new Point3d(0, 0, this.D / this.C);
-        Vector3d direction = new Vector3d((other.getX() - pt.getX()), (other.getY() - pt.getY()), (other.getZ() - pt.getZ()));
+        Vector3d direction = new Vector3d((other.x() - pt.x()), (other.y() - pt.y()), (other.z() - pt.z()));
         Vector3d normal = this.getNormal();
         return Math.abs(direction.dot_product(normal)) / normal.length();
     }

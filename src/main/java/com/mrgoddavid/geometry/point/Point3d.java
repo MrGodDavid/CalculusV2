@@ -28,7 +28,7 @@ public final class Point3d implements Point.Point3<Point3d> {
      * Default constructor that constructs a three-dimensional point.
      */
     public Point3d() {
-        this(0, 0, 0);
+        this(0.0, 0.0, 0.0);
     }
 
     /**
@@ -49,7 +49,7 @@ public final class Point3d implements Point.Point3<Point3d> {
      *
      * @return the value of the x coordinate.
      */
-    public double getX() {
+    public double x() {
         return x;
     }
 
@@ -58,7 +58,7 @@ public final class Point3d implements Point.Point3<Point3d> {
      *
      * @return the value of the y coordinate.
      */
-    public double getY() {
+    public double y() {
         return y;
     }
 
@@ -67,7 +67,7 @@ public final class Point3d implements Point.Point3<Point3d> {
      *
      * @return the value of the z coordinate.
      */
-    public double getZ() {
+    public double z() {
         return z;
     }
 
@@ -84,10 +84,7 @@ public final class Point3d implements Point.Point3<Point3d> {
      */
     @Override
     public double distance(Point3d other) {
-        double dx = Math.abs(x - other.x);
-        double dy = Math.abs(y - other.y);
-        double dz = Math.abs(z - other.z);
-        return Math.sqrt(dx * dx + dy * dy + dz * dz);
+        return toVector3d(other).length();
     }
 
     /**

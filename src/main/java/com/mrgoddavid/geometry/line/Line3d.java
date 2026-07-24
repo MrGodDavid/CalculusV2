@@ -51,7 +51,7 @@ public final class Line3d implements Line.Line3 {
 
     @Override
     public String toString() {
-        return "r(t) = " + "<" + startingPoint.getX() + ", " + startingPoint.getY() + ", " + startingPoint.getZ() + ">" + " + t" +
+        return "r(t) = " + "<" + startingPoint.x() + ", " + startingPoint.y() + ", " + startingPoint.z() + ">" + " + t" +
                 direction.toString();
     }
 
@@ -99,16 +99,16 @@ public final class Line3d implements Line.Line3 {
             return false;
         }
         FixedMatrix.Matrix21d constants = new FixedMatrix.Matrix21d(
-                other.getStartingPoint().getX() - startingPoint.getX(),
-                other.getStartingPoint().getY() - startingPoint.getY()
+                other.getStartingPoint().x() - startingPoint.x(),
+                other.getStartingPoint().y() - startingPoint.y()
         );
         FixedMatrix.Matrix21d solution = inverse.multiply(constants);
 
         double t = solution.a11();
         double s = solution.a21();
 
-        double z1 = startingPoint.getZ() + t * direction.getZ();
-        double z2 = other.getStartingPoint().getZ() + s * other.getDirection().getZ();
+        double z1 = startingPoint.z() + t * direction.getZ();
+        double z2 = other.getStartingPoint().z() + s * other.getDirection().getZ();
 
         return Math.abs(z1 - z2) < EPSILON;
     }
@@ -131,16 +131,16 @@ public final class Line3d implements Line.Line3 {
             return false;
         }
         FixedMatrix.Matrix21d constants = new FixedMatrix.Matrix21d(
-                other.getStartingPoint().getY() - startingPoint.getY(),
-                other.getStartingPoint().getZ() - startingPoint.getZ()
+                other.getStartingPoint().y() - startingPoint.y(),
+                other.getStartingPoint().z() - startingPoint.z()
         );
         FixedMatrix.Matrix21d solution = inverse.multiply(constants);
 
         double t = solution.a11();
         double s = solution.a21();
 
-        double x1 = startingPoint.getX() + t * direction.getX();
-        double x2 = other.getStartingPoint().getX() + s * other.getDirection().getX();
+        double x1 = startingPoint.x() + t * direction.getX();
+        double x2 = other.getStartingPoint().x() + s * other.getDirection().getX();
 
         return Math.abs(x1 - x2) < EPSILON;
     }
@@ -163,16 +163,16 @@ public final class Line3d implements Line.Line3 {
             return false;
         }
         FixedMatrix.Matrix21d constants = new FixedMatrix.Matrix21d(
-                other.getStartingPoint().getX() - startingPoint.getX(),
-                other.getStartingPoint().getZ() - startingPoint.getZ()
+                other.getStartingPoint().x() - startingPoint.x(),
+                other.getStartingPoint().z() - startingPoint.z()
         );
         FixedMatrix.Matrix21d solution = inverse.multiply(constants);
 
         double t = solution.a11();
         double s = solution.a21();
 
-        double y1 = startingPoint.getY() + t * direction.getY();
-        double y2 = other.getStartingPoint().getY() + s * other.getDirection().getY();
+        double y1 = startingPoint.y() + t * direction.getY();
+        double y2 = other.getStartingPoint().y() + s * other.getDirection().getY();
 
         return Math.abs(y1 - y2) < EPSILON;
     }
@@ -191,9 +191,9 @@ public final class Line3d implements Line.Line3 {
         }
         Vector3d normal = this.direction.crossProduct(other.direction);
         Vector3d dir = new Vector3d(
-                startingPoint.getX() - other.startingPoint.getX(),
-                startingPoint.getY() - other.startingPoint.getY(),
-                startingPoint.getZ() - other.startingPoint.getZ()
+                startingPoint.x() - other.startingPoint.x(),
+                startingPoint.y() - other.startingPoint.y(),
+                startingPoint.z() - other.startingPoint.z()
         );
         return dir.scalar_projection(normal);
     }
@@ -207,9 +207,9 @@ public final class Line3d implements Line.Line3 {
      */
     @Override
     public boolean contains(Point3d point) {
-        double t_x = (startingPoint.getX() - point.getX()) / (double) direction.getX();
-        double t_y = (startingPoint.getY() - point.getY()) / (double) direction.getY();
-        double t_z = (startingPoint.getZ() - point.getZ()) / (double) direction.getZ();
+        double t_x = (startingPoint.x() - point.x()) / direction.getX();
+        double t_y = (startingPoint.y() - point.y()) / direction.getY();
+        double t_z = (startingPoint.z() - point.z()) / direction.getZ();
         return t_x == t_y && t_x == t_z;
     }
 
