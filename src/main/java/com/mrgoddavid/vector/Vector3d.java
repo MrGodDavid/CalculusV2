@@ -11,6 +11,26 @@ import com.mrgoddavid.matrix.Matrix3d;
 public class Vector3d implements Vector3<Vector3d> {
 
     /**
+     * Zero vector of this class.
+     */
+    public static final Vector3d ZERO = new Vector3d();
+
+    /**
+     * Unit vector along x-axis. We define this unit vector as i.
+     */
+    public static final Vector3d UNIT_I = new Vector3d(1.0, 0.0, 0.0);
+
+    /**
+     * Unit vector along y-axis. We define this unit vector as j.
+     */
+    public static final Vector3d UNIT_J = new Vector3d(0.0, 1.0, 0.0);
+
+    /**
+     * Unit vector along z-axis. We define this unit vector as k.
+     */
+    public static final Vector3d UNIT_K = new Vector3d(0.0, 0.0, 1.0);
+
+    /**
      * X coordinate of this vector.
      */
     private final double x;

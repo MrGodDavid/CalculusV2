@@ -1,5 +1,7 @@
 package com.mrgoddavid.vector;
 
+import com.mrgoddavid.geometry.angle.Radian;
+
 import java.io.Serializable;
 
 /**
@@ -509,6 +511,15 @@ interface Vector2<T> extends Vector<T> {
      * Not-a-number constants of vector2l. Use this when user accidentally divided some number by zero.
      */
     Vector2l NAN_2L = new Vector2l(Long.MIN_VALUE, Long.MIN_VALUE);
+
+    /**
+     * Rotate the vector in given angle around the origin.
+     *
+     * @param angle given angle in radians.
+     * @return the rotated vector.
+     * @since 7/24/2026 part of Transformation & Circles Update.
+     */
+    T rotate(Radian angle);
 }
 
 /**

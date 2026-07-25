@@ -1,5 +1,7 @@
 package com.mrgoddavid.matrix;
 
+import com.mrgoddavid.vector.Vector2d;
+
 /**
  * This class holds a collection of fixed matrices. We call a matrix with known size a "Fixed Matrix". Follow this rule
  * when reading the class names. The first number after the word "Matrix" indicates the number of rows in that matrix,
@@ -10,7 +12,7 @@ package com.mrgoddavid.matrix;
  * @author Mr. GodDavid
  * @since 7/13/2026
  */
-public final class FixedMatrix {
+public abstract class FixedMatrix {
 
     /**
      * Empty constructor.
@@ -22,7 +24,7 @@ public final class FixedMatrix {
      * This is a fixed matrix. This matrix has two rows and one column. Each element of this matrix is an integer.
      *
      * @param a11 element at the position row 1 and column 1.
-     * @param a21 element at the position row 2 and column 2.
+     * @param a21 element at the position row 2 and column 1.
      */
     public record Matrix21i(int a11, int a21) implements Matrix<Matrix21i> {
 
@@ -101,6 +103,15 @@ public final class FixedMatrix {
         @Override
         public Matrix21d scale(double scalar) {
             return new Matrix21d(a11 * scalar, a21 * scalar);
+        }
+
+        /**
+         * The transpose of 2x1 matrix is the two-dimensional vector.
+         *
+         * @return the transpose of 2x1 matrix.
+         */
+        public Vector2d transpose() {
+            return new Vector2d(a11, a21);
         }
     }
 }

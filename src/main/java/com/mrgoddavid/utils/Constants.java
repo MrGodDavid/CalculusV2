@@ -31,6 +31,26 @@ public final class Constants {
     public static final double PI = 3.14159265358979;
 
     /**
+     * 14 decimal places of PI / 4.
+     */
+    public static final double PI_OVER_FOUR = 0.78539816339745;
+
+    /**
+     * 14 decimal places of PI / 2.
+     */
+    public static final double PI_OVER_TWO = 1.57079632679489;
+
+    /**
+     * 14 decimal places of 3 * PI / 2.
+     */
+    public static final double THREE_PI_OVER_TWO = 4.71238898038469;
+
+    /**
+     * 14 decimal places of 2 * PI.
+     */
+    public static final double TWO_PI = 6.28318530717958;
+
+    /**
      * e.
      */
     public static final double E = 2.718281828459045;

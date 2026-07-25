@@ -1,5 +1,9 @@
 package com.mrgoddavid.vector;
 
+import com.mrgoddavid.geometry.angle.Radian;
+import com.mrgoddavid.matrix.FixedMatrix;
+import com.mrgoddavid.transformation.rotation.RotationMatrix2x2;
+
 import java.io.Serializable;
 import java.util.Comparator;
 import java.util.Objects;
@@ -11,6 +15,21 @@ import java.util.Objects;
  * @since 3/16/2026
  */
 public class Vector2d implements Vector2<Vector2d>, Comparable<Vector2d>, Comparator<Vector2d>, Serializable {
+
+    /**
+     * Zero vector of this class.
+     */
+    public static final Vector2d ZERO = new Vector2d();
+
+    /**
+     * Unit vector along x-axis. We define this unit vector as i.
+     */
+    public static final Vector2d UNIT_I = new Vector2d(1.0, 0.0);
+
+    /**
+     * Unit vector along y-axis. We define this unit vector as j.
+     */
+    public static final Vector2d UNIT_J = new Vector2d(0.0, 1.0);
 
     /**
      * X component of this vector.
@@ -518,5 +537,26 @@ public class Vector2d implements Vector2<Vector2d>, Comparable<Vector2d>, Compar
     public void setValues(double x, double y) {
         this.x = x;
         this.y = y;
+    }
+
+    /**
+     * Convert two-dimensional vector to column vector.
+     *
+     * @return the column vector of this vector.
+     */
+    FixedMatrix.Matrix21d transpose() {
+        return new FixedMatrix.Matrix21d(this.x, this.y);
+    }
+
+    /**
+     * Rotate the vector in given angle around the origin.
+     *
+     * @param angle given angle in radians.
+     * @return the rotated vector.
+     * @since 7/24/2026 part of Transformation & Circles Update.
+     */
+    @Override
+    public Vector2d rotate(Radian angle) {
+        return RotationMatrix2x2.getInstance().atAngle(angle).multiply(this.transpose()).transpose();
     }
 }

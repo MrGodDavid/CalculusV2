@@ -1,5 +1,8 @@
 package com.mrgoddavid.test;
 
+import com.mrgoddavid.geometry.angle.Radian;
+import com.mrgoddavid.geometry.circle.Circle2d;
+import com.mrgoddavid.geometry.point.Point2d;
 import com.mrgoddavid.vector.Vector;
 import com.mrgoddavid.vector.Vector3d;
 import com.mrgoddavid.vector.Vector3i;
@@ -76,5 +79,10 @@ class Main {
         RestrictedPlane3d PA = new RestrictedPlane3d(1,1,1,3);
         RestrictedPlane3d PB = new RestrictedPlane3d(1,2,3,7);
         System.out.println(PA.intersect(PB));
+
+        Radian angle = new Radian(Math.PI / 4);
+        Circle2d circle = new Circle2d(new Point2d(1,0), 4);
+        System.out.println(circle.contains(new Point2d()));
+        System.out.println(circle.detailedInfo());
     }
 }

@@ -1,5 +1,9 @@
 package com.mrgoddavid.vector;
 
+import com.mrgoddavid.geometry.angle.Radian;
+import com.mrgoddavid.matrix.FixedMatrix;
+import com.mrgoddavid.transformation.rotation.RotationMatrix2x2;
+
 import java.io.Serializable;
 import java.util.Comparator;
 
@@ -10,6 +14,21 @@ import java.util.Comparator;
  * @since 7/21/2026 added this class.
  */
 public class Vector2f implements Vector2<Vector2f>, Comparator<Vector2f>, Comparable<Vector2f>, Serializable {
+
+    /**
+     * Zero vector of this class.
+     */
+    public static final Vector2f ZERO = new Vector2f();
+
+    /**
+     * Unit vector along x-axis. We define this unit vector as i.
+     */
+    public static final Vector2f UNIT_I = new Vector2f(1f, 0f);
+
+    /**
+     * Unit vector along y-axis. We define this unit vector as j.
+     */
+    public static final Vector2f UNIT_J = new Vector2f(0f, 1f);
 
     /**
      * X component of this vector.
@@ -502,5 +521,18 @@ public class Vector2f implements Vector2<Vector2f>, Comparator<Vector2f>, Compar
     @Override
     public String toString() {
         return "<" + x + ", " + y + ">";
+    }
+
+    /**
+     * Rotate the vector in given angle around the origin.
+     *
+     * @param angle given angle in radians.
+     * @return the rotated vector.
+     * @since 7/24/2026 part of Transformation & Circles Update.
+     */
+    @Deprecated
+    @Override
+    public Vector2f rotate(Radian angle) {
+        return null;
     }
 }

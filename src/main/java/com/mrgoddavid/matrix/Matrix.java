@@ -14,6 +14,31 @@ import java.io.Serializable;
 public interface Matrix<T> extends Serializable {
 
     /**
+     * Addition of two same-sized matrices.
+     *
+     * @param other matrix that is not null.
+     * @return the sum of the two matrices.
+     */
+    T add(T other);
+
+    /**
+     * Subtraction of two same-sized matrices.
+     *
+     * @param other matrix that is not null.
+     * @return the difference of the two matrices.
+     */
+    T subtract(T other);
+
+    /**
+     * Scalar multiplication of matrix.
+     *
+     * @param scalar multiplier.
+     * @return the scaled matrix.
+     * @since 7/13/2026 added this method.
+     */
+    T scale(double scalar);
+
+    /**
      * Contains operations of square matrices.
      *
      * @param <T> Class type of implementation of this interface.
@@ -101,29 +126,4 @@ public interface Matrix<T> extends Serializable {
          */
         Vector3i determinantToVector();
     }
-
-    /**
-     * Addition of two same-sized matrices.
-     *
-     * @param other matrix that is not null.
-     * @return the sum of the two matrices.
-     */
-    T add(T other);
-
-    /**
-     * Subtraction of two same-sized matrices.
-     *
-     * @param other matrix that is not null.
-     * @return the difference of the two matrices.
-     */
-    T subtract(T other);
-
-    /**
-     * Scalar multiplication of matrix.
-     *
-     * @param scalar multiplier.
-     * @return the scaled matrix.
-     * @since 7/13/2026 added this method.
-     */
-    T scale(double scalar);
 }
