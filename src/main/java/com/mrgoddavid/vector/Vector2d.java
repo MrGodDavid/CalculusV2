@@ -384,10 +384,13 @@ public class Vector2d implements Vector2<Vector2d>, Comparable<Vector2d>, Compar
      */
     @Override
     public Vector2d modulo(Vector2d second) {
-        return new Vector2d(
-                this.x - second.x * Math.floor(this.x / second.x),
-                this.y - second.y * Math.floor(this.y / second.y)
-        );
+        if (compNotContainsZero(x, y)) {
+            return new Vector2d(
+                    this.x - second.x * Math.floor(this.x / second.x),
+                    this.y - second.y * Math.floor(this.y / second.y)
+            );
+        }
+        return Vector2.NAN_2D;
     }
 
     /**

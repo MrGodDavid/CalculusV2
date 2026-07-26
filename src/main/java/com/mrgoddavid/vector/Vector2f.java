@@ -384,10 +384,13 @@ public class Vector2f implements Vector2<Vector2f>, Comparator<Vector2f>, Compar
      */
     @Override
     public Vector2f modulo(Vector2f second) {
-        return new Vector2f(
-                (float) (this.x - second.x * Math.floor(this.x / second.x)),
-                (float) (this.y - second.y * Math.floor(this.y / second.y))
-        );
+        if (compNotContainsZero(x, y)) {
+            return new Vector2f(
+                    (float) (this.x - second.x * Math.floor(this.x / second.x)),
+                    (float) (this.y - second.y * Math.floor(this.y / second.y))
+            );
+        }
+        return Vector2.NAN_2F;
     }
 
     /**

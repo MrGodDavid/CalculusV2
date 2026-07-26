@@ -382,10 +382,13 @@ public class Vector2l implements Vector2<Vector2l>, Comparable<Vector2l>, Compar
      */
     @Override
     public Vector2l modulo(Vector2l second) {
-        return new Vector2l(
-                (long) (this.x - second.x * Math.floor((double) this.x / second.x)),
-                (long) (this.y - second.y * Math.floor((double) this.y / second.y))
-        );
+        if (compNotContainsZero(x, y)) {
+            return new Vector2l(
+                    (long) (this.x - second.x * Math.floor((double) this.x / second.x)),
+                    (long) (this.y - second.y * Math.floor((double) this.y / second.y))
+            );
+        }
+        return Vector2.NAN_2L;
     }
 
     /**

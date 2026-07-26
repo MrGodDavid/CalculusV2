@@ -380,7 +380,10 @@ public class Vector2i implements Vector2<Vector2i>, Comparable<Vector2i>, Compar
      */
     @Override
     public Vector2i modulo(Vector2i second) {
-        return new Vector2i(x % second.x, y % second.y);
+        if (compNotContainsZero(x, y)) {
+            return new Vector2i(x % second.x, y % second.y);
+        }
+        return Vector2.NAN_2I;
     }
 
     /**

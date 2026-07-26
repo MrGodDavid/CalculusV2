@@ -356,6 +356,12 @@ public interface Vector<T> extends Serializable {
                 } else if (second instanceof Vector2d second_v2d) {
                     Vector2d self_v2d = (Vector2d) self;
                     result = (self_v2d.getX() <= second_v2d.getX()) && (self_v2d.getY() <= second_v2d.getY());
+                } else if (second instanceof Vector2f second_v2f) {
+                    Vector2f self_v2f = (Vector2f) self;
+                    result = (self_v2f.getX() <= second_v2f.getX()) && (self_v2f.getY() <= second_v2f.getY());
+                } else if (second instanceof Vector2l second_v2l) {
+                    Vector2l self_v2l = (Vector2l) self;
+                    result = (self_v2l.getX() <= second_v2l.getX()) && (self_v2l.getY() <= second_v2l.getY());
                 } else if (second instanceof Vector3i second_v3i) {
                     Vector3i self_v3d = (Vector3i) self;
                     result = (self_v3d.getX() <= second_v3i.getX()) && (self_v3d.getY() <= second_v3i.getY()) && (self_v3d.getZ() <= second_v3i.getZ());
@@ -371,6 +377,12 @@ public interface Vector<T> extends Serializable {
                 } else if (second instanceof Vector2d second_v2d) {
                     Vector2d self_v2d = (Vector2d) self;
                     result = (self_v2d.getX() < second_v2d.getX()) && (self_v2d.getY() < second_v2d.getY());
+                } else if (second instanceof Vector2f second_v2f) {
+                    Vector2f self_v2f = (Vector2f) self;
+                    result = (self_v2f.getX() < second_v2f.getX()) && (self_v2f.getY() < second_v2f.getY());
+                } else if (second instanceof Vector2l second_v2l) {
+                    Vector2l self_v2l = (Vector2l) self;
+                    result = (self_v2l.getX() < second_v2l.getX()) && (self_v2l.getY() < second_v2l.getY());
                 } else if (second instanceof Vector3i second_v3i) {
                     Vector3i self_v3d = (Vector3i) self;
                     result = (self_v3d.getX() < second_v3i.getX()) && (self_v3d.getY() < second_v3i.getY()) && (self_v3d.getZ() < second_v3i.getZ());
@@ -386,6 +398,12 @@ public interface Vector<T> extends Serializable {
                 } else if (second instanceof Vector2d second_v2d) {
                     Vector2d self_v2d = (Vector2d) self;
                     result = (self_v2d.getX() == second_v2d.getX()) && (self_v2d.getY() == second_v2d.getY());
+                } else if (second instanceof Vector2f second_v2f) {
+                    Vector2f self_v2f = (Vector2f) self;
+                    result = (self_v2f.getX() == second_v2f.getX()) && (self_v2f.getY() == second_v2f.getY());
+                } else if (second instanceof Vector2l second_v2l) {
+                    Vector2l self_v2l = (Vector2l) self;
+                    result = (self_v2l.getX() == second_v2l.getX()) && (self_v2l.getY() == second_v2l.getY());
                 } else if (second instanceof Vector3i second_v3i) {
                     Vector3i self_v3d = (Vector3i) self;
                     result = (self_v3d.getX() == second_v3i.getX()) && (self_v3d.getY() == second_v3i.getY()) && (self_v3d.getZ() == second_v3i.getZ());
@@ -401,9 +419,15 @@ public interface Vector<T> extends Serializable {
                 } else if (second instanceof Vector2d second_v2d) {
                     Vector2d self_v2d = (Vector2d) self;
                     result = (self_v2d.getX() > second_v2d.getX()) && (self_v2d.getY() > second_v2d.getY());
+                } else if (second instanceof Vector2f second_v2f) {
+                    Vector2f self_v2f = (Vector2f) self;
+                    result = (self_v2f.getX() > second_v2f.getX()) && (self_v2f.getY() > second_v2f.getY());
+                } else if (second instanceof Vector2l second_v2l) {
+                    Vector2l self_v2l = (Vector2l) self;
+                    result = (self_v2l.getX() > second_v2l.getX()) && (self_v2l.getY() > second_v2l.getY());
                 } else if (second instanceof Vector3i second_v3i) {
                     Vector3i self_v3d = (Vector3i) self;
-                    result = (self_v3d.getX() == second_v3i.getX()) && (self_v3d.getY() == second_v3i.getY()) && (self_v3d.getZ() == second_v3i.getZ());
+                    result = (self_v3d.getX() > second_v3i.getX()) && (self_v3d.getY() > second_v3i.getY()) && (self_v3d.getZ() > second_v3i.getZ());
                 } else if (second instanceof Vector3d second_v3d) {
                     Vector3d self_v3d = (Vector3d) self;
                     result = (self_v3d.getX() > second_v3d.getX()) && (self_v3d.getY() > second_v3d.getY()) && (self_v3d.getZ() > second_v3d.getZ());
@@ -416,6 +440,12 @@ public interface Vector<T> extends Serializable {
                 } else if (second instanceof Vector2d second_v2d) {
                     Vector2d self_v2d = (Vector2d) self;
                     result = (self_v2d.getX() >= second_v2d.getX()) && (self_v2d.getY() >= second_v2d.getY());
+                } else if (second instanceof Vector2f second_v2f) {
+                    Vector2f self_v2f = (Vector2f) self;
+                    result = (self_v2f.getX() >= second_v2f.getX()) && (self_v2f.getY() >= second_v2f.getY());
+                } else if (second instanceof Vector2l second_v2l) {
+                    Vector2l self_v2l = (Vector2l) self;
+                    result = (self_v2l.getX() >= second_v2l.getX()) && (self_v2l.getY() <= second_v2l.getY());
                 } else if (second instanceof Vector3i second_v3i) {
                     Vector3i self_v3d = (Vector3i) self;
                     result = (self_v3d.getX() >= second_v3i.getX()) && (self_v3d.getY() >= second_v3i.getY()) && (self_v3d.getZ() >= second_v3i.getZ());

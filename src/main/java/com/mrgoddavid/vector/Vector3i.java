@@ -472,7 +472,10 @@ public class Vector3i implements Vector3<Vector3i> {
      */
     @Override
     public Vector3i modulo(Vector3i second) {
-        return new Vector3i(this.x % second.x, this.y % second.y, this.z % second.z);
+        if (compNotContainsZero(x, y, z)) {
+            return new Vector3i(this.x % second.x, this.y % second.y, this.z % second.z);
+        }
+        return Vector3.NAN_3I;
     }
 
     /**
