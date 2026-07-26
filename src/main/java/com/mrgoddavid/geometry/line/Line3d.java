@@ -6,6 +6,9 @@ import com.mrgoddavid.vector.Vector;
 import com.mrgoddavid.vector.Vector3d;
 import com.mrgoddavid.geometry.point.Point3d;
 
+import java.io.Serial;
+import java.io.Serializable;
+
 import static com.mrgoddavid.utils.Constants.EPSILON;
 
 /**
@@ -15,7 +18,11 @@ import static com.mrgoddavid.utils.Constants.EPSILON;
  * @author Mr. GodDavid
  * @since 7/13/2026
  */
-public final class Line3d implements Line.Line3 {
+@SuppressWarnings("ClassCanBeRecord")
+public final class Line3d implements Line.Line3, Serializable {
+
+    @Serial
+    private static final long serialVersionUID = -4554392946506338616L;
 
     private final Point3d startingPoint;
     private final Vector3d direction;

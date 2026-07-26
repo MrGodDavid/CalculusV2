@@ -2,6 +2,8 @@ package com.mrgoddavid.vector;
 
 import com.mrgoddavid.matrix.Matrix3i;
 
+import java.io.Serial;
+
 /**
  * Three-dimensional vector. Each component of this vector is integer.
  *
@@ -29,6 +31,9 @@ public class Vector3i implements Vector3<Vector3i> {
      * Unit vector along z-axis. We define this unit vector as k.
      */
     public static final Vector3i UNIT_K = new Vector3i(0, 0, 1);
+    
+    @Serial
+    private static final long serialVersionUID = -5060982799334144961L;
 
     /**
      * X coordinate of this vector.

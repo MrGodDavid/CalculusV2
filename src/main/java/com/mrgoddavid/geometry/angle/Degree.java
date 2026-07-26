@@ -1,5 +1,6 @@
 package com.mrgoddavid.geometry.angle;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Comparator;
 
@@ -13,6 +14,8 @@ import static com.mrgoddavid.utils.Constants.PI;
  */
 public final class Degree implements Angle<Degree>, Comparable<Degree>, Comparator<Degree>, Serializable {
 
+    @Serial
+    private static final long serialVersionUID = 2228615036723300907L;
     /**
      * Angle in degrees.
      */

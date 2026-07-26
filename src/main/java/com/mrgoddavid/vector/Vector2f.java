@@ -4,6 +4,7 @@ import com.mrgoddavid.geometry.angle.Radian;
 import com.mrgoddavid.matrix.FixedMatrix;
 import com.mrgoddavid.transformation.rotation.RotationMatrix2x2;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Comparator;
 
@@ -13,6 +14,7 @@ import java.util.Comparator;
  * @author Mr. GodDavid
  * @since 7/21/2026 added this class.
  */
+@SuppressWarnings("ClassCanBeRecord")
 public class Vector2f implements Vector2<Vector2f>, Comparator<Vector2f>, Comparable<Vector2f>, Serializable {
 
     /**
@@ -29,6 +31,9 @@ public class Vector2f implements Vector2<Vector2f>, Comparator<Vector2f>, Compar
      * Unit vector along y-axis. We define this unit vector as j.
      */
     public static final Vector2f UNIT_J = new Vector2f(0f, 1f);
+
+    @Serial
+    private static final long serialVersionUID = -8437451757794676567L;
 
     /**
      * X component of this vector.

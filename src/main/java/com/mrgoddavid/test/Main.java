@@ -84,5 +84,7 @@ class Main {
         Circle2d circle = new Circle2d(new Point2d(1,0), 4);
         System.out.println(circle.contains(new Point2d()));
         System.out.println(circle.detailedInfo());
+
+        System.out.println((1.0 / 0) == Double.POSITIVE_INFINITY);
     }
 }

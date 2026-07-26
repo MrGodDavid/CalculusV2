@@ -5,6 +5,9 @@ import com.mrgoddavid.geometry.point.Point2d;
 import com.mrgoddavid.vector.Vector;
 import com.mrgoddavid.vector.Vector2d;
 
+import java.io.Serial;
+import java.io.Serializable;
+
 import static com.mrgoddavid.utils.Constants.*;
 
 /**
@@ -28,8 +31,10 @@ import static com.mrgoddavid.utils.Constants.*;
  * @since 7/24/2026 part of Transformations & Circles Update.
  */
 @SuppressWarnings("ClassCanBeRecord")
-public final class Circle2d {
+public final class Circle2d implements Serializable {
 
+    @Serial
+    private static final long serialVersionUID = -1419872634454081645L;
     /**
      * Center of the circle.
      */

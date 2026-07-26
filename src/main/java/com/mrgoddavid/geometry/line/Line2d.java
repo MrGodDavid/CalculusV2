@@ -3,6 +3,7 @@ package com.mrgoddavid.geometry.line;
 import com.mrgoddavid.geometry.point.Point2d;
 import com.mrgoddavid.vector.Vector2d;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 import static com.mrgoddavid.utils.Constants.EPSILON;
@@ -14,8 +15,11 @@ import static com.mrgoddavid.utils.Constants.EPSILON;
  * @author Mr. GodDavid
  * @since 7/23/2026 part of Two-Dimensional Point And Line Update.
  */
+@SuppressWarnings("ClassCanBeRecord")
 public final class Line2d implements Line.Line2, Serializable {
 
+    @Serial
+    private static final long serialVersionUID = -6513297847021768429L;
     /**
      * Starting point of this line.
      */

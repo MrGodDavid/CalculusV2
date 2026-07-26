@@ -2,6 +2,7 @@ package com.mrgoddavid.vector;
 
 import com.mrgoddavid.geometry.angle.Radian;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Comparator;
 
@@ -27,6 +28,9 @@ public class Vector2l implements Vector2<Vector2l>, Comparable<Vector2l>, Compar
      * Unit vector along y-axis. We define this unit vector as j.
      */
     public static final Vector2l UNIT_J = new Vector2l(0L, 1L);
+
+    @Serial
+    private static final long serialVersionUID = -6221019907535906584L;
 
     /**
      * x component of this vector.

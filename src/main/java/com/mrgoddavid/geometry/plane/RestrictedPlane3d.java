@@ -7,6 +7,8 @@ import com.mrgoddavid.vector.Vector3d;
 import com.mrgoddavid.geometry.line.Line3d;
 import com.mrgoddavid.geometry.point.Point3d;
 
+import java.io.Serial;
+
 /**
  * This class creates a three-dimensional plane in three-dimensional space. The plane is restricted to the form
  * "Ax + By + Cz = D".
@@ -16,6 +18,8 @@ import com.mrgoddavid.geometry.point.Point3d;
  */
 public final class RestrictedPlane3d implements Plane3 {
 
+    @Serial
+    private static final long serialVersionUID = -6271053386665187503L;
     /**
      * X coefficient.
      */

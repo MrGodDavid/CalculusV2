@@ -2,6 +2,8 @@ package com.mrgoddavid.matrix;
 
 import com.mrgoddavid.vector.Vector3i;
 
+import java.io.Serial;
+
 /**
  * This class constructs a 3x3 matrix. Each element of this matrix is an integer.
  *
@@ -18,6 +20,9 @@ public class Matrix3i implements Matrix.SquareMatrix<Matrix3i> {
             0, 1, 0,
             0, 0, 1
     );
+
+    @Serial
+    private static final long serialVersionUID = 8593783890968172073L;
 
     /*
      *             c1    c2    c3

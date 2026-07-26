@@ -2,6 +2,8 @@ package com.mrgoddavid.geometry.point;
 
 import com.mrgoddavid.vector.Vector3d;
 
+import java.io.Serial;
+
 /**
  * A three-dimensional point in three-dimensional space. The point has three coordinates: the x coordinate, the y
  * coordinate, and the z coordinate. Formal notation is {@code (X, y, z)}.
@@ -9,8 +11,11 @@ import com.mrgoddavid.vector.Vector3d;
  * @author Mr. GodDavid
  * @since 7/13/2026
  */
+@SuppressWarnings("ClassCanBeRecord")
 public final class Point3d implements Point.Point3<Point3d> {
 
+    @Serial
+    private static final long serialVersionUID = -4922733615161342627L;
     /**
      * X coordinate.
      */

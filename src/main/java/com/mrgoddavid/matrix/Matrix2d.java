@@ -1,5 +1,7 @@
 package com.mrgoddavid.matrix;
 
+import java.io.Serial;
+
 /**
  * This class represents a 2x2 matrix. Each element of this matrix is an integer.
  *
@@ -7,6 +9,9 @@ package com.mrgoddavid.matrix;
  * @since 7/13/2026
  */
 public class Matrix2d implements Matrix.Matrix2<Matrix2d>, Matrix.SquareMatrix<Matrix2d> {
+
+    @Serial
+    private static final long serialVersionUID = -5371429800047389963L;
 
     /*
      *       +---+---+

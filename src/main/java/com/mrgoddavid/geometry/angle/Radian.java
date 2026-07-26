@@ -1,5 +1,6 @@
 package com.mrgoddavid.geometry.angle;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Comparator;
 
@@ -13,6 +14,8 @@ import static com.mrgoddavid.utils.Constants.PI;
  */
 public final class Radian implements Angle<Radian>, Comparable<Radian>, Comparator<Radian>, Serializable {
 
+    @Serial
+    private static final long serialVersionUID = -7703551521444578172L;
     /**
      * Numerical value of this angle. The unit is radians.
      */

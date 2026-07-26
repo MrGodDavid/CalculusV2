@@ -2,14 +2,19 @@ package com.mrgoddavid.geometry.point;
 
 import com.mrgoddavid.vector.Vector2d;
 
+import java.io.Serial;
+
 /**
  * This class defines a two-dimensional point. A two-dimensional point contains x and y coordinate.
  *
  * @author Mr. GodDavid
  * @since 7/23/2026 part of Two-Dimensional Point And Line Update.
  */
+@SuppressWarnings("ClassCanBeRecord")
 public final class Point2d implements Point.Point2<Point2d> {
 
+    @Serial
+    private static final long serialVersionUID = 4657192481056013926L;
     /**
      * X coordinate of this point.
      */
