@@ -1,6 +1,7 @@
 package com.mrgoddavid.transformation.rotation;
 
 import com.mrgoddavid.expression.DoubleExpression;
+import com.mrgoddavid.format.annotation.SingletonClass;
 import com.mrgoddavid.geometry.angle.Radian;
 import com.mrgoddavid.matrix.FixedMatrix;
 import com.mrgoddavid.matrix.Matrix2d;
@@ -19,6 +20,7 @@ import com.mrgoddavid.matrix.Matrix2d;
  * @author Mr. GodDavid
  * @since 7/24/2026 part of Transformation & Circles Update.
  */
+@SingletonClass
 public final class RotationMatrix2x2 extends FixedMatrix {
 
     private static RotationMatrix2x2 instance;
@@ -46,6 +48,7 @@ public final class RotationMatrix2x2 extends FixedMatrix {
     /**
      * No-argument constructor
      */
+    @SuppressWarnings("Convert2MethodRef")
     private RotationMatrix2x2() {
         this.e11 = n -> Math.cos(n);
         this.e12 = n -> -Math.sin(n);

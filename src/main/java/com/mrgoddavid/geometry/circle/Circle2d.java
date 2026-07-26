@@ -27,6 +27,7 @@ import static com.mrgoddavid.utils.Constants.*;
  * @author Mr. GodDavid
  * @since 7/24/2026 part of Transformations & Circles Update.
  */
+@SuppressWarnings("ClassCanBeRecord")
 public final class Circle2d {
 
     /**
@@ -100,17 +101,58 @@ public final class Circle2d {
     }
 
     /**
+     * Calculates the circumference of this circle.
+     *
+     * @return the circumference of this circle.
+     */
+    public double circumference() {
+        return TWO_PI * radius;
+    }
+
+    /**
+     * Calculates the area of this circle.
+     *
+     * @return the area of this circle.
+     */
+    public double area() {
+        return PI * radius * radius;
+    }
+
+    /**
+     * Accessor of the radius of this circle.
+     *
+     * @return the value of the radius of this circle.
+     */
+    public double radius() {
+        return radius;
+    }
+
+    /**
+     * Accessor of the center of this circle.
+     *
+     * @return the value of the center of this circle.
+     */
+    public Point2d center() {
+        return center;
+    }
+
+    /**
      * Gives detailed information about this circle. Including centering point, radius, and endpoints.
      *
      * @return detailed information about this circle.
      */
     public String detailedInfo() {
         Point2d[] endpoints = this.endpoints();
+        double c = this.circumference();
+        double a = this.area();
+
         return "Circle : {center=" + center + ", radius=" + radius + "\n" +
                 "endpoint1={" + endpoints[0] + "}\n" +
                 "endpoint2={" + endpoints[1] + "}\n" +
                 "endpoint3={" + endpoints[2] + "}\n" +
-                "endpoint4={" + endpoints[3] + "}\n";
+                "endpoint4={" + endpoints[3] + "}\n" +
+                "circumference={" + c + "}\n" +
+                "area={" + a + "}";
     }
 
     @Override
