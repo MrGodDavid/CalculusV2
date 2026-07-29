@@ -15,5 +15,5 @@ public interface FunctionExpression {
      * @param x independent variable of this function.
      * @return the output of this function based on the input x.
      */
-    double output(double x);
+    double value(double x);
 }

@@ -1,10 +1,10 @@
 package com.mrgoddavid.geometry.angle;
 
+import com.mrgoddavid.utils.Constants;
+
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Comparator;
-
-import static com.mrgoddavid.utils.Constants.PI;
 
 /**
  * The angle in radians.
@@ -52,7 +52,16 @@ public final class Radian implements Angle<Radian>, Comparable<Radian>, Comparat
      * @return the degrees of this angle.
      */
     public Degree toDegree() {
-        return new Degree(radians * 180.0 / PI);
+        return new Degree(radians * 180.0 / Constants.PI.val());
+    }
+
+    /**
+     * Multiplies negative 1 on the value of this angle.
+     *
+     * @return the negation value of this angle.
+     */
+    public Radian negate() {
+        return new Radian(-radians);
     }
 
     /**
@@ -116,6 +125,11 @@ public final class Radian implements Angle<Radian>, Comparable<Radian>, Comparat
     @Override
     public int compare(Radian radian, Radian t1) {
         return radian.compareTo(t1);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof Radian && compareTo((Radian) obj) == 0;
     }
 
     @Override

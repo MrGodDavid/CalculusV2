@@ -1,0 +1,142 @@
+package com.mrgoddavid.utils;
+
+import com.mrgoddavid.format.exception.UninstantiableClassInstantiationException;
+import com.mrgoddavid.geometry.angle.Radian;
+
+/**
+ * Math.
+ *
+ * @author Mr. GodDavid
+ * @since 7/29/2026
+ */
+public final class DavidMath {
+
+    private static final TRIG_ANGLE_PAIR[] SIN_RADIANS_VALUE_TABLE = new TRIG_ANGLE_PAIR[]{
+            new TRIG_ANGLE_PAIR(Constants.ZERO, 0.00000000000000),
+            new TRIG_ANGLE_PAIR(Constants.PI_OVER_SIXTEEN, 0.19509032201613),
+            new TRIG_ANGLE_PAIR(Constants.TWO_PI_OVER_SIXTEEN, 0.38268343236509),
+            new TRIG_ANGLE_PAIR(Constants.THREE_PI_OVER_SIXTEEN, 0.55557023301960),
+            new TRIG_ANGLE_PAIR(Constants.FOUR_PI_OVER_SIXTEEN, 0.70710678118655),
+            new TRIG_ANGLE_PAIR(Constants.FIVE_PI_OVER_SIXTEEN, 0.83146961230255),
+            new TRIG_ANGLE_PAIR(Constants.SIX_PI_OVER_SIXTEEN, 0.92387953251129),
+            new TRIG_ANGLE_PAIR(Constants.SEVEN_PI_OVER_SIXTEEN, 0.98078528040323),
+            new TRIG_ANGLE_PAIR(Constants.PI_OVER_TWO, 1.00000000000000),
+            new TRIG_ANGLE_PAIR(Constants.NINE_PI_OVER_SIXTEEN, 0.98078528040323),
+            new TRIG_ANGLE_PAIR(Constants.TEN_PI_OVER_SIXTEEN, 0.92387953251129),
+            new TRIG_ANGLE_PAIR(Constants.ELEVEN_PI_OVER_SIXTEEN, 0.83146961230255),
+            new TRIG_ANGLE_PAIR(Constants.TWELVE_PI_OVER_SIXTEEN, 0.70710678118655),
+            new TRIG_ANGLE_PAIR(Constants.THIRTEEN_PI_OVER_SIXTEEN, 0.55557023301960),
+            new TRIG_ANGLE_PAIR(Constants.FOURTEEN_PI_OVER_SIXTEEN, 0.38268343236509),
+            new TRIG_ANGLE_PAIR(Constants.FIFTEEN_PI_OVER_SIXTEEN, 0.19509032201613),
+            new TRIG_ANGLE_PAIR(Constants.PI, 0.00000000000000),
+            new TRIG_ANGLE_PAIR(Constants.SEVENTEEN_PI_OVER_SIXTEEN, -0.19509032201613),
+            new TRIG_ANGLE_PAIR(Constants.EIGHTEEN_PI_OVER_SIXTEEN, -0.38268343236509),
+            new TRIG_ANGLE_PAIR(Constants.NINETEEN_PI_OVER_SIXTEEN, -0.55557023301960),
+            new TRIG_ANGLE_PAIR(Constants.TWENTY_PI_OVER_SIXTEEN, -0.70710678118655),
+            new TRIG_ANGLE_PAIR(Constants.TWENTY_ONE_PI_OVER_SIXTEEN, -0.83146961230255),
+            new TRIG_ANGLE_PAIR(Constants.TWENTY_TWO_PI_OVER_SIXTEEN, -0.92387953251129),
+            new TRIG_ANGLE_PAIR(Constants.TWENTY_THREE_PI_OVER_SIXTEEN, -0.98078528040323),
+            new TRIG_ANGLE_PAIR(Constants.THREE_PI_OVER_TWO, -1.00000000000000),
+            new TRIG_ANGLE_PAIR(Constants.TWENTY_FIVE_PI_OVER_SIXTEEN, -0.98078528040323),
+            new TRIG_ANGLE_PAIR(Constants.TWENTY_SIX_PI_OVER_SIXTEEN, -0.92387953251129),
+            new TRIG_ANGLE_PAIR(Constants.TWENTY_SEVEN_PI_OVER_SIXTEEN, -0.83146961230255),
+            new TRIG_ANGLE_PAIR(Constants.TWENTY_EIGHT_PI_OVER_SIXTEEN, -0.70710678118655),
+            new TRIG_ANGLE_PAIR(Constants.TWENTY_NINE_PI_OVER_SIXTEEN, -0.55557023301960),
+            new TRIG_ANGLE_PAIR(Constants.THIRTY_PI_OVER_SIXTEEN, -0.38268343236509),
+            new TRIG_ANGLE_PAIR(Constants.THIRTY_ONE_PI_OVER_SIXTEEN, -0.19509032201613),
+            new TRIG_ANGLE_PAIR(Constants.TWO_PI, 0.00000000000000),
+    };
+
+    private static final TRIG_ANGLE_PAIR[] COS_RADIANS_VALUE_TABLE = new TRIG_ANGLE_PAIR[]{
+            new TRIG_ANGLE_PAIR(Constants.ZERO, 1.00000000000000),
+            new TRIG_ANGLE_PAIR(Constants.PI_OVER_SIXTEEN, 0.98078528040323),
+            new TRIG_ANGLE_PAIR(Constants.TWO_PI_OVER_SIXTEEN, 0.92387953251129),
+            new TRIG_ANGLE_PAIR(Constants.THREE_PI_OVER_SIXTEEN, 0.83146961230255),
+            new TRIG_ANGLE_PAIR(Constants.FOUR_PI_OVER_SIXTEEN, 0.70710678118655),
+            new TRIG_ANGLE_PAIR(Constants.FIVE_PI_OVER_SIXTEEN, 0.55557023301960),
+            new TRIG_ANGLE_PAIR(Constants.SIX_PI_OVER_SIXTEEN, 0.38268343236509),
+            new TRIG_ANGLE_PAIR(Constants.SEVEN_PI_OVER_SIXTEEN, 0.19509032201613),
+            new TRIG_ANGLE_PAIR(Constants.PI_OVER_TWO, 0.00000000000000),
+            new TRIG_ANGLE_PAIR(Constants.NINE_PI_OVER_SIXTEEN, -0.19509032201613),
+            new TRIG_ANGLE_PAIR(Constants.TEN_PI_OVER_SIXTEEN, -0.38268343236509),
+            new TRIG_ANGLE_PAIR(Constants.ELEVEN_PI_OVER_SIXTEEN, -0.55557023301960),
+            new TRIG_ANGLE_PAIR(Constants.TWELVE_PI_OVER_SIXTEEN, -0.70710678118655),
+            new TRIG_ANGLE_PAIR(Constants.THIRTEEN_PI_OVER_SIXTEEN, -0.83146961230255),
+            new TRIG_ANGLE_PAIR(Constants.FOURTEEN_PI_OVER_SIXTEEN, -0.92387953251129),
+            new TRIG_ANGLE_PAIR(Constants.FIFTEEN_PI_OVER_SIXTEEN, -0.98078528040323),
+            new TRIG_ANGLE_PAIR(Constants.PI, -1.00000000000000),
+            new TRIG_ANGLE_PAIR(Constants.SEVENTEEN_PI_OVER_SIXTEEN, -0.98078528040323),
+            new TRIG_ANGLE_PAIR(Constants.EIGHTEEN_PI_OVER_SIXTEEN, -0.92387953251129),
+            new TRIG_ANGLE_PAIR(Constants.NINETEEN_PI_OVER_SIXTEEN, -0.83146961230255),
+            new TRIG_ANGLE_PAIR(Constants.TWENTY_PI_OVER_SIXTEEN, -0.70710678118655),
+            new TRIG_ANGLE_PAIR(Constants.TWENTY_ONE_PI_OVER_SIXTEEN, -0.55557023301960),
+            new TRIG_ANGLE_PAIR(Constants.TWENTY_TWO_PI_OVER_SIXTEEN, -0.38268343236509),
+            new TRIG_ANGLE_PAIR(Constants.TWENTY_THREE_PI_OVER_SIXTEEN, -0.19509032201613),
+            new TRIG_ANGLE_PAIR(Constants.THREE_PI_OVER_TWO, 0.00000000000000),
+            new TRIG_ANGLE_PAIR(Constants.TWENTY_FIVE_PI_OVER_SIXTEEN, 0.19509032201613),
+            new TRIG_ANGLE_PAIR(Constants.TWENTY_SIX_PI_OVER_SIXTEEN, 0.38268343236509),
+            new TRIG_ANGLE_PAIR(Constants.TWENTY_SEVEN_PI_OVER_SIXTEEN, 0.55557023301960),
+            new TRIG_ANGLE_PAIR(Constants.TWENTY_EIGHT_PI_OVER_SIXTEEN, 0.70710678118655),
+            new TRIG_ANGLE_PAIR(Constants.TWENTY_NINE_PI_OVER_SIXTEEN, 0.83146961230255),
+            new TRIG_ANGLE_PAIR(Constants.THIRTY_PI_OVER_SIXTEEN, 0.92387953251129),
+            new TRIG_ANGLE_PAIR(Constants.THIRTY_ONE_PI_OVER_SIXTEEN, 0.98078528040323),
+            new TRIG_ANGLE_PAIR(Constants.TWO_PI, 1.00000000000000),
+    };
+
+    private static final TRIG_ANGLE_PAIR[] TAN_RADIANS_VALUE_TABLE = new TRIG_ANGLE_PAIR[]{
+            new TRIG_ANGLE_PAIR(Constants.ZERO, 0.0),
+            new TRIG_ANGLE_PAIR(Constants.PI_OVER_SIXTEEN,0.19891236737965),
+            new TRIG_ANGLE_PAIR(Constants.TWO_PI_OVER_SIXTEEN, 0.41421356237309),
+            new TRIG_ANGLE_PAIR(Constants.THREE_PI_OVER_SIXTEEN, 0.66817863791929),
+            new TRIG_ANGLE_PAIR(Constants.FOUR_PI_OVER_SIXTEEN, 1.0),
+            new TRIG_ANGLE_PAIR(Constants.FIVE_PI_OVER_SIXTEEN, 1.49660576266548),
+            new TRIG_ANGLE_PAIR(Constants.SIX_PI_OVER_SIXTEEN, 2.41421356237309),
+            new TRIG_ANGLE_PAIR(Constants.SEVEN_PI_OVER_SIXTEEN, 5.02733949212584),
+            new TRIG_ANGLE_PAIR(Constants.PI_OVER_TWO, Double.NaN),
+            new TRIG_ANGLE_PAIR(Constants.NINE_PI_OVER_SIXTEEN, -5.02733949212584),
+            new TRIG_ANGLE_PAIR(Constants.TEN_PI_OVER_SIXTEEN, -2.41421356237309),
+            new TRIG_ANGLE_PAIR(Constants.ELEVEN_PI_OVER_SIXTEEN, -1.49660576266548),
+            new TRIG_ANGLE_PAIR(Constants.TWELVE_PI_OVER_SIXTEEN, -1.0),
+            new TRIG_ANGLE_PAIR(Constants.THIRTEEN_PI_OVER_SIXTEEN, -0.66817863791929),
+            new TRIG_ANGLE_PAIR(Constants.FOURTEEN_PI_OVER_SIXTEEN, -0.41421356237309),
+            new TRIG_ANGLE_PAIR(Constants.FIFTEEN_PI_OVER_SIXTEEN, -0.19891236737965),
+            new TRIG_ANGLE_PAIR(Constants.PI, 0.0),
+            new TRIG_ANGLE_PAIR(Constants.SEVENTEEN_PI_OVER_SIXTEEN, 0.19891236737965),
+            new TRIG_ANGLE_PAIR(Constants.EIGHTEEN_PI_OVER_SIXTEEN, 0.41421356237309),
+            new TRIG_ANGLE_PAIR(Constants.NINETEEN_PI_OVER_SIXTEEN, 0.66817863791929),
+            new TRIG_ANGLE_PAIR(Constants.TWENTY_PI_OVER_SIXTEEN, 1.0),
+            new TRIG_ANGLE_PAIR(Constants.TWENTY_ONE_PI_OVER_SIXTEEN, 1.49660576266548),
+            new TRIG_ANGLE_PAIR(Constants.TWENTY_TWO_PI_OVER_SIXTEEN, 2.41421356237309),
+            new TRIG_ANGLE_PAIR(Constants.TWENTY_THREE_PI_OVER_SIXTEEN, 5.02733949212584),
+            new TRIG_ANGLE_PAIR(Constants.THREE_PI_OVER_TWO, Double.NaN),
+            new TRIG_ANGLE_PAIR(Constants.TWENTY_FIVE_PI_OVER_SIXTEEN, -5.02733949212584),
+            new TRIG_ANGLE_PAIR(Constants.TWENTY_SIX_PI_OVER_SIXTEEN, -2.41421356237309),
+            new TRIG_ANGLE_PAIR(Constants.TWENTY_SEVEN_PI_OVER_SIXTEEN, -1.49660576266548),
+            new TRIG_ANGLE_PAIR(Constants.TWENTY_EIGHT_PI_OVER_SIXTEEN, -1.0),
+            new TRIG_ANGLE_PAIR(Constants.TWENTY_NINE_PI_OVER_SIXTEEN, -0.66817863791929),
+            new TRIG_ANGLE_PAIR(Constants.THIRTY_PI_OVER_SIXTEEN, -0.41421356237309),
+            new TRIG_ANGLE_PAIR(Constants.THIRTY_ONE_PI_OVER_SIXTEEN, -0.19891236737965),
+            new TRIG_ANGLE_PAIR(Constants.PI, 0.0),
+    };
+
+    private record TRIG_ANGLE_PAIR(Radian angle, double value) {
+    }
+
+    /**
+     * Private constructor.
+     *
+     * @throws UninstantiableClassInstantiationException because user cannot instantiate this utility class.
+     */
+    private DavidMath() throws UninstantiableClassInstantiationException {
+        throw new UninstantiableClassInstantiationException();
+    }
+
+    public static double tan(Radian angle) {
+        for (TRIG_ANGLE_PAIR tanAnglePair : TAN_RADIANS_VALUE_TABLE) {
+            if (angle.equals(tanAnglePair.angle)) {
+                return tanAnglePair.value;
+            }
+        }
+        return Math.sin(angle.val()) / Math.cos(angle.val());
+    }
+}

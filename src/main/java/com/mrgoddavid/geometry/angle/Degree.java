@@ -115,7 +115,7 @@ public final class Degree implements Angle<Degree>, Comparable<Degree>, Comparat
      * @return the radians of this angle.
      */
     public Radian toRadians() {
-        return new Radian(degree / 180.0 * PI);
+        return new Radian(degree / 180.0 * PI.val());
     }
 
     @Override

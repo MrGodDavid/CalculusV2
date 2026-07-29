@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * @author Mr. GodDavid
  * @since 7/20/2026
  */
-public class Vector3dTestSuites extends TestSuites {
+public class Vector3d_ClassTest extends TestSuites.Vector3dTestSuites {
 
     @ParameterizedTest
     @MethodSource("vector3dAdditionProvider")

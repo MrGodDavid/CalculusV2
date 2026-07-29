@@ -1,8 +1,11 @@
 package com.mrgoddavid.test;
 
+import com.mrgoddavid.function.Function;
 import com.mrgoddavid.geometry.angle.Radian;
 import com.mrgoddavid.geometry.circle.Circle2d;
 import com.mrgoddavid.geometry.point.Point2d;
+import com.mrgoddavid.utils.Constants;
+import com.mrgoddavid.utils.DavidMath;
 import com.mrgoddavid.vector.Vector;
 import com.mrgoddavid.vector.Vector3d;
 import com.mrgoddavid.vector.Vector3i;
@@ -86,5 +89,11 @@ class Main {
         System.out.println(circle.detailedInfo());
 
         System.out.println((1.0 / 0) == Double.POSITIVE_INFINITY);
+
+//        Function f = new Function(x -> (x * x + 2.0 * x + 1.0) / (x * x));
+        Function f = new Function(x -> ((x * x - 25.0)/(x*x+2*x-15.0)));
+        f.debug();
+        System.out.println(f.limitAt(-5.0));
+        System.out.println(DavidMath.tan(Constants.PI));
     }
 }

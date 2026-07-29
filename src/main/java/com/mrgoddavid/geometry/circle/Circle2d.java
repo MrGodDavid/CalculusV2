@@ -72,9 +72,9 @@ public final class Circle2d implements Serializable {
         }
 
         if (dx == 0.0 && dy > 0.0) {
-            angle = new Radian(PI_OVER_TWO);
+            angle = PI_OVER_TWO;
         } else if (dx == 0.0 && dy < 0.0) {
-            angle = new Radian(-PI_OVER_TWO);
+            angle = PI_OVER_TWO.negate();
         } else {
             angle = new Radian(Math.atan2(dy, dx));
         }
@@ -93,9 +93,9 @@ public final class Circle2d implements Serializable {
         Vector2d vector = new Vector2d(center.x() + radius, center.y());
 
         Vector2d east = vector.rotate(new Radian(0));
-        Vector2d north = vector.rotate(new Radian(PI_OVER_TWO));
-        Vector2d west = vector.rotate(new Radian(THREE_PI_OVER_TWO));
-        Vector2d south = vector.rotate(new Radian(TWO_PI));
+        Vector2d north = vector.rotate(new Radian(PI_OVER_TWO.val()));
+        Vector2d west = vector.rotate(new Radian(THREE_PI_OVER_TWO.val()));
+        Vector2d south = vector.rotate(new Radian(TWO_PI.val()));
 
         return new Point2d[]{
                 new Point2d(center.x() + east.getX(), center.y() + east.getY()),
@@ -111,7 +111,7 @@ public final class Circle2d implements Serializable {
      * @return the circumference of this circle.
      */
     public double circumference() {
-        return TWO_PI * radius;
+        return TWO_PI.val() * radius;
     }
 
     /**
@@ -120,7 +120,7 @@ public final class Circle2d implements Serializable {
      * @return the area of this circle.
      */
     public double area() {
-        return PI * radius * radius;
+        return PI.val() * radius * radius;
     }
 
     /**
