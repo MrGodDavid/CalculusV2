@@ -143,11 +143,28 @@ final class Limit {
         }
     }
 
+    /**
+     * Utilizes LHopital's Rule to calculate the limit of the function at x under the form 0/0 after direct
+     * substitution.
+     *
+     * @param x given x.
+     * @return the value of the helper method {@link Limit#doLHopitals_Rule(double, int)}.
+     */
     private double LHopitals_Rule(double x) {
-        return doLhoptals_Rule(x, 1);
+        return doLHopitals_Rule(x, 1);
     }
 
-    private double doLhoptals_Rule(double x, int degreeOfDerivative) {
+    /**
+     * Helper method of {@link Limit#LHopitals_Rule(double)}. This method recursively tries LHopital's Rule until the
+     * degree of derivative exceeds 13. For each degree of derivative calculation, this method calls
+     * {@link Derivative#general_forward_derivative(Expression, double, int)}.
+     *
+     * @param x                  the given x.
+     * @param degreeOfDerivative the degree of derivative of the numerator and the denominator of the expression of the
+     *                           function.
+     * @return either a value calculated by this method or {@link Limit#DOES_NOT_EXIST}.
+     */
+    private double doLHopitals_Rule(double x, int degreeOfDerivative) {
         if (degreeOfDerivative >= 13) {
             if (debug) {
                 System.err.println("[WARNING] Cannot do LHoptals_Rule at " + x);
@@ -160,11 +177,17 @@ final class Limit {
             System.out.println("LHopitals_Rule: " + numerator + " / " + denominator);
         }
         if (Math.abs(numerator) < THRESHOLD && Math.abs(denominator) < THRESHOLD) {
-            return doLhoptals_Rule(x, degreeOfDerivative + 1);
+            return doLHopitals_Rule(x, degreeOfDerivative + 1);
         }
         return numerator / denominator;
     }
 
+    /**
+     * Checks if the table approaches to negative infinity.
+     *
+     * @param table given table of values that is not null/empty.
+     * @return true of the values approaches to negative infinity.
+     */
     private boolean tableApproachesNegativeInfinity(double[] table) {
         double prev = Double.MAX_VALUE;
         for (int i = 1; i < table.length; i++) {
@@ -177,6 +200,12 @@ final class Limit {
         return true;
     }
 
+    /**
+     * Checks if the table approaches to positive infinity.
+     *
+     * @param table given table of values that is not null/empty.
+     * @return true of the values approaches to positive infinity.
+     */
     private boolean tableApproachesPositiveInfinite(double[] table) {
         double prev = Double.MIN_VALUE;
         for (int i = 1; i < H_TABLE.length; i++) {
@@ -189,6 +218,13 @@ final class Limit {
         return true;
     }
 
+    /**
+     * Generate a table of function's values when inputs are the difference of x and each value of
+     * {@link Limit#H_TABLE}.
+     *
+     * @param x given x.
+     * @return the table of values that approaches to the limit of the function from left side of x.
+     */
     private double[] generateLeftTable(double x) {
         double[] leftTable = new double[H_TABLE.length];
         for (int i = 0; i < H_TABLE.length; i++) {
@@ -197,6 +233,12 @@ final class Limit {
         return leftTable;
     }
 
+    /**
+     * Generate a table of function's values when inputs are the sum of x and each value of {@link Limit#H_TABLE}.
+     *
+     * @param x given x.
+     * @return the table of values that approaches to the limit of the function from right side of x.
+     */
     private double[] generateRightTable(double x) {
         double[] rightTable = new double[H_TABLE.length];
         for (int i = 0; i < H_TABLE.length; i++) {
@@ -205,10 +247,16 @@ final class Limit {
         return rightTable;
     }
 
+    /**
+     * Enables debug features.
+     */
     void debug() {
         this.debug = true;
     }
 
+    /**
+     * Disables debug features.
+     */
     void endDebug() {
         this.debug = false;
     }

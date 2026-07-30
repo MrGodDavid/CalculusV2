@@ -10,6 +10,8 @@ import com.mrgoddavid.utils.Constants;
  */
 public class Function {
 
+    private static final double UNDEFINED = Double.NaN;
+
     /**
      * Expression of the raw function.
      */
@@ -49,9 +51,17 @@ public class Function {
         return Math.abs(x - limitAt(x)) < Constants.THRESHOLD;
     }
 
+    /**
+     * Calculates the first derivative of this function at x by calling {@link Derivative#first_derivativeAt(double)}.
+     * If the function is not continuous at x, this method returns {@link Function#UNDEFINED}.
+     *
+     * @param x given x.
+     * @return the result of {@link Derivative#first_derivativeAt(double)} or {@link Function#UNDEFINED} if the function
+     * is not continuous at x.
+     */
     public double first_derivativeAt(double x) {
         if (!continuousAt(x)) {
-            return -999;
+            return UNDEFINED;
         }
         return derivative.first_derivativeAt(x);
     }
@@ -98,14 +108,14 @@ public class Function {
     }
 
     /**
-     * Turns on debug mode.
+     * Enables debug features.
      */
     public void debug() {
         this.limit.debug();
     }
 
     /**
-     * Turns off debug mode.
+     * Disables debug features.
      */
     public void endDebug() {
         this.limit.endDebug();

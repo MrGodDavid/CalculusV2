@@ -36,14 +36,53 @@ final class Derivative {
         this.function = function;
     }
 
+    /**
+     * Calculates the first derivative of the function at x.
+     *
+     * @param x given x.
+     * @return the first derivative of the function at x.
+     */
     public double first_derivativeAt(double x) {
         return general_forward_derivative(x, 1);
     }
 
+    /**
+     * Calculates the second derivative of the function at x.
+     *
+     * @param x given x.
+     * @return the second derivative of the function at x.
+     */
     public double second_derivativeAt(double x) {
         return general_forward_derivative(x, 2);
     }
 
+    /**
+     * Calculates the third derivative of the function at x.
+     *
+     * @param x given x.
+     * @return the third derivative of the function at x.
+     */
+    public double third_derivativeAt(double x) {
+        return general_forward_derivative(x, 3);
+    }
+
+    /**
+     * Calculates the fourth derivative of the function at x.
+     *
+     * @param x given x.
+     * @return the fourth derivative of the function at x.
+     */
+    public double fourth_derivativeAt(double x) {
+        return general_forward_derivative(x, 4);
+    }
+
+    /**
+     * Uses the general-forward formula to calculate nth derivative of function at x.
+     *
+     * @param x the given x value.
+     * @param n the nth degree of derivative.
+     * @return the value of nth derivative of the function at given x.
+     */
     private double general_forward_derivative(double x, int n) {
         double scale = 1.0 / Math.pow(H, n);
         double value = 0.0;
@@ -55,6 +94,15 @@ final class Derivative {
         return scale * value;
     }
 
+    /**
+     * Uses the general-forward formula to calculate nth derivative of function at x. This method is difference since it
+     * receives the expression of the function in its parameter.
+     *
+     * @param function the expression of the function.
+     * @param x        the given x value.
+     * @param n        the nth degree of derivative.
+     * @return the value of nth derivative of the function at given x.
+     */
     public static double general_forward_derivative(Expression function, double x, int n) {
         double scale = 1.0 / Math.pow(H, n);
         double value = 0.0;
