@@ -1,5 +1,6 @@
 package com.mrgoddavid.utils;
 
+import com.mrgoddavid.format.exception.UnsupportedFactorialCalculationException;
 import com.mrgoddavid.format.exception.UninstantiableClassInstantiationException;
 import com.mrgoddavid.geometry.angle.Radian;
 
@@ -85,7 +86,7 @@ public final class DavidMath {
 
     private static final TRIG_ANGLE_PAIR[] TAN_RADIANS_VALUE_TABLE = new TRIG_ANGLE_PAIR[]{
             new TRIG_ANGLE_PAIR(Constants.ZERO, 0.0),
-            new TRIG_ANGLE_PAIR(Constants.PI_OVER_SIXTEEN,0.19891236737965),
+            new TRIG_ANGLE_PAIR(Constants.PI_OVER_SIXTEEN, 0.19891236737965),
             new TRIG_ANGLE_PAIR(Constants.TWO_PI_OVER_SIXTEEN, 0.41421356237309),
             new TRIG_ANGLE_PAIR(Constants.THREE_PI_OVER_SIXTEEN, 0.66817863791929),
             new TRIG_ANGLE_PAIR(Constants.FOUR_PI_OVER_SIXTEEN, 1.0),
@@ -119,6 +120,22 @@ public final class DavidMath {
             new TRIG_ANGLE_PAIR(Constants.PI, 0.0),
     };
 
+    private static final int[] FACTORIAL_TABLE = new int[]{
+            1,              // 0!
+            1,              // 1!
+            2,              // 2!
+            6,              // 3!
+            24,             // 4!
+            120,            // 5!
+            720,            // 6!
+            5040,           // 7!
+            40320,          // 8!
+            362880,         // 9!
+            3628800,        // 10!
+            39916800,       // 11!
+            479001600       // 12!
+    };
+
     private record TRIG_ANGLE_PAIR(Radian angle, double value) {
     }
 
@@ -131,6 +148,24 @@ public final class DavidMath {
         throw new UninstantiableClassInstantiationException();
     }
 
+    public static double sin(Radian angle) {
+        for (TRIG_ANGLE_PAIR sinAnglePair : SIN_RADIANS_VALUE_TABLE) {
+            if (angle.equals(sinAnglePair.angle)) {
+                return sinAnglePair.value;
+            }
+        }
+        return Math.sin(angle.val());
+    }
+
+    public static double cos(Radian angle) {
+        for (TRIG_ANGLE_PAIR cosAnglePair : COS_RADIANS_VALUE_TABLE) {
+            if (angle.equals(cosAnglePair.angle)) {
+                return cosAnglePair.value;
+            }
+        }
+        return Math.cos(angle.val());
+    }
+
     public static double tan(Radian angle) {
         for (TRIG_ANGLE_PAIR tanAnglePair : TAN_RADIANS_VALUE_TABLE) {
             if (angle.equals(tanAnglePair.angle)) {
@@ -138,5 +173,16 @@ public final class DavidMath {
             }
         }
         return Math.sin(angle.val()) / Math.cos(angle.val());
+    }
+
+    public static int factorial(int n) {
+        if (n >= 13) {
+            throw new UnsupportedFactorialCalculationException(n);
+        }
+        return FACTORIAL_TABLE[n];
+    }
+
+    public static int binomial(int n, int k) {
+        return DavidMath.factorial(n) / (DavidMath.factorial(k) * DavidMath.factorial(n - k));
     }
 }

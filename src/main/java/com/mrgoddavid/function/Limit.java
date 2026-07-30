@@ -2,11 +2,9 @@ package com.mrgoddavid.function;
 
 import com.mrgoddavid.utils.ArrayUtils;
 
-import com.mrgoddavid.utils.Constants.*;
-
 import java.util.Arrays;
 
-import static com.mrgoddavid.utils.Constants.LIMIT_THRESHOLD;
+import static com.mrgoddavid.utils.Constants.THRESHOLD;
 
 /**
  * Calculates the limit of a one-variable function at x. Normally, the limit of the function equals the output of the
@@ -19,7 +17,7 @@ import static com.mrgoddavid.utils.Constants.LIMIT_THRESHOLD;
  * @author Mr. GodDavid
  * @since 7/26/2026 part of Function Update.
  */
-public final class Limit {
+final class Limit {
 
     private static final double[] H_TABLE = new double[]{
             0.1,                                 // 10E-1
@@ -30,25 +28,33 @@ public final class Limit {
             0.000001,                            // 10E-6
             0.0000001,                           // 10E-7
             0.00000001,                          // 10E-8
-//            0.000000001,                         // 10E-9
-//            0.0000000001,                        // 10E-10
-//            0.00000000001,                       // 10E-11
-//            0.000000000001,                      // 10E-12
-//            0.0000000000001,                     // 10E-13
-//            0.00000000000001,                    // 10E-14
-//            0.000000000000001,                   // 10E-15
+            0.000000001,                         // 10E-9
+            0.0000000001,                        // 10E-10
+            0.00000000001,                       // 10E-11
+            0.000000000001,                      // 10E-12
+            0.0000000000001,                     // 10E-13
+            0.00000000000001,                    // 10E-14
     };
 
     private static final double POSITIVE_INFINITY = Double.POSITIVE_INFINITY;
     private static final double NEGATIVE_INFINITY = Double.NEGATIVE_INFINITY;
     private static final double DOES_NOT_EXIST = Double.NaN;
 
-    private final FunctionExpression function;
+    private final Expression function;
     private boolean debug;
 
-    public Limit(FunctionExpression function) {
+    public Limit(Expression function) {
         this.function = function;
         this.debug = false;
+    }
+
+    private Expression numerator, denominator;
+
+    public Limit(Expression function, Expression numerator, Expression denominator) {
+        this.function = function;
+        this.debug = false;
+        this.numerator = numerator;
+        this.denominator = denominator;
     }
 
     /**
@@ -66,6 +72,16 @@ public final class Limit {
         } else {
             return approachesAt(x);
         }
+    }
+
+    /**
+     * Determines whether the limit exists or not.
+     *
+     * @param x given x.
+     * @return true if the limit exists.
+     */
+    public boolean hasLimitAt(double x) {
+        return !Double.isNaN(limitAt(x));
     }
 
     private double approachesAt(double x) {
@@ -86,7 +102,7 @@ public final class Limit {
 
         // Determines whether the left limit approaches to negative infinity and whether the right limit approaches negative infinity.
         boolean leftTableToNegativeInfinity = tableApproachesNegativeInfinity(leftTable) || tableApproachesNegativeInfinity(ArrayUtils.reverse(leftTable));
-        boolean rightTableToNegativeInfinity = tableApproachesNegativeInfinity(rightTable) ||  tableApproachesNegativeInfinity(ArrayUtils.reverse(rightTable));
+        boolean rightTableToNegativeInfinity = tableApproachesNegativeInfinity(rightTable) || tableApproachesNegativeInfinity(ArrayUtils.reverse(rightTable));
         if (debug) {
             System.out.println("Left table to negative infinity: " + leftTableToNegativeInfinity);
             System.out.println("Right table to negative infinity: " + rightTableToNegativeInfinity);
@@ -117,14 +133,36 @@ public final class Limit {
             // If the difference between the number that the left limit approaches to and the number that right the limit approaches to
             // passes the threshold test, which means the difference is within a very small number, the limit is approximately the
             // average of the number that the left limit approaches and the number that the right limit approaches.
-            if (difference < LIMIT_THRESHOLD) {
+            if (difference < THRESHOLD) {
                 return (leftNumber + rightNumber) / 2.0;
             }
             // If the limit fails the threshold test, we then say that the limit does not exist.
             else {
-                return DOES_NOT_EXIST;
+                return LHopitals_Rule(x);
             }
         }
+    }
+
+    private double LHopitals_Rule(double x) {
+        return doLhoptals_Rule(x, 1);
+    }
+
+    private double doLhoptals_Rule(double x, int degreeOfDerivative) {
+        if (degreeOfDerivative >= 13) {
+            if (debug) {
+                System.err.println("[WARNING] Cannot do LHoptals_Rule at " + x);
+            }
+            return DOES_NOT_EXIST;
+        }
+        double numerator = Derivative.general_forward_derivative(this.numerator, x, 1);
+        double denominator = Derivative.general_forward_derivative(this.denominator, x, 1);
+        if (debug) {
+            System.out.println("LHopitals_Rule: " + numerator + " / " + denominator);
+        }
+        if (Math.abs(numerator) < THRESHOLD && Math.abs(denominator) < THRESHOLD) {
+            return doLhoptals_Rule(x, degreeOfDerivative + 1);
+        }
+        return numerator / denominator;
     }
 
     private boolean tableApproachesNegativeInfinity(double[] table) {

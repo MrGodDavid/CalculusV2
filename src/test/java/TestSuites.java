@@ -289,12 +289,12 @@ public class TestSuites {
 
         static Stream<Arguments> zero_over_zeroLimitTestProvider() {
             return Stream.of(
-                    Arguments.of(new Function(x -> (x * x - 25.0) / (x * x + 2.0 * x - 15.0)), -5.0, 1.25, EPSILON),
-                    Arguments.of(new Function(z -> (2.0 * z * z - 17.0 * z + 8.0) / (8.0 - z)), 8.0, -15.0, EPSILON),
-                    Arguments.of(new Function(h -> ((6.0 + h) * (6.0 + h) - 36.0) / (h)), 0.0, 12.0, EPSILON),
-                    Arguments.of(new Function(z -> (Math.sqrt(z) - 2.0) / (z - 4.0)), 4.0, 0.25, EPSILON),
-                    Arguments.of(new Function(x -> (Math.sqrt(2.0 * x + 22.0) - 4.0) / (x + 3.0)), -3.0, 0.25, EPSILON),
-                    Arguments.of(new Function(x -> (x) / (3.0 - Math.sqrt(x + 9.0))), 0.0, -6.0, EPSILON)
+                    Arguments.of(new Function(x -> (x * x - 25.0), x -> (x * x + 2.0 * x - 15.0)), -5.0, 1.25, EPSILON),
+                    Arguments.of(new Function(z -> (2.0 * z * z - 17.0 * z + 8.0), z -> (8.0 - z)), 8.0, -15.0, EPSILON),
+                    Arguments.of(new Function(h -> ((6.0 + h) * (6.0 + h) - 36.0), h -> (h)), 0.0, 12.0, EPSILON),
+                    Arguments.of(new Function(z -> (Math.sqrt(z) - 2.0), z -> (z - 4.0)), 4.0, 0.25, EPSILON),
+                    Arguments.of(new Function(x -> (Math.sqrt(2.0 * x + 22.0) - 4.0), x -> (x + 3.0)), -3.0, 0.25, EPSILON),
+                    Arguments.of(new Function(x -> (x), x -> (3.0 - Math.sqrt(x + 9.0))), 0.0, -6.0, EPSILON)
             );
         }
 

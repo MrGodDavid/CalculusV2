@@ -14,7 +14,7 @@ public final class Constants {
     /**
      * The tolerance of the difference between left and right value of limit.
      */
-    public static final double LIMIT_THRESHOLD = 1E-2;
+    public static final double THRESHOLD = 1E-2;
 
     /**
      * Threshold of the float-point comparison of two numbers. Use this in Test classes.
