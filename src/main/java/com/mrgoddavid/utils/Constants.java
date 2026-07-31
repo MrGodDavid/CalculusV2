@@ -19,7 +19,7 @@ public final class Constants {
     /**
      * Threshold of the float-point comparison of two numbers. Use this in Test classes.
      */
-    public static final double EPSILON = 1E-2;
+    public static final double EPSILON = 1E-3;
 
     /**
      * 14 decimal places of the square root of 2.

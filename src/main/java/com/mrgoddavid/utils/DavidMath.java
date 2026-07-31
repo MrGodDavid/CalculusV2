@@ -133,7 +133,7 @@ public final class DavidMath {
             362880,         // 9!
             3628800,        // 10!
             39916800,       // 11!
-            479001600       // 12!
+            479001600,      // 12!
     };
 
     private record TRIG_ANGLE_PAIR(Radian angle, double value) {

@@ -308,5 +308,16 @@ public class TestSuites {
                     Arguments.of(new Function(y -> DavidMath.tan(new Radian(y))), THREE_PI_OVER_TWO.val(), Double.NaN, EPSILON)
             );
         }
+
+        static Stream<Arguments> limitAtInfinityTestProvider() {
+            return Stream.of(
+                    Arguments.of(new Function(x -> 4.0 * Math.pow(x, 7) - 18.0 * x * x * x + 9.0), Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY, EPSILON),
+                    Arguments.of(new Function(x -> 4.0 * Math.pow(x, 7) - 18.0 * x * x * x + 9.0), Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY, EPSILON),
+                    Arguments.of(new Function(x -> 6.0 * x, x -> x * x), Double.POSITIVE_INFINITY, 0.0, EPSILON),
+                    Arguments.of(new Function((x -> 3.0 * x * x), (x -> 2.0 * x)), Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY, EPSILON),
+                    Arguments.of(new Function((x -> 6.0 * x * x), (x -> 7.0 * x * x)), Double.POSITIVE_INFINITY, 0.8571428571, EPSILON),
+                    Arguments.of(new Function((x -> x + 8.0), (x -> Math.sqrt(2.0 * x * x + 3.0))), Double.NEGATIVE_INFINITY, -0.7071067812, EPSILON)
+            );
+        }
     }
 }

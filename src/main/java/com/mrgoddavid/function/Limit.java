@@ -36,25 +36,59 @@ final class Limit {
             0.00000000000001,                    // 10E-14
     };
 
+    private static final double[] BEHAVIOR_TABLE = new double[]{
+            1.0,
+            10.0,
+            1E2,
+            1E3,
+            1E4,
+            1E5,
+            1E6,
+            1E7,
+            1E8,
+            1E9,
+            1E10,
+            1E11,
+            1E12
+    };
+
     private static final double POSITIVE_INFINITY = Double.POSITIVE_INFINITY;
     private static final double NEGATIVE_INFINITY = Double.NEGATIVE_INFINITY;
     private static final double DOES_NOT_EXIST = Double.NaN;
 
     private final Expression function;
+    private final Expression numerator, denominator;
+    private final boolean isRational;
     private boolean debug;
 
+    /**
+     * Constructs the limit of the function with the given expression of the function.
+     *
+     * @param function expression of function that is not null.
+     */
     public Limit(Expression function) {
         this.function = function;
+        this.numerator = function;
+        this.denominator = x -> 1;
+        this.isRational = false;
         this.debug = false;
     }
 
-    private Expression numerator, denominator;
-
+    /**
+     * Constructs the limit of the function with the given combined expression of the function, also the numerator
+     * expression and the denominator expression of the function. This constructor flags the function is a rational
+     * function.
+     *
+     * @param function    the non-null and combined expression of the function.
+     * @param numerator   the non-null expression of the numerator of the function.
+     * @param denominator the non-null expression of the denominator of the function.
+     */
     public Limit(Expression function, Expression numerator, Expression denominator) {
         this.function = function;
-        this.debug = false;
         this.numerator = numerator;
         this.denominator = denominator;
+        this.isRational = true;
+        this.debug = false;
     }
 
     /**
@@ -85,6 +119,15 @@ final class Limit {
     }
 
     private double approachesAt(double x) {
+        if (Double.isNaN(x)) {
+            System.err.println("[WARNING]: Bad uses approachesAt(double) method because input x is NaN.");
+            return DOES_NOT_EXIST;
+        }
+
+        if (x == POSITIVE_INFINITY || x == NEGATIVE_INFINITY) {
+            return isRational ? handlesLimitAtInfinityWhenRationalExpr(x) : handlesLimitAtInfinity(x);
+        }
+
         double[] leftTable = generateLeftTable(x);
         double[] rightTable = generateRightTable(x);
         if (debug) {
@@ -93,8 +136,8 @@ final class Limit {
         }
 
         // Determines whether the left limit approaches to positive infinity and whether the right limit approaches positive infinity.
-        boolean leftTableToPositiveInfinity = tableApproachesPositiveInfinite(leftTable) || tableApproachesPositiveInfinite(ArrayUtils.reverse(leftTable));
-        boolean rightTableToPositiveInfinity = tableApproachesPositiveInfinite(rightTable) || tableApproachesPositiveInfinite(ArrayUtils.reverse(rightTable));
+        boolean leftTableToPositiveInfinity = tableApproachesPositiveInfinity(leftTable) || tableApproachesPositiveInfinity(ArrayUtils.reverse(leftTable));
+        boolean rightTableToPositiveInfinity = tableApproachesPositiveInfinity(rightTable) || tableApproachesPositiveInfinity(ArrayUtils.reverse(rightTable));
         if (debug) {
             System.out.println("Left table to positive infinity: " + leftTableToPositiveInfinity);
             System.out.println("Right table to positive infinity: " + (rightTableToPositiveInfinity));
@@ -141,6 +184,111 @@ final class Limit {
                 return LHopitals_Rule(x);
             }
         }
+    }
+
+    private double handlesLimitAtInfinityWhenRationalExpr(double x) {
+        boolean rightEndBehavior = x == Double.POSITIVE_INFINITY;
+        double largeX = rightEndBehavior ? 1e12 : -1e12;
+
+        double numeratorVal = this.numerator.value(largeX);
+        double denominatorVal = this.denominator.value(largeX);
+        if (debug) {
+            System.out.println("Numerator: " + numeratorVal);
+            System.out.println("Denominator: " + denominatorVal);
+        }
+
+        // Check for division by zero or infinity case
+        if (Double.isInfinite(denominatorVal) || denominatorVal == 0.0) {
+            // If the numerator and the denominator are still infinity, we apply a slightly larger number.
+            if (Double.isInfinite(numeratorVal) && Double.isInfinite(denominatorVal)) {
+                double largerX = rightEndBehavior ? 1e15 : -1e15;
+                return this.numerator.value(largerX) / this.denominator.value(largerX);
+            }
+            // This is n / 0 case. We simply return either positive infinity if numerator is positive or negative
+            // infinity if denominator is negative.
+            if (denominatorVal == 0.0 && numeratorVal != 0.0) {
+                return numeratorVal > 0.0 ? Double.POSITIVE_INFINITY : Double.NEGATIVE_INFINITY;
+            }
+        }
+
+        double result = numeratorVal / denominatorVal;
+        final double THRESHOLD = 1E11;
+        if (Double.isFinite(result) && result > THRESHOLD) {
+            return POSITIVE_INFINITY;
+        } else if (Double.isFinite(result) && result < -THRESHOLD) {
+            return NEGATIVE_INFINITY;
+        } else {
+            return result;
+        }
+    }
+
+    private double handlesLimitAtInfinity(double x) {
+        boolean rightEndBehavior = x == POSITIVE_INFINITY;
+        double[] behaviorTable = rightEndBehavior ? generateRightBehaviorTable() : generateLeftBehaviorTable();
+
+
+        if (rightEndBehavior) {
+            boolean rightEndBehaviorIsPositiveInfinity = tableApproachesPositiveInfinityWhenApproachingNegativeInfinity(behaviorTable);
+            boolean rightEndBehaviorIsNegativeInfinity = tableApproachesNegativeInfinityWhenApproachingPositiveInfinity(behaviorTable);
+            if (debug) {
+                System.out.println("Right end behavior to positive infinity: " + rightEndBehaviorIsPositiveInfinity);
+                System.out.println("Right end behavior to negative infinity: " + rightEndBehaviorIsNegativeInfinity);
+            }
+            if (rightEndBehaviorIsPositiveInfinity) {
+                return POSITIVE_INFINITY;
+            }
+            if (rightEndBehaviorIsNegativeInfinity) {
+                return NEGATIVE_INFINITY;
+            }
+        } else {
+            boolean leftEndBehaviorIsPositiveInfinity = tableApproachesPositiveInfinityWhenApproachingNegativeInfinity(behaviorTable);
+            boolean leftEndBehaviorIsNegativeInfinity = tableApproachesNegativeInfinityWhenApproachingPositiveInfinity(behaviorTable);
+            if (debug) {
+                System.out.println("Left end behavior to positive infinity: " + leftEndBehaviorIsPositiveInfinity);
+                System.out.println("Left end behavior to negative infinity: " + leftEndBehaviorIsNegativeInfinity);
+            }
+            if (leftEndBehaviorIsPositiveInfinity) {
+                return POSITIVE_INFINITY;
+            }
+            if (leftEndBehaviorIsNegativeInfinity) {
+                return NEGATIVE_INFINITY;
+            }
+        }
+        return DOES_NOT_EXIST;
+    }
+
+    private boolean tableApproachesPositiveInfinityWhenApproachingNegativeInfinity(double[] table) {
+        for (int i = 1; i < table.length; i++) {
+            if (table[i] < table[i - 1]) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean tableApproachesNegativeInfinityWhenApproachingPositiveInfinity(double[] table) {
+        for (int i = 1; i < table.length; i++) {
+            if (table[i] > table[i - 1]) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private double[] generateLeftBehaviorTable() {
+        double[] leftTable = new double[BEHAVIOR_TABLE.length];
+        for (int i = 0; i < BEHAVIOR_TABLE.length; i++) {
+            leftTable[i] = function.value(-BEHAVIOR_TABLE[i]);
+        }
+        return leftTable;
+    }
+
+    private double[] generateRightBehaviorTable() {
+        double[] rightTable = new double[BEHAVIOR_TABLE.length];
+        for (int i = 0; i < BEHAVIOR_TABLE.length; i++) {
+            rightTable[i] = function.value(BEHAVIOR_TABLE[i]);
+        }
+        return rightTable;
     }
 
     /**
@@ -206,7 +354,7 @@ final class Limit {
      * @param table given table of values that is not null/empty.
      * @return true of the values approaches to positive infinity.
      */
-    private boolean tableApproachesPositiveInfinite(double[] table) {
+    private boolean tableApproachesPositiveInfinity(double[] table) {
         double prev = Double.MIN_VALUE;
         for (int i = 1; i < H_TABLE.length; i++) {
             double increase = table[i] - table[i - 1];

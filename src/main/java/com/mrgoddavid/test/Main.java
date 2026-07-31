@@ -95,5 +95,7 @@ class Main {
         f.debug();
         System.out.println(f.limitAt(-5.0));
         System.out.println(DavidMath.tan(Constants.PI));
+
+        System.out.println(1.0 / Double.NEGATIVE_INFINITY);
     }
 }

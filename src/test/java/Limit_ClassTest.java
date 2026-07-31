@@ -39,4 +39,11 @@ public class Limit_ClassTest extends TestSuites.LimitClassTestSuites {
         double result = function.limitAt(x);
         assertEquals(expected, result, tolerance);
     }
+
+    @ParameterizedTest
+    @MethodSource("limitAtInfinityTestProvider")
+    void limitAtInfinityTest(Function function, double x, double expected, double tolerance) {
+        double result = function.limitAt(x);
+        assertEquals(expected, result, tolerance);
+    }
 }
