@@ -19,6 +19,9 @@ import static com.mrgoddavid.utils.Constants.THRESHOLD;
  */
 final class Limit {
 
+    /**
+     * H table.
+     */
     private static final double[] H_TABLE = new double[]{
             0.1,                                 // 10E-1
             0.01,                                // 10E-2
@@ -36,6 +39,9 @@ final class Limit {
             0.00000000000001,                    // 10E-14
     };
 
+    /**
+     * A table value that helps to find the end behavior of the function.
+     */
     private static final double[] BEHAVIOR_TABLE = new double[]{
             1.0,
             10.0,
@@ -55,6 +61,8 @@ final class Limit {
     private static final double POSITIVE_INFINITY = Double.POSITIVE_INFINITY;
     private static final double NEGATIVE_INFINITY = Double.NEGATIVE_INFINITY;
     private static final double DOES_NOT_EXIST = Double.NaN;
+    private static final boolean LEFT_SIDE_LIMIT = true;
+    private static final boolean RIGHT_SIDE_LIMIT = false;
 
     private final Expression function;
     private final Expression numerator, denominator;
@@ -105,6 +113,34 @@ final class Limit {
             return result;
         } else {
             return approachesAt(x);
+        }
+    }
+
+    public double leftLimitAt(double x) {
+        return oneSideLimitAt(x, LEFT_SIDE_LIMIT);
+    }
+
+    public double rightLimitAt(double x) {
+        return oneSideLimitAt(x, RIGHT_SIDE_LIMIT);
+    }
+
+    private double oneSideLimitAt(double x, boolean left) {
+        double[] table = left ? this.generateLeftTable(x) : this.generateRightTable(x);
+        double leftClosest = table[table.length - 1];
+
+        boolean goesPosInf = this.tableApproachesPositiveInfinity(table) || this.tableApproachesPositiveInfinity(ArrayUtils.reverse(table));
+        boolean goesNegInf = this.tableApproachesNegativeInfinity(table) || this.tableApproachesNegativeInfinity(ArrayUtils.reverse(table));
+
+        if (Double.isInfinite(leftClosest) && leftClosest > 0) {
+            return POSITIVE_INFINITY;
+        } else if (Double.isInfinite(leftClosest) && leftClosest < 0) {
+            return NEGATIVE_INFINITY;
+        } else if (goesPosInf) {
+            return POSITIVE_INFINITY;
+        } else if (goesNegInf) {
+            return NEGATIVE_INFINITY;
+        } else {
+            return DOES_NOT_EXIST;
         }
     }
 

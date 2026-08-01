@@ -86,6 +86,14 @@ public class Function {
         return limit.limitAt(x);
     }
 
+    public double leftLimitAt(double x) {
+        return limit.leftLimitAt(x);
+    }
+
+    public double rightLimitAt(double x) {
+        return limit.rightLimitAt(x);
+    }
+
     /**
      * Determines the function has limit at the given x.
      *

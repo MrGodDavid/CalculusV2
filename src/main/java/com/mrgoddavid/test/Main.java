@@ -62,8 +62,8 @@ class Main {
 //        Vector2i v2 = new Vector2i(3, 8);
 //
 //        System.out.println(v.compareWith(v2, Vector.ComparisonCommand.LESS_THAN));
-        Vector3d a =  new Vector3d(2,-1,-2);
-        Vector3d b = new Vector3d(4,-3,-3);
+        Vector3d a = new Vector3d(2, -1, -2);
+        Vector3d b = new Vector3d(4, -3, -3);
         System.out.println(a.crossProduct(b, false));
 
 
@@ -74,28 +74,31 @@ class Main {
         System.out.println(line1.intersect(line2));
         System.out.println(line1.distance(line2));
 
-        Point3d A = new Point3d(2,4,1);
+        Point3d A = new Point3d(2, 4, 1);
         // RestrictedPlane3d planeA = new RestrictedPlane3d(4, -2, 7, 4);
         RestrictedPlane3d planeA = new RestrictedPlane3d("4x -2y + 7z = 4");
         System.out.println(planeA.distance(A, true));
 
-        RestrictedPlane3d PA = new RestrictedPlane3d(1,1,1,3);
-        RestrictedPlane3d PB = new RestrictedPlane3d(1,2,3,7);
+        RestrictedPlane3d PA = new RestrictedPlane3d(1, 1, 1, 3);
+        RestrictedPlane3d PB = new RestrictedPlane3d(1, 2, 3, 7);
         System.out.println(PA.intersect(PB));
 
         Radian angle = new Radian(Math.PI / 4);
-        Circle2d circle = new Circle2d(new Point2d(1,0), 4);
+        Circle2d circle = new Circle2d(new Point2d(1, 0), 4);
         System.out.println(circle.contains(new Point2d()));
         System.out.println(circle.detailedInfo());
 
         System.out.println((1.0 / 0) == Double.POSITIVE_INFINITY);
 
 //        Function f = new Function(x -> (x * x + 2.0 * x + 1.0) / (x * x));
-        Function f = new Function(x -> ((x * x - 25.0)/(x*x+2*x-15.0)));
+        Function f = new Function(x -> ((x * x - 25.0) / (x * x + 2 * x - 15.0)));
         f.debug();
         System.out.println(f.limitAt(-5.0));
         System.out.println(DavidMath.tan(Constants.PI));
 
         System.out.println(1.0 / Double.NEGATIVE_INFINITY);
+
+        System.out.println(f.leftLimitAt(5.0));
+        System.out.println(f.rightLimitAt(5.0));
     }
 }
