@@ -28,7 +28,7 @@ import static com.mrgoddavid.utils.Constants.*;
  * <p>a = RV represents the rotation of V based on the origin.</p>
  *
  * @author Mr. GodDavid
- * @since 7/24/2026 part of Transformations & Circles Update.
+ * @since 7/24/2026 part of Transformations &amp; Circles Update.
  */
 @SuppressWarnings("ClassCanBeRecord")
 public final class Circle2d implements Serializable {

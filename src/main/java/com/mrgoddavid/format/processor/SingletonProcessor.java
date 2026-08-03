@@ -29,6 +29,12 @@ import java.util.Set;
 public class SingletonProcessor extends AbstractProcessor {
 
     /**
+     * Empty constructor of this class.
+     */
+    public SingletonProcessor() {
+    }
+
+    /**
      * Compiler message reporter.
      */
     private Messager messager;

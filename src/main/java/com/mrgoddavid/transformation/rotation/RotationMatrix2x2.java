@@ -18,7 +18,7 @@ import com.mrgoddavid.matrix.Matrix2d;
  * numerical value.
  *
  * @author Mr. GodDavid
- * @since 7/24/2026 part of Transformation & Circles Update.
+ * @since 7/24/2026 part of Transformation &amp; Circles Update.
  */
 @SingletonClass
 public final class RotationMatrix2x2 extends FixedMatrix {

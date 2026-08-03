@@ -8,4 +8,10 @@ package com.mrgoddavid.function;
  * @since 8/2/2026
  */
 public class PiecewiseFunction {
+
+    /**
+     * Working in progress.
+     */
+    public PiecewiseFunction() {
+    }
 }

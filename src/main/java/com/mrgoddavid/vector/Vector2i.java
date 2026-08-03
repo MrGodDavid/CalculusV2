@@ -539,7 +539,7 @@ public class Vector2i implements Vector2<Vector2i>, Comparable<Vector2i>, Compar
      *
      * @param angle given angle in radians.
      * @return the rotated vector.
-     * @since 7/24/2026 part of Transformation & Circles Update.
+     * @since 7/24/2026 part of Transformation &amp; Circles Update.
      */
     @Deprecated
     @Override

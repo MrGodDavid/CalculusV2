@@ -10,13 +10,22 @@ import com.mrgoddavid.utils.Constants;
  */
 public class Function {
 
+    /**
+     * Undefined.
+     */
     private static final double UNDEFINED = Double.NaN;
 
     /**
      * Expression of the raw function.
      */
     private final Expression function;
+    /**
+     * Limit of the function.
+     */
     private final Limit limit;
+    /**
+     * Derivative of the function.
+     */
     private final Derivative derivative;
 
     /**
@@ -30,6 +39,12 @@ public class Function {
         this.derivative = new Derivative(function);
     }
 
+    /**
+     * Constructs a function with given numerator and denominator expression.
+     *
+     * @param numerator   the expression of the numerator of this function.
+     * @param denominator the expression of the denominator of this function.
+     */
     public Function(Expression numerator, Expression denominator) {
         this.function = numerator.divide(denominator);
         this.limit = new Limit(function, numerator, denominator);
@@ -86,10 +101,22 @@ public class Function {
         return limit.limitAt(x);
     }
 
+    /**
+     * Calculates the value of left-side limit of this function.
+     *
+     * @param x where to find the limit.
+     * @return the left-side limit of function at x.
+     */
     public double leftLimitAt(double x) {
         return limit.leftLimitAt(x);
     }
 
+    /**
+     * Calculates the value of right-side limit of this function.
+     *
+     * @param x where to find the limit.
+     * @return the right-side limit of function at x.
+     */
     public double rightLimitAt(double x) {
         return limit.rightLimitAt(x);
     }

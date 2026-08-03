@@ -24,7 +24,13 @@ public final class Line3d implements Line.Line3, Serializable {
     @Serial
     private static final long serialVersionUID = -4554392946506338616L;
 
+    /**
+     * Starting point of this line.
+     */
     private final Point3d startingPoint;
+    /**
+     * Direction of this line.
+     */
     private final Vector3d direction;
 
     /**

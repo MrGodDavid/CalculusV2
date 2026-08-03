@@ -560,7 +560,7 @@ public class Vector2d implements Vector2<Vector2d>, Comparable<Vector2d>, Compar
      *
      * @param angle given angle in radians.
      * @return the rotated vector.
-     * @since 7/24/2026 part of Transformation & Circles Update.
+     * @since 7/24/2026 part of Transformation &amp; Circles Update.
      */
     @Override
     public Vector2d rotate(Radian angle) {

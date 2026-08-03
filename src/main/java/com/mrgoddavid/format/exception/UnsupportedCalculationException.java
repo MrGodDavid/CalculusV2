@@ -12,6 +12,11 @@ public class UnsupportedCalculationException extends RuntimeException {
     @Serial
     private static final long serialVersionUID = -1963642319636544005L;
 
+    /**
+     * Constructs the UnsupportedCalculationException.
+     *
+     * @param message reason why the program threw this exception.
+     */
     public UnsupportedCalculationException(String message) {
         super(message);
     }
