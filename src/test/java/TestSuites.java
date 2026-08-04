@@ -270,7 +270,7 @@ public class TestSuites {
     }
 
     /**
-     * Test suites for {@link com.mrgoddavid.function.Limit} class.
+     * Test suites for {@link com.mrgoddavid.function.limit.Limit} class.
      *
      * @author Mr. GodDavid
      * @since 7/28/2026
