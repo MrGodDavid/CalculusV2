@@ -1,5 +1,7 @@
-package com.mrgoddavid.function;
+package com.mrgoddavid.function.limit;
 
+import com.mrgoddavid.function.derivative.Derivative;
+import com.mrgoddavid.function.Expression;
 import com.mrgoddavid.utils.ArrayUtils;
 
 import java.util.Arrays;
@@ -17,7 +19,7 @@ import static com.mrgoddavid.utils.Constants.THRESHOLD;
  * @author Mr. GodDavid
  * @since 7/26/2026 part of Function Update.
  */
-final class Limit {
+public final class Limit {
 
     /**
      * H table.
@@ -434,14 +436,14 @@ final class Limit {
     /**
      * Enables debug features.
      */
-    void debug() {
+    public void debug() {
         this.debug = true;
     }
 
     /**
      * Disables debug features.
      */
-    void endDebug() {
+    public void endDebug() {
         this.debug = false;
     }
 }

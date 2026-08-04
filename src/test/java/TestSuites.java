@@ -1,4 +1,5 @@
 import com.mrgoddavid.function.Function;
+import com.mrgoddavid.function.RationalFunction;
 import com.mrgoddavid.geometry.angle.Radian;
 import com.mrgoddavid.utils.Constants;
 import com.mrgoddavid.utils.DavidMath;
@@ -289,12 +290,12 @@ public class TestSuites {
 
         static Stream<Arguments> zero_over_zeroLimitTestProvider() {
             return Stream.of(
-                    Arguments.of(new Function(x -> (x * x - 25.0), x -> (x * x + 2.0 * x - 15.0)), -5.0, 1.25, EPSILON),
-                    Arguments.of(new Function(z -> (2.0 * z * z - 17.0 * z + 8.0), z -> (8.0 - z)), 8.0, -15.0, EPSILON),
-                    Arguments.of(new Function(h -> ((6.0 + h) * (6.0 + h) - 36.0), h -> (h)), 0.0, 12.0, EPSILON),
-                    Arguments.of(new Function(z -> (Math.sqrt(z) - 2.0), z -> (z - 4.0)), 4.0, 0.25, EPSILON),
-                    Arguments.of(new Function(x -> (Math.sqrt(2.0 * x + 22.0) - 4.0), x -> (x + 3.0)), -3.0, 0.25, EPSILON),
-                    Arguments.of(new Function(x -> (x), x -> (3.0 - Math.sqrt(x + 9.0))), 0.0, -6.0, EPSILON)
+                    Arguments.of(new RationalFunction(x -> (x * x - 25.0), x -> (x * x + 2.0 * x - 15.0)), -5.0, 1.25, EPSILON),
+                    Arguments.of(new RationalFunction(z -> (2.0 * z * z - 17.0 * z + 8.0), z -> (8.0 - z)), 8.0, -15.0, EPSILON),
+                    Arguments.of(new RationalFunction(h -> ((6.0 + h) * (6.0 + h) - 36.0), h -> (h)), 0.0, 12.0, EPSILON),
+                    Arguments.of(new RationalFunction(z -> (Math.sqrt(z) - 2.0), z -> (z - 4.0)), 4.0, 0.25, EPSILON),
+                    Arguments.of(new RationalFunction(x -> (Math.sqrt(2.0 * x + 22.0) - 4.0), x -> (x + 3.0)), -3.0, 0.25, EPSILON),
+                    Arguments.of(new RationalFunction(x -> (x), x -> (3.0 - Math.sqrt(x + 9.0))), 0.0, -6.0, EPSILON)
             );
         }
 
@@ -313,10 +314,10 @@ public class TestSuites {
             return Stream.of(
                     Arguments.of(new Function(x -> 4.0 * Math.pow(x, 7) - 18.0 * x * x * x + 9.0), Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY, EPSILON),
                     Arguments.of(new Function(x -> 4.0 * Math.pow(x, 7) - 18.0 * x * x * x + 9.0), Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY, EPSILON),
-                    Arguments.of(new Function(x -> 6.0 * x, x -> x * x), Double.POSITIVE_INFINITY, 0.0, EPSILON),
-                    Arguments.of(new Function((x -> 3.0 * x * x), (x -> 2.0 * x)), Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY, EPSILON),
-                    Arguments.of(new Function((x -> 6.0 * x * x), (x -> 7.0 * x * x)), Double.POSITIVE_INFINITY, 0.8571428571, EPSILON),
-                    Arguments.of(new Function((x -> x + 8.0), (x -> Math.sqrt(2.0 * x * x + 3.0))), Double.NEGATIVE_INFINITY, -0.7071067812, EPSILON)
+                    Arguments.of(new RationalFunction(x -> 6.0 * x, x -> x * x), Double.POSITIVE_INFINITY, 0.0, EPSILON),
+                    Arguments.of(new RationalFunction((x -> 3.0 * x * x), (x -> 2.0 * x)), Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY, EPSILON),
+                    Arguments.of(new RationalFunction((x -> 6.0 * x * x), (x -> 7.0 * x * x)), Double.POSITIVE_INFINITY, 0.8571428571, EPSILON),
+                    Arguments.of(new RationalFunction((x -> x + 8.0), (x -> Math.sqrt(2.0 * x * x + 3.0))), Double.NEGATIVE_INFINITY, -0.7071067812, EPSILON)
             );
         }
     }

@@ -1,5 +1,7 @@
-package com.mrgoddavid.function;
+package com.mrgoddavid.function.derivative;
 
+import com.mrgoddavid.function.Expression;
+import com.mrgoddavid.function.Function;
 import com.mrgoddavid.utils.DavidMath;
 
 /**
@@ -21,7 +23,7 @@ import com.mrgoddavid.utils.DavidMath;
  * @author Mr. GodDavid
  * @since 7/30/2026 Limit & Function Update part 2.
  */
-final class Derivative {
+public final class Derivative {
 
     private static final double H = 1E-8;
 
