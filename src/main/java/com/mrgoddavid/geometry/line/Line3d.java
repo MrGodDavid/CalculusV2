@@ -2,8 +2,8 @@ package com.mrgoddavid.geometry.line;
 
 import com.mrgoddavid.matrix.FixedMatrix;
 import com.mrgoddavid.matrix.Matrix2d;
+import com.mrgoddavid.vector.immutable.ImmutableVector3d;
 import com.mrgoddavid.vector.Vector;
-import com.mrgoddavid.vector.Vector3d;
 import com.mrgoddavid.geometry.point.Point3d;
 
 import java.io.Serial;
@@ -31,7 +31,7 @@ public final class Line3d implements Line.Line3, Serializable {
     /**
      * Direction of this line.
      */
-    private final Vector3d direction;
+    private final ImmutableVector3d direction;
 
     /**
      * Constructs a three-dimensional line with starting point and direction vector.
@@ -39,7 +39,7 @@ public final class Line3d implements Line.Line3, Serializable {
      * @param startingPoint of the line and it is not null.
      * @param direction     the direction vector of this line and it is not null.
      */
-    public Line3d(Point3d startingPoint, Vector3d direction) {
+    public Line3d(Point3d startingPoint, ImmutableVector3d direction) {
         this.startingPoint = startingPoint;
         this.direction = direction;
     }
@@ -58,7 +58,7 @@ public final class Line3d implements Line.Line3, Serializable {
      *
      * @return the value of the instance field {@code direction}.
      */
-    public Vector3d getDirection() {
+    public ImmutableVector3d getDirection() {
         return direction;
     }
 
@@ -202,8 +202,8 @@ public final class Line3d implements Line.Line3, Serializable {
         if (intersect(other)) {
             return 0;
         }
-        Vector3d normal = this.direction.crossProduct(other.direction);
-        Vector3d dir = new Vector3d(
+        ImmutableVector3d normal = this.direction.crossProduct(other.direction);
+        ImmutableVector3d dir = new ImmutableVector3d(
                 startingPoint.x() - other.startingPoint.x(),
                 startingPoint.y() - other.startingPoint.y(),
                 startingPoint.z() - other.startingPoint.z()
@@ -235,6 +235,6 @@ public final class Line3d implements Line.Line3, Serializable {
      */
     @Override
     public boolean isParallel(Line3d other) {
-        return this.direction.crossProduct(other.getDirection()).compareWith(Vector3d.ZERO_VECTOR3D, Vector.ComparisonCommand.EQUALS);
+        return this.direction.crossProduct(other.getDirection()).compareWith(ImmutableVector3d.ZERO_VECTOR3D, Vector.ComparisonCommand.EQUALS);
     }
 }

@@ -1,4 +1,7 @@
-package com.mrgoddavid.function;
+package com.mrgoddavid.function.rational;
+
+import com.mrgoddavid.function.Expression;
+import com.mrgoddavid.function.Function;
 
 /**
  * Defines a rational function. A rational function is a special type of function that is in the form of fraction. It

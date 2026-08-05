@@ -1,6 +1,6 @@
 package com.mrgoddavid.geometry.point;
 
-import com.mrgoddavid.vector.Vector3d;
+import com.mrgoddavid.vector.immutable.ImmutableVector3d;
 
 import java.io.Serial;
 
@@ -102,7 +102,7 @@ public final class Point3d implements Point.Point3<Point3d> {
      * @since 7/17/2026
      */
     @Override
-    public Vector3d toVector3d(Point3d endpoint) {
-        return new Vector3d(endpoint.x - x, endpoint.y - y, endpoint.z - z);
+    public ImmutableVector3d toVector3d(Point3d endpoint) {
+        return new ImmutableVector3d(endpoint.x - x, endpoint.y - y, endpoint.z - z);
     }
 }

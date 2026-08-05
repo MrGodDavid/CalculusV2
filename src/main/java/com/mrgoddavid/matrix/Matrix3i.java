@@ -1,6 +1,6 @@
 package com.mrgoddavid.matrix;
 
-import com.mrgoddavid.vector.Vector3i;
+import com.mrgoddavid.vector.immutable.ImmutableVector3i;
 
 import java.io.Serial;
 
@@ -130,7 +130,7 @@ public class Matrix3i implements Matrix.SquareMatrix<Matrix3i> {
      *
      * @return the determinant of vector 3x3 matrix.
      */
-    public Vector3i determinantToVector() {
+    public ImmutableVector3i determinantToVector() {
         return new MatrixV3i().determinantToVector();
     }
 
@@ -240,11 +240,11 @@ public class Matrix3i implements Matrix.SquareMatrix<Matrix3i> {
          * @return the determinant (which is also a three-dimensional vector).
          */
         @Override
-        public Vector3i determinantToVector() {
+        public ImmutableVector3i determinantToVector() {
             int i = firstDeterminant();
             int j = -secondDeterminant();
             int k = thirdDeterminant();
-            return new Vector3i(i, j, k);
+            return new ImmutableVector3i(i, j, k);
         }
 
         /**

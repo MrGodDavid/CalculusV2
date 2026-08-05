@@ -2,7 +2,7 @@ package com.mrgoddavid.function.piecewise;
 
 import com.mrgoddavid.function.FunctionInputOutOfDomainException;
 import com.mrgoddavid.function.Function;
-import com.mrgoddavid.function.RationalFunction;
+import com.mrgoddavid.function.rational.RationalFunction;
 import com.mrgoddavid.function.derivative.Derivative;
 import com.mrgoddavid.function.domain.Domain;
 import com.mrgoddavid.function.limit.Limit;
@@ -21,8 +21,8 @@ public final class PiecewiseFunction {
 
     private final Map<Domain, Function> functionDomainMap;
 
-    private Limit[] limits;
-    private Derivative[] derivatives;
+    private final Limit[] limits;
+    private final Derivative[] derivatives;
 
     /**
      * Constructs a new function class by the given expression of this function.

@@ -1,6 +1,7 @@
 package com.mrgoddavid.vector;
 
 import com.mrgoddavid.geometry.angle.Radian;
+import com.mrgoddavid.vector.immutable.*;
 
 import java.io.Serializable;
 
@@ -350,107 +351,107 @@ public interface Vector<T> extends Serializable {
         T self = getSelf();
         switch (command) {
             case LESS_THAN_OR_EQUALS_TO -> {
-                if (second instanceof Vector2i second_v2i) {
-                    Vector2i self_v2i = (Vector2i) self;
+                if (second instanceof ImmutableVector2i second_v2i) {
+                    ImmutableVector2i self_v2i = (ImmutableVector2i) self;
                     result = (self_v2i.getX() <= second_v2i.getX()) && (self_v2i.getY() <= second_v2i.getY());
-                } else if (second instanceof Vector2d second_v2d) {
-                    Vector2d self_v2d = (Vector2d) self;
+                } else if (second instanceof ImmutableVector2d second_v2d) {
+                    ImmutableVector2d self_v2d = (ImmutableVector2d) self;
                     result = (self_v2d.getX() <= second_v2d.getX()) && (self_v2d.getY() <= second_v2d.getY());
-                } else if (second instanceof Vector2f second_v2f) {
-                    Vector2f self_v2f = (Vector2f) self;
+                } else if (second instanceof ImmutableVector2f second_v2f) {
+                    ImmutableVector2f self_v2f = (ImmutableVector2f) self;
                     result = (self_v2f.getX() <= second_v2f.getX()) && (self_v2f.getY() <= second_v2f.getY());
-                } else if (second instanceof Vector2l second_v2l) {
-                    Vector2l self_v2l = (Vector2l) self;
+                } else if (second instanceof ImmutableVector2l second_v2l) {
+                    ImmutableVector2l self_v2l = (ImmutableVector2l) self;
                     result = (self_v2l.getX() <= second_v2l.getX()) && (self_v2l.getY() <= second_v2l.getY());
-                } else if (second instanceof Vector3i second_v3i) {
-                    Vector3i self_v3d = (Vector3i) self;
+                } else if (second instanceof ImmutableVector3i second_v3i) {
+                    ImmutableVector3i self_v3d = (ImmutableVector3i) self;
                     result = (self_v3d.getX() <= second_v3i.getX()) && (self_v3d.getY() <= second_v3i.getY()) && (self_v3d.getZ() <= second_v3i.getZ());
-                } else if (second instanceof Vector3d second_v3d) {
-                    Vector3d self_v3d = (Vector3d) self;
+                } else if (second instanceof ImmutableVector3d second_v3d) {
+                    ImmutableVector3d self_v3d = (ImmutableVector3d) self;
                     result = (self_v3d.getX() <= second_v3d.getX()) && (self_v3d.getY() <= second_v3d.getY()) && (self_v3d.getZ() <= second_v3d.getZ());
                 }
             }
             case LESS_THAN -> {
-                if (second instanceof Vector2i second_v2i) {
-                    Vector2i self_v2i = (Vector2i) self;
+                if (second instanceof ImmutableVector2i second_v2i) {
+                    ImmutableVector2i self_v2i = (ImmutableVector2i) self;
                     result = (self_v2i.getX() < second_v2i.getX()) && (self_v2i.getY() < second_v2i.getY());
-                } else if (second instanceof Vector2d second_v2d) {
-                    Vector2d self_v2d = (Vector2d) self;
+                } else if (second instanceof ImmutableVector2d second_v2d) {
+                    ImmutableVector2d self_v2d = (ImmutableVector2d) self;
                     result = (self_v2d.getX() < second_v2d.getX()) && (self_v2d.getY() < second_v2d.getY());
-                } else if (second instanceof Vector2f second_v2f) {
-                    Vector2f self_v2f = (Vector2f) self;
+                } else if (second instanceof ImmutableVector2f second_v2f) {
+                    ImmutableVector2f self_v2f = (ImmutableVector2f) self;
                     result = (self_v2f.getX() < second_v2f.getX()) && (self_v2f.getY() < second_v2f.getY());
-                } else if (second instanceof Vector2l second_v2l) {
-                    Vector2l self_v2l = (Vector2l) self;
+                } else if (second instanceof ImmutableVector2l second_v2l) {
+                    ImmutableVector2l self_v2l = (ImmutableVector2l) self;
                     result = (self_v2l.getX() < second_v2l.getX()) && (self_v2l.getY() < second_v2l.getY());
-                } else if (second instanceof Vector3i second_v3i) {
-                    Vector3i self_v3d = (Vector3i) self;
+                } else if (second instanceof ImmutableVector3i second_v3i) {
+                    ImmutableVector3i self_v3d = (ImmutableVector3i) self;
                     result = (self_v3d.getX() < second_v3i.getX()) && (self_v3d.getY() < second_v3i.getY()) && (self_v3d.getZ() < second_v3i.getZ());
-                } else if (second instanceof Vector3d second_v3d) {
-                    Vector3d self_v3d = (Vector3d) self;
+                } else if (second instanceof ImmutableVector3d second_v3d) {
+                    ImmutableVector3d self_v3d = (ImmutableVector3d) self;
                     result = (self_v3d.getX() < second_v3d.getX()) && (self_v3d.getY() < second_v3d.getY()) && (self_v3d.getZ() < second_v3d.getZ());
                 }
             }
             case EQUALS -> {
-                if (second instanceof Vector2i second_v2i) {
-                    Vector2i self_v2i = (Vector2i) self;
+                if (second instanceof ImmutableVector2i second_v2i) {
+                    ImmutableVector2i self_v2i = (ImmutableVector2i) self;
                     result = (self_v2i.getX() == second_v2i.getX()) && (self_v2i.getY() == second_v2i.getY());
-                } else if (second instanceof Vector2d second_v2d) {
-                    Vector2d self_v2d = (Vector2d) self;
+                } else if (second instanceof ImmutableVector2d second_v2d) {
+                    ImmutableVector2d self_v2d = (ImmutableVector2d) self;
                     result = (self_v2d.getX() == second_v2d.getX()) && (self_v2d.getY() == second_v2d.getY());
-                } else if (second instanceof Vector2f second_v2f) {
-                    Vector2f self_v2f = (Vector2f) self;
+                } else if (second instanceof ImmutableVector2f second_v2f) {
+                    ImmutableVector2f self_v2f = (ImmutableVector2f) self;
                     result = (self_v2f.getX() == second_v2f.getX()) && (self_v2f.getY() == second_v2f.getY());
-                } else if (second instanceof Vector2l second_v2l) {
-                    Vector2l self_v2l = (Vector2l) self;
+                } else if (second instanceof ImmutableVector2l second_v2l) {
+                    ImmutableVector2l self_v2l = (ImmutableVector2l) self;
                     result = (self_v2l.getX() == second_v2l.getX()) && (self_v2l.getY() == second_v2l.getY());
-                } else if (second instanceof Vector3i second_v3i) {
-                    Vector3i self_v3d = (Vector3i) self;
+                } else if (second instanceof ImmutableVector3i second_v3i) {
+                    ImmutableVector3i self_v3d = (ImmutableVector3i) self;
                     result = (self_v3d.getX() == second_v3i.getX()) && (self_v3d.getY() == second_v3i.getY()) && (self_v3d.getZ() == second_v3i.getZ());
-                } else if (second instanceof Vector3d second_v3d) {
-                    Vector3d self_v3d = (Vector3d) self;
+                } else if (second instanceof ImmutableVector3d second_v3d) {
+                    ImmutableVector3d self_v3d = (ImmutableVector3d) self;
                     result = (self_v3d.getX() == second_v3d.getX()) && (self_v3d.getY() == second_v3d.getY()) && (self_v3d.getZ() == second_v3d.getZ());
                 }
             }
             case GREATER_THAN -> {
-                if (second instanceof Vector2i second_v2i) {
-                    Vector2i self_v2i = (Vector2i) self;
+                if (second instanceof ImmutableVector2i second_v2i) {
+                    ImmutableVector2i self_v2i = (ImmutableVector2i) self;
                     result = (self_v2i.getX() > second_v2i.getX()) && (self_v2i.getY() > second_v2i.getY());
-                } else if (second instanceof Vector2d second_v2d) {
-                    Vector2d self_v2d = (Vector2d) self;
+                } else if (second instanceof ImmutableVector2d second_v2d) {
+                    ImmutableVector2d self_v2d = (ImmutableVector2d) self;
                     result = (self_v2d.getX() > second_v2d.getX()) && (self_v2d.getY() > second_v2d.getY());
-                } else if (second instanceof Vector2f second_v2f) {
-                    Vector2f self_v2f = (Vector2f) self;
+                } else if (second instanceof ImmutableVector2f second_v2f) {
+                    ImmutableVector2f self_v2f = (ImmutableVector2f) self;
                     result = (self_v2f.getX() > second_v2f.getX()) && (self_v2f.getY() > second_v2f.getY());
-                } else if (second instanceof Vector2l second_v2l) {
-                    Vector2l self_v2l = (Vector2l) self;
+                } else if (second instanceof ImmutableVector2l second_v2l) {
+                    ImmutableVector2l self_v2l = (ImmutableVector2l) self;
                     result = (self_v2l.getX() > second_v2l.getX()) && (self_v2l.getY() > second_v2l.getY());
-                } else if (second instanceof Vector3i second_v3i) {
-                    Vector3i self_v3d = (Vector3i) self;
+                } else if (second instanceof ImmutableVector3i second_v3i) {
+                    ImmutableVector3i self_v3d = (ImmutableVector3i) self;
                     result = (self_v3d.getX() > second_v3i.getX()) && (self_v3d.getY() > second_v3i.getY()) && (self_v3d.getZ() > second_v3i.getZ());
-                } else if (second instanceof Vector3d second_v3d) {
-                    Vector3d self_v3d = (Vector3d) self;
+                } else if (second instanceof ImmutableVector3d second_v3d) {
+                    ImmutableVector3d self_v3d = (ImmutableVector3d) self;
                     result = (self_v3d.getX() > second_v3d.getX()) && (self_v3d.getY() > second_v3d.getY()) && (self_v3d.getZ() > second_v3d.getZ());
                 }
             }
             case GREATER_THAN_OR_EQUALS_TO -> {
-                if (second instanceof Vector2i second_v2i) {
-                    Vector2i self_v2i = (Vector2i) self;
+                if (second instanceof ImmutableVector2i second_v2i) {
+                    ImmutableVector2i self_v2i = (ImmutableVector2i) self;
                     result = (self_v2i.getX() >= second_v2i.getX()) && (self_v2i.getY() >= second_v2i.getY());
-                } else if (second instanceof Vector2d second_v2d) {
-                    Vector2d self_v2d = (Vector2d) self;
+                } else if (second instanceof ImmutableVector2d second_v2d) {
+                    ImmutableVector2d self_v2d = (ImmutableVector2d) self;
                     result = (self_v2d.getX() >= second_v2d.getX()) && (self_v2d.getY() >= second_v2d.getY());
-                } else if (second instanceof Vector2f second_v2f) {
-                    Vector2f self_v2f = (Vector2f) self;
+                } else if (second instanceof ImmutableVector2f second_v2f) {
+                    ImmutableVector2f self_v2f = (ImmutableVector2f) self;
                     result = (self_v2f.getX() >= second_v2f.getX()) && (self_v2f.getY() >= second_v2f.getY());
-                } else if (second instanceof Vector2l second_v2l) {
-                    Vector2l self_v2l = (Vector2l) self;
+                } else if (second instanceof ImmutableVector2l second_v2l) {
+                    ImmutableVector2l self_v2l = (ImmutableVector2l) self;
                     result = (self_v2l.getX() >= second_v2l.getX()) && (self_v2l.getY() <= second_v2l.getY());
-                } else if (second instanceof Vector3i second_v3i) {
-                    Vector3i self_v3d = (Vector3i) self;
+                } else if (second instanceof ImmutableVector3i second_v3i) {
+                    ImmutableVector3i self_v3d = (ImmutableVector3i) self;
                     result = (self_v3d.getX() >= second_v3i.getX()) && (self_v3d.getY() >= second_v3i.getY()) && (self_v3d.getZ() >= second_v3i.getZ());
-                } else if (second instanceof Vector3d second_v3d) {
-                    Vector3d self_v3d = (Vector3d) self;
+                } else if (second instanceof ImmutableVector3d second_v3d) {
+                    ImmutableVector3d self_v3d = (ImmutableVector3d) self;
                     result = (self_v3d.getX() >= second_v3d.getX()) && (self_v3d.getY() >= second_v3d.getY()) && (self_v3d.getZ() >= second_v3d.getZ());
                 }
             }
@@ -520,34 +521,34 @@ public interface Vector<T> extends Serializable {
  * @author Mr. GodDavid
  * @since 7/21/2026
  */
-interface Vector2<T> extends Vector<T> {
+interface ImmutableVector2<T> extends Vector<T> {
 
     /**
      * Not-a-number constants of vector2i. Use this when user accidentally divided some number by zero.
      */
-    Vector2i NAN_2I = new Vector2i(Integer.MIN_VALUE, Integer.MIN_VALUE);
+    ImmutableVector2i NAN_2I = new ImmutableVector2i(Integer.MIN_VALUE, Integer.MIN_VALUE);
 
     /**
      * Not-a-number constants of vector2d. Use this when user accidentally divided some number by zero.
      */
-    Vector2d NAN_2D = new Vector2d(Double.NaN, Double.NaN);
+    ImmutableVector2d NAN_2D = new ImmutableVector2d(Double.NaN, Double.NaN);
 
     /**
      * Not-a-number constants of vector2f. Use this when user accidentally divided some number by zero.
      */
-    Vector2f NAN_2F = new Vector2f(Float.NaN, Float.NaN);
+    ImmutableVector2f NAN_2F = new ImmutableVector2f(Float.NaN, Float.NaN);
 
     /**
      * Not-a-number constants of vector2l. Use this when user accidentally divided some number by zero.
      */
-    Vector2l NAN_2L = new Vector2l(Long.MIN_VALUE, Long.MIN_VALUE);
+    ImmutableVector2l NAN_2L = new ImmutableVector2l(Long.MIN_VALUE, Long.MIN_VALUE);
 
     /**
      * Rotate the vector in given angle around the origin.
      *
      * @param angle given angle in radians.
      * @return the rotated vector.
-     * @since 7/24/2026 part of Transformation & Circles Update.
+     * @since 7/24/2026 part of Transformation &amp; Circles Update.
      */
     T rotate(Radian angle);
 }
@@ -559,27 +560,27 @@ interface Vector2<T> extends Vector<T> {
  * @author Mr. GodDavid
  * @since 7/9/2026
  */
-interface Vector3<T> extends Vector<T> {
+interface ImmutableVector3<T> extends Vector<T> {
 
     /**
      * Zero three-dimensional vector. Each component of this vector is an integer.
      */
-    Vector3i ZERO_VECTOR3I = new Vector3i();
+    ImmutableVector3i ZERO_VECTOR3I = new ImmutableVector3i();
 
     /**
      * Zero three-dimensional vector. Each component of this vector is a double.
      */
-    Vector3d ZERO_VECTOR3D = new Vector3d();
+    ImmutableVector3d ZERO_VECTOR3D = new ImmutableVector3d();
 
     /**
      * Not-a-number Vector3i constant. This happens when user accidentally divide some number by zero.
      */
-    Vector3i NAN_3I = new Vector3i(Integer.MIN_VALUE, Integer.MIN_VALUE, Integer.MIN_VALUE);
+    ImmutableVector3i NAN_3I = new ImmutableVector3i(Integer.MIN_VALUE, Integer.MIN_VALUE, Integer.MIN_VALUE);
 
     /**
      * Not-a-number Vector3d constant. This happens when user accidentally divide some number by zero.
      */
-    Vector3d NAN_3D = new Vector3d(Double.NaN, Double.NaN, Double.NaN);
+    ImmutableVector3d NAN_3D = new ImmutableVector3d(Double.NaN, Double.NaN, Double.NaN);
 
     /**
      * Calculate the cross product of two three-dimensional vectors.

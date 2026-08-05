@@ -3,7 +3,7 @@ package com.mrgoddavid.geometry.circle;
 import com.mrgoddavid.geometry.angle.Radian;
 import com.mrgoddavid.geometry.point.Point2d;
 import com.mrgoddavid.vector.Vector;
-import com.mrgoddavid.vector.Vector2d;
+import com.mrgoddavid.vector.immutable.ImmutableVector2d;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -79,8 +79,8 @@ public final class Circle2d implements Serializable {
             angle = new Radian(Math.atan2(dy, dx));
         }
 
-        Vector2d vector = new Vector2d(center.x() + radius, center.y());
-        Vector2d new_vector = vector.rotate(angle);
+        ImmutableVector2d vector = new ImmutableVector2d(center.x() + radius, center.y());
+        ImmutableVector2d new_vector = vector.rotate(angle);
         return vector.compareWith(new_vector, Vector.ComparisonCommand.EQUALS);
     }
 
@@ -90,12 +90,12 @@ public final class Circle2d implements Serializable {
      * @return an array of endpoints of this circle.
      */
     private Point2d[] endpoints() {
-        Vector2d vector = new Vector2d(center.x() + radius, center.y());
+        ImmutableVector2d vector = new ImmutableVector2d(center.x() + radius, center.y());
 
-        Vector2d east = vector.rotate(new Radian(0));
-        Vector2d north = vector.rotate(new Radian(PI_OVER_TWO.val()));
-        Vector2d west = vector.rotate(new Radian(THREE_PI_OVER_TWO.val()));
-        Vector2d south = vector.rotate(new Radian(TWO_PI.val()));
+        ImmutableVector2d east = vector.rotate(new Radian(0));
+        ImmutableVector2d north = vector.rotate(new Radian(PI_OVER_TWO.val()));
+        ImmutableVector2d west = vector.rotate(new Radian(THREE_PI_OVER_TWO.val()));
+        ImmutableVector2d south = vector.rotate(new Radian(TWO_PI.val()));
 
         return new Point2d[]{
                 new Point2d(center.x() + east.getX(), center.y() + east.getY()),

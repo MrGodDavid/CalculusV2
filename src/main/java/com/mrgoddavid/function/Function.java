@@ -2,6 +2,7 @@ package com.mrgoddavid.function;
 
 import com.mrgoddavid.function.derivative.Derivative;
 import com.mrgoddavid.function.limit.Limit;
+import com.mrgoddavid.function.rational.RationalFunction;
 import com.mrgoddavid.utils.Constants;
 
 import java.util.Optional;

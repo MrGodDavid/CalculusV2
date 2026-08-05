@@ -1,6 +1,6 @@
 package com.mrgoddavid.matrix;
 
-import com.mrgoddavid.vector.Vector2d;
+import com.mrgoddavid.vector.immutable.ImmutableVector2d;
 
 /**
  * This class holds a collection of fixed matrices. We call a matrix with known size a "Fixed Matrix". Follow this rule
@@ -110,8 +110,8 @@ public abstract class FixedMatrix {
          *
          * @return the transpose of 2x1 matrix.
          */
-        public Vector2d transpose() {
-            return new Vector2d(a11, a21);
+        public ImmutableVector2d transpose() {
+            return new ImmutableVector2d(a11, a21);
         }
     }
 }

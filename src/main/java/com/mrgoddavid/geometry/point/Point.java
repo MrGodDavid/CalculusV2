@@ -1,7 +1,7 @@
 package com.mrgoddavid.geometry.point;
 
-import com.mrgoddavid.vector.Vector2d;
-import com.mrgoddavid.vector.Vector3d;
+import com.mrgoddavid.vector.immutable.ImmutableVector2d;
+import com.mrgoddavid.vector.immutable.ImmutableVector3d;
 
 import java.io.Serializable;
 
@@ -36,7 +36,7 @@ public interface Point<T> extends Serializable {
          * @param endPoint that is not null.
          * @return the vector starting from this point to the given point.
          */
-        Vector2d toVector2d(T endPoint);
+        ImmutableVector2d toVector2d(T endPoint);
     }
 
     /**
@@ -54,7 +54,7 @@ public interface Point<T> extends Serializable {
          * @return the vector that starts from this point to the ending point.
          * @since 7/17/2026
          */
-        Vector3d toVector3d(T endpoint);
+        ImmutableVector3d toVector3d(T endpoint);
     }
 }
 

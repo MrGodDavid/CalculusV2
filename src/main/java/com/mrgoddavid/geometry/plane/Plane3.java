@@ -1,6 +1,6 @@
 package com.mrgoddavid.geometry.plane;
 
-import com.mrgoddavid.vector.Vector3d;
+import com.mrgoddavid.vector.immutable.ImmutableVector3d;
 import com.mrgoddavid.geometry.line.Line3d;
 import com.mrgoddavid.geometry.point.Point3d;
 
@@ -29,7 +29,7 @@ public interface Plane3 extends Serializable {
      *
      * @return the normal vector of this plane.
      */
-    Vector3d getNormal();
+    ImmutableVector3d getNormal();
 
     /**
      * Calculates the distance between two three-dimensional parallel planes.

@@ -1,7 +1,7 @@
 package com.mrgoddavid.geometry.line;
 
 import com.mrgoddavid.geometry.point.Point2d;
-import com.mrgoddavid.vector.Vector2d;
+import com.mrgoddavid.vector.immutable.ImmutableVector2d;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -27,7 +27,7 @@ public final class Line2d implements Line.Line2, Serializable {
     /**
      * Direction of this line.
      */
-    private final Vector2d direction;
+    private final ImmutableVector2d direction;
 
     /**
      * Constructs a two-dimensional line with given starting point and direction.
@@ -35,7 +35,7 @@ public final class Line2d implements Line.Line2, Serializable {
      * @param startingPoint of this line that is not null.
      * @param direction     of this line that is not null.
      */
-    public Line2d(Point2d startingPoint, Vector2d direction) {
+    public Line2d(Point2d startingPoint, ImmutableVector2d direction) {
         this.startingPoint = startingPoint;
         this.direction = direction;
     }
@@ -102,7 +102,7 @@ public final class Line2d implements Line.Line2, Serializable {
      *
      * @return the value of the {@code direction} of this line.
      */
-    public Vector2d direction() {
+    public ImmutableVector2d direction() {
         return direction;
     }
 

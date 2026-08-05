@@ -1,8 +1,9 @@
-package com.mrgoddavid.vector;
+package com.mrgoddavid.vector.immutable;
 
 import com.mrgoddavid.geometry.angle.Radian;
 import com.mrgoddavid.matrix.FixedMatrix;
 import com.mrgoddavid.transformation.rotation.RotationMatrix2x2;
+import com.mrgoddavid.vector.ImmutableVector2;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -15,22 +16,22 @@ import java.util.Objects;
  * @author Mr. GodDavid
  * @since 3/16/2026
  */
-public class Vector2d implements Vector2<Vector2d>, Comparable<Vector2d>, Comparator<Vector2d>, Serializable {
+public class ImmutableVector2d implements ImmutableVector2<ImmutableVector2d>, Comparable<ImmutableVector2d>, Comparator<ImmutableVector2d>, Serializable {
 
     /**
      * Zero vector of this class.
      */
-    public static final Vector2d ZERO = new Vector2d();
+    public static final ImmutableVector2d ZERO = new ImmutableVector2d();
 
     /**
      * Unit vector along x-axis. We define this unit vector as i.
      */
-    public static final Vector2d UNIT_I = new Vector2d(1.0, 0.0);
+    public static final ImmutableVector2d UNIT_I = new ImmutableVector2d(1.0, 0.0);
 
     /**
      * Unit vector along y-axis. We define this unit vector as j.
      */
-    public static final Vector2d UNIT_J = new Vector2d(0.0, 1.0);
+    public static final ImmutableVector2d UNIT_J = new ImmutableVector2d(0.0, 1.0);
 
     @Serial
     private static final long serialVersionUID = 5398093862957521446L;
@@ -47,7 +48,7 @@ public class Vector2d implements Vector2<Vector2d>, Comparable<Vector2d>, Compar
     /**
      * Default constructor of Vector2d.
      */
-    public Vector2d() {
+    public ImmutableVector2d() {
         this.x = 0d;
         this.y = 0d;
     }
@@ -58,7 +59,7 @@ public class Vector2d implements Vector2<Vector2d>, Comparable<Vector2d>, Compar
      * @param x component of this vector.
      * @param y component of this vector.
      */
-    public Vector2d(double x, double y) {
+    public ImmutableVector2d(double x, double y) {
         this.x = x;
         this.y = y;
     }
@@ -68,7 +69,7 @@ public class Vector2d implements Vector2<Vector2d>, Comparable<Vector2d>, Compar
      *
      * @param v that is not null.
      */
-    public Vector2d(Vector2d v) {
+    public ImmutableVector2d(ImmutableVector2d v) {
         this.x = v.x;
         this.y = v.y;
     }
@@ -82,8 +83,8 @@ public class Vector2d implements Vector2<Vector2d>, Comparable<Vector2d>, Compar
      * @return the sum of two vectors.
      */
     @Override
-    public Vector2d add(Vector2d second) {
-        return new Vector2d(x + second.x, y + second.y);
+    public ImmutableVector2d add(ImmutableVector2d second) {
+        return new ImmutableVector2d(x + second.x, y + second.y);
     }
 
     /**
@@ -95,8 +96,8 @@ public class Vector2d implements Vector2<Vector2d>, Comparable<Vector2d>, Compar
      * @return the difference between two vectors.
      */
     @Override
-    public Vector2d subtract(Vector2d second) {
-        return new Vector2d(x - second.x, y - second.y);
+    public ImmutableVector2d subtract(ImmutableVector2d second) {
+        return new ImmutableVector2d(x - second.x, y - second.y);
     }
 
     /**
@@ -108,8 +109,8 @@ public class Vector2d implements Vector2<Vector2d>, Comparable<Vector2d>, Compar
      * @return the product of two vectors.
      */
     @Override
-    public Vector2d multiply(Vector2d second) {
-        return new Vector2d(x * second.x, y * second.y);
+    public ImmutableVector2d multiply(ImmutableVector2d second) {
+        return new ImmutableVector2d(x * second.x, y * second.y);
     }
 
     /**
@@ -121,11 +122,11 @@ public class Vector2d implements Vector2<Vector2d>, Comparable<Vector2d>, Compar
      * @return the quotient of two vectors.
      */
     @Override
-    public Vector2d divide(Vector2d second) {
+    public ImmutableVector2d divide(ImmutableVector2d second) {
         if (compNotContainsZero(second.getX(), second.getY())) {
-            return new Vector2d(x / second.x, y / second.y);
+            return new ImmutableVector2d(x / second.x, y / second.y);
         }
-        return Vector2.NAN_2D;
+        return ImmutableVector2.NAN_2D;
     }
 
     /**
@@ -138,10 +139,10 @@ public class Vector2d implements Vector2<Vector2d>, Comparable<Vector2d>, Compar
      * @return the vector that is  multiplied multiplier vector and by  of two vectors.
      */
     @Override
-    public Vector2d multiply_add(Vector2d multiplier, Vector2d adder) {
+    public ImmutableVector2d multiply_add(ImmutableVector2d multiplier, ImmutableVector2d adder) {
         double newX = x * multiplier.x + adder.x;
         double newY = y * multiplier.y + adder.y;
-        return new Vector2d(newX, newY);
+        return new ImmutableVector2d(newX, newY);
     }
 
     /**
@@ -153,7 +154,7 @@ public class Vector2d implements Vector2<Vector2d>, Comparable<Vector2d>, Compar
      * @return the cross product of itself to the second input vector.
      */
     @Override
-    public double cross_product(Vector2d second) {
+    public double cross_product(ImmutableVector2d second) {
         return x * second.y - y * second.x;
     }
 
@@ -166,10 +167,10 @@ public class Vector2d implements Vector2<Vector2d>, Comparable<Vector2d>, Compar
      * @return the projection vector of the second vector.
      */
     @Override
-    public Vector2d project(Vector2d second) {
+    public ImmutableVector2d project(ImmutableVector2d second) {
         double length = second.length();
         if (length == 0) {
-            return new Vector2d();
+            return new ImmutableVector2d();
         }
         double dotProduct = dot_product(second);
         double scaleFactor = dotProduct / (length * length);
@@ -185,11 +186,11 @@ public class Vector2d implements Vector2<Vector2d>, Comparable<Vector2d>, Compar
      * @return the reflected vector around the normal of the second vector.
      */
     @Override
-    public Vector2d reflect(Vector2d second) {
-        if (second.length() == 0) return new Vector2d();
-        Vector2d n = second.normalize();
+    public ImmutableVector2d reflect(ImmutableVector2d second) {
+        if (second.length() == 0) return new ImmutableVector2d();
+        ImmutableVector2d n = second.normalize();
         double dotProduct = dot_product(n);
-        Vector2d a = second.scale(dotProduct * 2);
+        ImmutableVector2d a = second.scale(dotProduct * 2);
         return this.subtract(a);
     }
 
@@ -203,8 +204,8 @@ public class Vector2d implements Vector2<Vector2d>, Comparable<Vector2d>, Compar
      * @return the calculated vector that is either flipped or not.
      */
     @Override
-    public Vector2d faceForward(Vector2d incident, Vector2d reference) {
-        return (incident.dot_product(reference) < 0) ? new Vector2d(this) : new Vector2d(this.scale(-1d));
+    public ImmutableVector2d faceForward(ImmutableVector2d incident, ImmutableVector2d reference) {
+        return (incident.dot_product(reference) < 0) ? new ImmutableVector2d(this) : new ImmutableVector2d(this.scale(-1d));
     }
 
     /**
@@ -216,7 +217,7 @@ public class Vector2d implements Vector2<Vector2d>, Comparable<Vector2d>, Compar
      * @return the dot product of itself and the second vector.
      */
     @Override
-    public double dot_product(Vector2d second) {
+    public double dot_product(ImmutableVector2d second) {
         return x * second.x + y * second.y;
     }
 
@@ -229,7 +230,7 @@ public class Vector2d implements Vector2<Vector2d>, Comparable<Vector2d>, Compar
      * @return the distance between itself and the second vector.
      */
     @Override
-    public double distance(Vector2d second) {
+    public double distance(ImmutableVector2d second) {
         double dx = x - second.x;
         double dy = y - second.y;
         return Math.sqrt(dx * dx + dy * dy);
@@ -256,8 +257,8 @@ public class Vector2d implements Vector2<Vector2d>, Comparable<Vector2d>, Compar
      * @return the result of multiplying itself by the scalar input <code>scale</code>.
      */
     @Override
-    public Vector2d scale(double scale) {
-        return new Vector2d(x * scale, y * scale);
+    public ImmutableVector2d scale(double scale) {
+        return new ImmutableVector2d(x * scale, y * scale);
     }
 
     /**
@@ -268,11 +269,11 @@ public class Vector2d implements Vector2<Vector2d>, Comparable<Vector2d>, Compar
      * @return the normalized vector.
      */
     @Override
-    public Vector2d normalize() {
+    public ImmutableVector2d normalize() {
         if (length() == 0) {
-            return new Vector2d();
+            return new ImmutableVector2d();
         }
-        return new Vector2d(x / length(), y / length());
+        return new ImmutableVector2d(x / length(), y / length());
     }
 
     /**
@@ -283,8 +284,8 @@ public class Vector2d implements Vector2<Vector2d>, Comparable<Vector2d>, Compar
      * @return a new vector2 that contains the entrywise absolute value of itself.
      */
     @Override
-    public Vector2d absolute() {
-        return new Vector2d(Math.abs(x), Math.abs(y));
+    public ImmutableVector2d absolute() {
+        return new ImmutableVector2d(Math.abs(x), Math.abs(y));
     }
 
     /**
@@ -296,8 +297,8 @@ public class Vector2d implements Vector2<Vector2d>, Comparable<Vector2d>, Compar
      * @return a new vector2 that contains the entrywise power operator where the Base raised to the power of Exponent.
      */
     @Override
-    public Vector2d power(double exp) {
-        return new Vector2d(Math.pow(x, exp), Math.pow(y, exp));
+    public ImmutableVector2d power(double exp) {
+        return new ImmutableVector2d(Math.pow(x, exp), Math.pow(y, exp));
     }
 
     /**
@@ -310,10 +311,10 @@ public class Vector2d implements Vector2<Vector2d>, Comparable<Vector2d>, Compar
      * @return a new vector that represents the sign of each component value.
      */
     @Override
-    public Vector2d sign() {
+    public ImmutableVector2d sign() {
         double signX = x > 0 ? 1 : x == 0 ? 0 : -1;
         double signY = y > 0 ? 1 : y == 0 ? 0 : -1;
-        return new Vector2d(signX, signY);
+        return new ImmutableVector2d(signX, signY);
     }
 
     /**
@@ -325,8 +326,8 @@ public class Vector2d implements Vector2<Vector2d>, Comparable<Vector2d>, Compar
      * @return a new vector that contains entrywise minimum of itself and the second vector
      */
     @Override
-    public Vector2d minimum(Vector2d second) {
-        return new Vector2d(Math.min(x, second.x), Math.min(y, second.y));
+    public ImmutableVector2d minimum(ImmutableVector2d second) {
+        return new ImmutableVector2d(Math.min(x, second.x), Math.min(y, second.y));
     }
 
     /**
@@ -338,8 +339,8 @@ public class Vector2d implements Vector2<Vector2d>, Comparable<Vector2d>, Compar
      * @return a new vector that contains entrywise maximum of itself and the second vector
      */
     @Override
-    public Vector2d maximum(Vector2d second) {
-        return new Vector2d(Math.max(x, second.x), Math.max(y, second.y));
+    public ImmutableVector2d maximum(ImmutableVector2d second) {
+        return new ImmutableVector2d(Math.max(x, second.x), Math.max(y, second.y));
     }
 
     /**
@@ -350,8 +351,8 @@ public class Vector2d implements Vector2<Vector2d>, Comparable<Vector2d>, Compar
      * @return a new vector with its each component entrywise down to the nearest integer.
      */
     @Override
-    public Vector2d floor() {
-        return new Vector2d(Math.floor(x), Math.floor(y));
+    public ImmutableVector2d floor() {
+        return new ImmutableVector2d(Math.floor(x), Math.floor(y));
     }
 
     /**
@@ -362,8 +363,8 @@ public class Vector2d implements Vector2<Vector2d>, Comparable<Vector2d>, Compar
      * @return a new vector with its each component entrywise up to the nearest integer.
      */
     @Override
-    public Vector2d ceil() {
-        return new Vector2d(Math.ceil(x), Math.ceil(y));
+    public ImmutableVector2d ceil() {
+        return new ImmutableVector2d(Math.ceil(x), Math.ceil(y));
     }
 
     /**
@@ -374,7 +375,7 @@ public class Vector2d implements Vector2<Vector2d>, Comparable<Vector2d>, Compar
      * @return the fractional part of the value entrywise.
      */
     @Override
-    public Vector2d fraction() {
+    public ImmutableVector2d fraction() {
         return this.subtract(this.floor());
     }
 
@@ -387,14 +388,14 @@ public class Vector2d implements Vector2<Vector2d>, Comparable<Vector2d>, Compar
      * @return the entrywise modulo of itself by the second vector.
      */
     @Override
-    public Vector2d modulo(Vector2d second) {
+    public ImmutableVector2d modulo(ImmutableVector2d second) {
         if (compNotContainsZero(x, y)) {
-            return new Vector2d(
+            return new ImmutableVector2d(
                     this.x - second.x * Math.floor(this.x / second.x),
                     this.y - second.y * Math.floor(this.y / second.y)
             );
         }
-        return Vector2.NAN_2D;
+        return ImmutableVector2.NAN_2D;
     }
 
     /**
@@ -408,9 +409,9 @@ public class Vector2d implements Vector2<Vector2d>, Comparable<Vector2d>, Compar
      * @return a new vector that is entrywise wrapped for each its component.
      */
     @Override
-    public Vector2d wrap(Vector2d minimum, Vector2d maximum) {
-        Vector2d v1 = this.subtract(minimum);
-        Vector2d range = maximum.subtract(minimum);
+    public ImmutableVector2d wrap(ImmutableVector2d minimum, ImmutableVector2d maximum) {
+        ImmutableVector2d v1 = this.subtract(minimum);
+        ImmutableVector2d range = maximum.subtract(minimum);
         return this.subtract(range.multiply(v1.divide(range)).floor());
     }
 
@@ -422,7 +423,7 @@ public class Vector2d implements Vector2<Vector2d>, Comparable<Vector2d>, Compar
      * @return a new vector that is entrywise snapped for each its component.
      */
     @Override
-    public Vector2d snap(Vector2d second) {
+    public ImmutableVector2d snap(ImmutableVector2d second) {
         return this.divide(second).floor().multiply(second);
     }
 
@@ -434,8 +435,8 @@ public class Vector2d implements Vector2<Vector2d>, Comparable<Vector2d>, Compar
      * @return the entrywise of sine of itself.
      */
     @Override
-    public Vector2d sine() {
-        return new Vector2d(Math.sin(x), Math.sin(y));
+    public ImmutableVector2d sine() {
+        return new ImmutableVector2d(Math.sin(x), Math.sin(y));
     }
 
     /**
@@ -446,8 +447,8 @@ public class Vector2d implements Vector2<Vector2d>, Comparable<Vector2d>, Compar
      * @return the entrywise of cosine of itself.
      */
     @Override
-    public Vector2d cosine() {
-        return new Vector2d(Math.cos(x), Math.cos(y));
+    public ImmutableVector2d cosine() {
+        return new ImmutableVector2d(Math.cos(x), Math.cos(y));
     }
 
     /**
@@ -458,12 +459,12 @@ public class Vector2d implements Vector2<Vector2d>, Comparable<Vector2d>, Compar
      * @return the entrywise of tangent of itself.
      */
     @Override
-    public Vector2d tangent() {
-        return new Vector2d(Math.tan(x), Math.tan(y));
+    public ImmutableVector2d tangent() {
+        return new ImmutableVector2d(Math.tan(x), Math.tan(y));
     }
 
     @Override
-    public Vector2d getSelf() {
+    public ImmutableVector2d getSelf() {
         return this;
     }
 
@@ -475,8 +476,8 @@ public class Vector2d implements Vector2<Vector2d>, Comparable<Vector2d>, Compar
      * @return a new reference of itself.
      */
     @Override
-    public Vector2d copy() {
-        return new Vector2d(x, y);
+    public ImmutableVector2d copy() {
+        return new ImmutableVector2d(x, y);
     }
 
     @Override
@@ -503,7 +504,7 @@ public class Vector2d implements Vector2<Vector2d>, Comparable<Vector2d>, Compar
     }
 
     @Override
-    public int compareTo(Vector2d o) {
+    public int compareTo(ImmutableVector2d o) {
         if (this.x != o.getX()) {
             return Double.compare(x, o.getX());
         }
@@ -516,7 +517,7 @@ public class Vector2d implements Vector2<Vector2d>, Comparable<Vector2d>, Compar
     }
 
     @Override
-    public int compare(Vector2d o1, Vector2d o2) {
+    public int compare(ImmutableVector2d o1, ImmutableVector2d o2) {
         return o1.compareTo(o2);
     }
 
@@ -524,7 +525,7 @@ public class Vector2d implements Vector2<Vector2d>, Comparable<Vector2d>, Compar
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Vector2d vector2d = (Vector2d) o;
+        ImmutableVector2d vector2d = (ImmutableVector2d) o;
         return x == vector2d.x && y == vector2d.y;
     }
 
@@ -563,7 +564,7 @@ public class Vector2d implements Vector2<Vector2d>, Comparable<Vector2d>, Compar
      * @since 7/24/2026 part of Transformation &amp; Circles Update.
      */
     @Override
-    public Vector2d rotate(Radian angle) {
+    public ImmutableVector2d rotate(Radian angle) {
         return RotationMatrix2x2.getInstance().atAngle(angle).multiply(this.transpose()).transpose();
     }
 }

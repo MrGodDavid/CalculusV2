@@ -1,6 +1,6 @@
 package com.mrgoddavid.geometry.point;
 
-import com.mrgoddavid.vector.Vector2d;
+import com.mrgoddavid.vector.immutable.ImmutableVector2d;
 
 import java.io.Serial;
 
@@ -50,8 +50,8 @@ public final class Point2d implements Point.Point2<Point2d> {
      * @return the vector starting from this point to the given point.
      */
     @Override
-    public Vector2d toVector2d(Point2d endPoint) {
-        return new Vector2d(endPoint.x() - x, endPoint.y() - y);
+    public ImmutableVector2d toVector2d(Point2d endPoint) {
+        return new ImmutableVector2d(endPoint.x() - x, endPoint.y() - y);
     }
 
     /**

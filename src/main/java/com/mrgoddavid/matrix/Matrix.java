@@ -1,6 +1,6 @@
 package com.mrgoddavid.matrix;
 
-import com.mrgoddavid.vector.Vector3i;
+import com.mrgoddavid.vector.immutable.ImmutableVector3i;
 
 import java.io.Serializable;
 
@@ -124,6 +124,6 @@ public interface Matrix<T> extends Serializable {
          *
          * @return the determinant (which is also a three-dimensional vector).
          */
-        Vector3i determinantToVector();
+        ImmutableVector3i determinantToVector();
     }
 }

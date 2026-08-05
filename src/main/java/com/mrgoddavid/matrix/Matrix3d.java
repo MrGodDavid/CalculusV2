@@ -1,7 +1,7 @@
 package com.mrgoddavid.matrix;
 
-import com.mrgoddavid.vector.Vector3d;
-import com.mrgoddavid.vector.Vector3i;
+import com.mrgoddavid.vector.immutable.ImmutableVector3d;
+import com.mrgoddavid.vector.immutable.ImmutableVector3i;
 
 import java.io.Serial;
 
@@ -131,7 +131,7 @@ public class Matrix3d implements Matrix.SquareMatrix<Matrix3d> {
      *
      * @return the converted 3d vector from its determinant.
      */
-    public Vector3d determinantToVector() {
+    public ImmutableVector3d determinantToVector() {
         return new MatrixV3d().determinantToVector3d();
     }
 
@@ -244,7 +244,7 @@ public class Matrix3d implements Matrix.SquareMatrix<Matrix3d> {
          */
         @Override
         @Deprecated
-        public Vector3i determinantToVector() {
+        public ImmutableVector3i determinantToVector() {
             return null;
         }
 
@@ -253,11 +253,11 @@ public class Matrix3d implements Matrix.SquareMatrix<Matrix3d> {
          *
          * @return the three-dimensional vector that has double for each its component.
          */
-        public Vector3d determinantToVector3d() {
+        public ImmutableVector3d determinantToVector3d() {
             double i = firstDeterminant();
             double j = -secondDeterminant();
             double k = thirdDeterminant();
-            return new Vector3d(i, j, k);
+            return new ImmutableVector3d(i, j, k);
         }
 
         /**

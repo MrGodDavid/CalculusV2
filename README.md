@@ -126,9 +126,9 @@ with the latest release version.
 ## Creating a Vector
 
 ```java
-import com.mrgoddavid.vector.Vector3d;
+import com.mrgoddavid.vector.immutable.ImmutableVector3d;
 
-Vector3d velocity = new Vector3D(10, 5, 0);
+ImmutableVector3d velocity = new Vector3D(10, 5, 0);
 ```
 
 ---

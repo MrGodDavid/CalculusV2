@@ -3,7 +3,7 @@ package com.mrgoddavid.geometry.plane;
 import com.mrgoddavid.matrix.FixedMatrix;
 import com.mrgoddavid.matrix.Matrix2d;
 import com.mrgoddavid.utils.NumberFormatter;
-import com.mrgoddavid.vector.Vector3d;
+import com.mrgoddavid.vector.immutable.ImmutableVector3d;
 import com.mrgoddavid.geometry.line.Line3d;
 import com.mrgoddavid.geometry.point.Point3d;
 
@@ -134,7 +134,7 @@ public final class RestrictedPlane3d implements Plane3 {
      */
     @Override
     public Line3d intersect(RestrictedPlane3d plane3) {
-        Vector3d direction = this.getNormal().crossProduct(plane3.getNormal(), true);
+        ImmutableVector3d direction = this.getNormal().crossProduct(plane3.getNormal(), true);
         Point3d point = this.findPointOnLine(plane3);
         if (point == null) {
             System.out.println("The two planes are parallel, no line of intersection!");
@@ -216,8 +216,8 @@ public final class RestrictedPlane3d implements Plane3 {
      * @return the normal vector of this plane.
      */
     @Override
-    public Vector3d getNormal() {
-        return new Vector3d(A, B, C);
+    public ImmutableVector3d getNormal() {
+        return new ImmutableVector3d(A, B, C);
     }
 
     /**
@@ -263,8 +263,8 @@ public final class RestrictedPlane3d implements Plane3 {
     @Override
     public double distance(Point3d other) {
         Point3d pt = new Point3d(0, 0, this.D / this.C);
-        Vector3d direction = new Vector3d((other.x() - pt.x()), (other.y() - pt.y()), (other.z() - pt.z()));
-        Vector3d normal = this.getNormal();
+        ImmutableVector3d direction = new ImmutableVector3d((other.x() - pt.x()), (other.y() - pt.y()), (other.z() - pt.z()));
+        ImmutableVector3d normal = this.getNormal();
         return Math.abs(direction.dot_product(normal)) / normal.length();
     }
 

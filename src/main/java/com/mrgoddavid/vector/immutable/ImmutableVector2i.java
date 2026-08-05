@@ -1,153 +1,74 @@
-package com.mrgoddavid.vector;
+package com.mrgoddavid.vector.immutable;
 
-import com.mrgoddavid.matrix.Matrix3d;
+import com.mrgoddavid.geometry.angle.Radian;
+import com.mrgoddavid.vector.ImmutableVector2;
 
 import java.io.Serial;
+import java.io.Serializable;
+import java.util.Comparator;
+import java.util.Objects;
 
 /**
- * Three-dimensional vector. Each component of this vector is integer.
+ * Custom 2i vector class. Parameters are integer variable.
  *
- * @author Mr. GodDavid
- * @since 7/13/2026
+ * @author Mr. GodDavid.
+ * @since 3/30/2026
  */
-public class Vector3d implements Vector3<Vector3d> {
+@SuppressWarnings("ClassCanBeRecord")
+public class ImmutableVector2i implements ImmutableVector2<ImmutableVector2i>, Comparable<ImmutableVector2i>, Comparator<ImmutableVector2i>, Serializable {
 
     /**
      * Zero vector of this class.
      */
-    public static final Vector3d ZERO = new Vector3d();
+    public static final ImmutableVector2i ZERO = new ImmutableVector2i();
 
     /**
      * Unit vector along x-axis. We define this unit vector as i.
      */
-    public static final Vector3d UNIT_I = new Vector3d(1.0, 0.0, 0.0);
+    public static final ImmutableVector2i UNIT_I = new ImmutableVector2i(1, 0);
 
     /**
      * Unit vector along y-axis. We define this unit vector as j.
      */
-    public static final Vector3d UNIT_J = new Vector3d(0.0, 1.0, 0.0);
-
-    /**
-     * Unit vector along z-axis. We define this unit vector as k.
-     */
-    public static final Vector3d UNIT_K = new Vector3d(0.0, 0.0, 1.0);
+    public static final ImmutableVector2i UNIT_J = new ImmutableVector2i(0, 1);
 
     @Serial
-    private static final long serialVersionUID = -4489172891660242447L;
+    private static final long serialVersionUID = 2910385014691604552L;
 
     /**
      * X coordinate of this vector.
      */
-    private final double x;
+    private final int x;
     /**
      * Y coordinate of this vector.
      */
-    private final double y;
-    /**
-     * Z coordinate of this vector.
-     */
-    private final double z;
+    private final int y;
 
     /**
      * Default constructor.
      */
-    public Vector3d() {
-        this(0, 0, 0);
+    public ImmutableVector2i() {
+        this(0, 0);
     }
 
     /**
-     * Constructs a three-dimensional vector from the given x, y, and z coordinates.
+     * Constructs a 2d vector by the given parameters.
      *
-     * @param x coordinate of the vector.
-     * @param y coordinate of the vector.
-     * @param z coordinate of the vector.
+     * @param x coordinate of this vector.
+     * @param y coordinate of this vector.
      */
-    public Vector3d(double x, double y, double z) {
+    public ImmutableVector2i(int x, int y) {
         this.x = x;
         this.y = y;
-        this.z = z;
     }
 
     /**
-     * Constructs a three-dimensional vector from the parameter.
+     * Constructs a 2d vector from the given in parameter.
      *
      * @param vector that is not null.
      */
-    public Vector3d(Vector3i vector) {
-        this.x = vector.getX();
-        this.y = vector.getY();
-        this.z = vector.getZ();
-    }
-
-    /**
-     * Calculate the cross product of two three-dimensional vectors.
-     *
-     * @param other three-dimensional vector that is not null.
-     * @return the cross product of two three-dimensional vectors.
-     */
-    @Override
-    public Vector3d crossProduct(Vector3d other) {
-        Matrix3d matrix3VD = new Matrix3d(-999, -999, -999, this.x, this.y, this.z, other.x, other.y, other.z);
-        return matrix3VD.determinantToVector();
-    }
-
-    /**
-     * Calculates the cross product of two three-dimensional vectors. This method simplifies the result by dividing it
-     * by the greatest common factor of three components.
-     *
-     * @param other    three-dimensional vector that is not null.
-     * @param simplify a boolean key allows user to choose whether to simplify the cross product or not.
-     * @return the simplified cross product if {@code simplify = true} and original cross product if {@code simplify = false}
-     * @since 7/10/2026 added this method.
-     */
-    public Vector3d crossProduct(Vector3d other, boolean simplify) {
-        Vector3d cross_product = this.crossProduct(other);
-        if (simplify) {
-            int gcf = findGCF((int) cross_product.x, (int) cross_product.y, (int) cross_product.z);
-            cross_product = cross_product.scale(1d / gcf);
-        }
-        return cross_product;
-    }
-
-    /**
-     * Calculates the greatest common factor (GCF) of three integers via Euclidean Algorithm. First calculate the GCF of
-     * the first and second integer, then calculate the GCF of the first and second and third integer.
-     *
-     * @param a is the first integer.
-     * @param b is the second integer.
-     * @param c is the third integer.
-     * @return the greatest common factor of a, b, and c.
-     * @since 7/10/2026 added this method.
-     */
-    private int findGCF(int a, int b, int c) {
-        return doFindGCF(doFindGCF(a, b), c);
-    }
-
-    /**
-     * Calculates the greatest common factor (GCF) of three integers via Euclidean Algorithm.
-     *
-     * @param a is the first integer.
-     * @param b is the second integer.
-     * @return the GCF of a and b.
-     */
-    private int doFindGCF(int a, int b) {
-        if (b == 0) {
-            return a;
-        } else {
-            return doFindGCF(b, a % b);
-        }
-    }
-
-    /**
-     * Find the length of the shadow of itself on the second three-dimensional vector.
-     *
-     * @param second three-dimensional vector that is not null.
-     * @return the scalar projection of itself on the second vector.
-     * @since 7/10/2026 added this method.
-     */
-    @Override
-    public double scalar_projection(Vector3d second) {
-        return this.dot_product(second) / second.length();
+    public ImmutableVector2i(ImmutableVector2i vector) {
+        this(vector.x, vector.y);
     }
 
     /**
@@ -159,8 +80,8 @@ public class Vector3d implements Vector3<Vector3d> {
      * @return the sum of two vectors.
      */
     @Override
-    public Vector3d add(Vector3d second) {
-        return new Vector3d(this.x + second.x, this.y + second.y, this.z + second.z);
+    public ImmutableVector2i add(ImmutableVector2i second) {
+        return new ImmutableVector2i(x + second.x, y + second.y);
     }
 
     /**
@@ -172,8 +93,8 @@ public class Vector3d implements Vector3<Vector3d> {
      * @return the difference between two vectors.
      */
     @Override
-    public Vector3d subtract(Vector3d second) {
-        return new Vector3d(this.x - second.x, this.y - second.y, this.z - second.z);
+    public ImmutableVector2i subtract(ImmutableVector2i second) {
+        return new ImmutableVector2i(x - second.x, y - second.y);
     }
 
     /**
@@ -185,8 +106,8 @@ public class Vector3d implements Vector3<Vector3d> {
      * @return the product of two vectors.
      */
     @Override
-    public Vector3d multiply(Vector3d second) {
-        return new Vector3d(this.x * second.x, this.y * second.y, this.z * second.z);
+    public ImmutableVector2i multiply(ImmutableVector2i second) {
+        return new ImmutableVector2i(x * second.x, y * second.y);
     }
 
     /**
@@ -198,18 +119,12 @@ public class Vector3d implements Vector3<Vector3d> {
      * @return the quotient of two vectors.
      */
     @Override
-    public Vector3d divide(Vector3d second) {
-        if (containsZero(second)) {
-            System.err.println("Vector3i" + second + "contains zero!");
-            return new Vector3d(0, 0, 0);
+    public ImmutableVector2i divide(ImmutableVector2i second) {
+        if (compNotContainsZero(second.x, second.y)) {
+            return new ImmutableVector2i(x / second.x, y / second.y);
         }
-        return new Vector3d(x / second.x, y / second.y, z / second.z);
+        return ImmutableVector2.NAN_2I;
     }
-
-    private boolean containsZero(Vector3d vector) {
-        return vector.x == 0 || vector.y == 0 || vector.z == 0;
-    }
-
 
     /**
      * Performs entry multiplication and then addition of a vector itself.
@@ -221,11 +136,10 @@ public class Vector3d implements Vector3<Vector3d> {
      * @return the vector that is  multiplied multiplier vector and by  of two vectors.
      */
     @Override
-    public Vector3d multiply_add(Vector3d multiplier, Vector3d adder) {
-        double x = this.x * multiplier.x + adder.x;
-        double y = this.y * multiplier.y + adder.y;
-        double z = this.z * multiplier.z + adder.z;
-        return new Vector3d(x, y, z);
+    public ImmutableVector2i multiply_add(ImmutableVector2i multiplier, ImmutableVector2i adder) {
+        int newX = x * multiplier.x + adder.x;
+        int newY = y * multiplier.y + adder.y;
+        return new ImmutableVector2i(newX, newY);
     }
 
     /**
@@ -236,10 +150,9 @@ public class Vector3d implements Vector3<Vector3d> {
      * @param second vector that is not null.
      * @return the cross product of itself to the second input vector.
      */
-    @Deprecated
     @Override
-    public double cross_product(Vector3d second) {
-        return -999;
+    public double cross_product(ImmutableVector2i second) {
+        return x * second.y - y * second.x;
     }
 
     /**
@@ -251,8 +164,14 @@ public class Vector3d implements Vector3<Vector3d> {
      * @return the projection vector of the second vector.
      */
     @Override
-    public Vector3d project(Vector3d second) {
-        return null;
+    public ImmutableVector2i project(ImmutableVector2i second) {
+        double length = second.length();
+        if (length == 0) {
+            return new ImmutableVector2i();
+        }
+        double dotProduct = dot_product(second);
+        double scaleVector = dotProduct / (length * length);
+        return second.scale(scaleVector);
     }
 
     /**
@@ -264,8 +183,12 @@ public class Vector3d implements Vector3<Vector3d> {
      * @return the reflected vector around the normal of the second vector.
      */
     @Override
-    public Vector3d reflect(Vector3d second) {
-        return null;
+    public ImmutableVector2i reflect(ImmutableVector2i second) {
+        if (second.length() == 0) return new ImmutableVector2i();
+        ImmutableVector2i n = second.normalize();
+        double dotProduct = dot_product(n);
+        ImmutableVector2i a = second.scale(dotProduct * 2);
+        return this.subtract(a);
     }
 
     /**
@@ -278,8 +201,8 @@ public class Vector3d implements Vector3<Vector3d> {
      * @return the calculated vector that is either flipped or not.
      */
     @Override
-    public Vector3d faceForward(Vector3d incident, Vector3d reference) {
-        return null;
+    public ImmutableVector2i faceForward(ImmutableVector2i incident, ImmutableVector2i reference) {
+        return (incident.dot_product(reference) < 0) ? new ImmutableVector2i(this) : new ImmutableVector2i(this.scale(-1d));
     }
 
     /**
@@ -291,8 +214,8 @@ public class Vector3d implements Vector3<Vector3d> {
      * @return the dot product of itself and the second vector.
      */
     @Override
-    public double dot_product(Vector3d second) {
-        return second.x * this.x + second.y * this.y + second.z * this.z;
+    public double dot_product(ImmutableVector2i second) {
+        return x * second.x + y * second.y;
     }
 
     /**
@@ -304,11 +227,10 @@ public class Vector3d implements Vector3<Vector3d> {
      * @return the distance between itself and the second vector.
      */
     @Override
-    public double distance(Vector3d second) {
-        double dx = Math.abs(second.x - this.x);
-        double dy = Math.abs(second.y - this.y);
-        double dz = Math.abs(second.z - this.z);
-        return Math.sqrt(dx * dx + dy * dy + dz * dz);
+    public double distance(ImmutableVector2i second) {
+        int dx = x - second.x;
+        int dy = y - second.y;
+        return Math.sqrt(dx * dx + dy * dy);
     }
 
     /**
@@ -320,7 +242,7 @@ public class Vector3d implements Vector3<Vector3d> {
      */
     @Override
     public double length() {
-        return Math.sqrt(x * x + y * y + z * z);
+        return Math.sqrt(x * x + y * y);
     }
 
     /**
@@ -332,8 +254,8 @@ public class Vector3d implements Vector3<Vector3d> {
      * @return the result of multiplying itself by the scalar input <code>scale</code>.
      */
     @Override
-    public Vector3d scale(double scale) {
-        return new Vector3d(x * scale, y * scale, z * scale);
+    public ImmutableVector2i scale(double scale) {
+        return new ImmutableVector2i(x * (int) scale, y * (int) scale);
     }
 
     /**
@@ -344,10 +266,11 @@ public class Vector3d implements Vector3<Vector3d> {
      * @return the normalized vector.
      */
     @Override
-    public Vector3d normalize() {
-        return length() == 0 ? new Vector3d(0, 0, 0) : new Vector3d(
-                this.x / length(), this.y / length(), this.z / length()
-        );
+    public ImmutableVector2i normalize() {
+        if (length() == 0) {
+            return new ImmutableVector2i();
+        }
+        return new ImmutableVector2i((int) (x / length()), (int) (y / length()));
     }
 
     /**
@@ -358,8 +281,8 @@ public class Vector3d implements Vector3<Vector3d> {
      * @return a new vector2 that contains the entrywise absolute value of itself.
      */
     @Override
-    public Vector3d absolute() {
-        return new Vector3d(Math.abs(this.x), Math.abs(this.y), Math.abs(this.z));
+    public ImmutableVector2i absolute() {
+        return new ImmutableVector2i(Math.abs(x), Math.abs(y));
     }
 
     /**
@@ -371,9 +294,8 @@ public class Vector3d implements Vector3<Vector3d> {
      * @return a new vector2 that contains the entrywise power operator where the Base raised to the power of Exponent.
      */
     @Override
-    public Vector3d power(double exp) {
-        return new Vector3d(Math.pow(this.x, exp), Math.pow(this.y, exp), Math.pow(this.z, exp));
-
+    public ImmutableVector2i power(double exp) {
+        return new ImmutableVector2i((int) Math.pow(x, exp), (int) Math.pow(x, exp));
     }
 
     /**
@@ -386,11 +308,10 @@ public class Vector3d implements Vector3<Vector3d> {
      * @return a new vector that represents the sign of each component value.
      */
     @Override
-    public Vector3d sign() {
-        int signX = this.x < 0 ? -1 : this.x == 0 ? 0 : 1;
-        int signY = this.y < 0 ? -1 : this.y == 0 ? 0 : 1;
-        int signZ = this.z < 0 ? -1 : this.z == 0 ? 0 : 1;
-        return new Vector3d(signX, signY, signZ);
+    public ImmutableVector2i sign() {
+        int signX = x > 0 ? 1 : x == 0 ? 0 : -1;
+        int signY = y > 0 ? 1 : y == 0 ? 0 : -1;
+        return new ImmutableVector2i(signX, signY);
     }
 
     /**
@@ -402,8 +323,8 @@ public class Vector3d implements Vector3<Vector3d> {
      * @return a new vector that contains entrywise minimum of itself and the second vector
      */
     @Override
-    public Vector3d minimum(Vector3d second) {
-        return new Vector3d(Math.min(this.x, second.x), Math.min(this.y, second.y), Math.min(this.z, second.z));
+    public ImmutableVector2i minimum(ImmutableVector2i second) {
+        return new ImmutableVector2i(Math.min(x, second.x), Math.min(y, second.y));
     }
 
     /**
@@ -415,8 +336,8 @@ public class Vector3d implements Vector3<Vector3d> {
      * @return a new vector that contains entrywise maximum of itself and the second vector
      */
     @Override
-    public Vector3d maximum(Vector3d second) {
-        return new Vector3d(Math.max(this.x, second.x), Math.max(this.y, second.y), Math.max(this.z, second.z));
+    public ImmutableVector2i maximum(ImmutableVector2i second) {
+        return new ImmutableVector2i(Math.max(x, second.x), Math.max(y, second.y));
     }
 
     /**
@@ -427,8 +348,8 @@ public class Vector3d implements Vector3<Vector3d> {
      * @return a new vector with its each component entrywise down to the nearest integer.
      */
     @Override
-    public Vector3d floor() {
-        return new Vector3d(Math.floor(this.x), Math.floor(this.y), Math.floor(this.z));
+    public ImmutableVector2i floor() {
+        return new ImmutableVector2i((int) Math.floor(x), (int) Math.floor(y));
     }
 
     /**
@@ -439,8 +360,8 @@ public class Vector3d implements Vector3<Vector3d> {
      * @return a new vector with its each component entrywise up to the nearest integer.
      */
     @Override
-    public Vector3d ceil() {
-        return new Vector3d(Math.ceil(this.x), Math.ceil(this.y), Math.ceil(this.z));
+    public ImmutableVector2i ceil() {
+        return new ImmutableVector2i((int) Math.ceil(x), (int) Math.ceil(y));
     }
 
     /**
@@ -451,7 +372,7 @@ public class Vector3d implements Vector3<Vector3d> {
      * @return the fractional part of the value entrywise.
      */
     @Override
-    public Vector3d fraction() {
+    public ImmutableVector2i fraction() {
         return this.subtract(this.floor());
     }
 
@@ -464,15 +385,11 @@ public class Vector3d implements Vector3<Vector3d> {
      * @return the entrywise modulo of itself by the second vector.
      */
     @Override
-    public Vector3d modulo(Vector3d second) {
-        if (compNotContainsZero(x, y, z)) {
-            return new Vector3d(
-                    this.x - second.x * Math.floor(this.x / second.x),
-                    this.y - second.y * Math.floor(this.y / second.y),
-                    this.z - second.z * Math.floor(this.z / second.z)
-            );
+    public ImmutableVector2i modulo(ImmutableVector2i second) {
+        if (compNotContainsZero(x, y)) {
+            return new ImmutableVector2i(x % second.x, y % second.y);
         }
-        return Vector3.NAN_3D;
+        return ImmutableVector2.NAN_2I;
     }
 
     /**
@@ -486,8 +403,10 @@ public class Vector3d implements Vector3<Vector3d> {
      * @return a new vector that is entrywise wrapped for each its component.
      */
     @Override
-    public Vector3d wrap(Vector3d minimum, Vector3d maximum) {
-        return null;
+    public ImmutableVector2i wrap(ImmutableVector2i minimum, ImmutableVector2i maximum) {
+        ImmutableVector2i v1 = this.subtract(minimum);
+        ImmutableVector2i range = maximum.subtract(minimum);
+        return this.subtract(range.multiply(v1.divide(range)).floor());
     }
 
     /**
@@ -499,8 +418,8 @@ public class Vector3d implements Vector3<Vector3d> {
      * @return a new vector that is entrywise snapped for each its component.
      */
     @Override
-    public Vector3d snap(Vector3d second) {
-        return null;
+    public ImmutableVector2i snap(ImmutableVector2i second) {
+        return this.divide(second).floor().multiply(second);
     }
 
     /**
@@ -511,8 +430,8 @@ public class Vector3d implements Vector3<Vector3d> {
      * @return the entrywise of sine of itself.
      */
     @Override
-    public Vector3d sine() {
-        return new Vector3d(Math.sin(this.x), Math.sin(this.y), Math.sin(this.z));
+    public ImmutableVector2i sine() {
+        return new ImmutableVector2i((int) Math.sin(x), (int) Math.sin(y));
     }
 
     /**
@@ -523,8 +442,8 @@ public class Vector3d implements Vector3<Vector3d> {
      * @return the entrywise of cosine of itself.
      */
     @Override
-    public Vector3d cosine() {
-        return new Vector3d(Math.cos(this.x), Math.cos(this.y), Math.cos(this.z));
+    public ImmutableVector2i cosine() {
+        return new ImmutableVector2i((int) Math.cos(x), (int) Math.cos(y));
     }
 
     /**
@@ -535,8 +454,8 @@ public class Vector3d implements Vector3<Vector3d> {
      * @return the entrywise of tangent of itself.
      */
     @Override
-    public Vector3d tangent() {
-        return new Vector3d(Math.tan(this.x), Math.tan(this.y), Math.tan(this.z));
+    public ImmutableVector2i tangent() {
+        return new ImmutableVector2i((int) Math.tan(x), (int) Math.tan(y));
     }
 
     /**
@@ -546,10 +465,9 @@ public class Vector3d implements Vector3<Vector3d> {
      *
      * @return a new reference of itself.
      */
-    @Deprecated
     @Override
-    public Vector3d copy() {
-        return null;
+    public ImmutableVector2i copy() {
+        return new ImmutableVector2i(this.x, this.y);
     }
 
     /**
@@ -560,13 +478,43 @@ public class Vector3d implements Vector3<Vector3d> {
      * @return Return a reference of itself.
      */
     @Override
-    public Vector3d getSelf() {
-        return new Vector3d(this.x, this.y, this.z);
+    public ImmutableVector2i getSelf() {
+        return this;
+    }
+
+    @Override
+    public int compareTo(ImmutableVector2i o) {
+        if (this.x != o.getX()) {
+            return Integer.compare(x, o.getX());
+        }
+        if (this.y != o.getY()) {
+            return Integer.compare(this.y, o.getY());
+        }
+        return (this.x == o.getX() && this.y == o.getY())
+                ? 0
+                : Integer.compare((int) this.length(), (int) o.length());
+    }
+
+    @Override
+    public int compare(ImmutableVector2i o1, ImmutableVector2i o2) {
+        return o1.compareTo(o2);
     }
 
     @Override
     public String toString() {
-        return "<" + x + ", " + y + ", " + z + ">";
+        return "[" + x + ", " + y + "]";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        ImmutableVector2i vector2i = (ImmutableVector2i) o;
+        return x == vector2i.x && y == vector2i.y;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(x, y);
     }
 
     /**
@@ -574,7 +522,7 @@ public class Vector3d implements Vector3<Vector3d> {
      *
      * @return the value of x coordinate.
      */
-    public double getX() {
+    public int getX() {
         return x;
     }
 
@@ -583,16 +531,20 @@ public class Vector3d implements Vector3<Vector3d> {
      *
      * @return the value of y coordinate.
      */
-    public double getY() {
+    public int getY() {
         return y;
     }
 
     /**
-     * Accessor of the z coordinate.
+     * Rotate the vector in given angle around the origin.
      *
-     * @return the value of z coordinate.
+     * @param angle given angle in radians.
+     * @return the rotated vector.
+     * @since 7/24/2026 part of Transformation &amp; Circles Update.
      */
-    public double getZ() {
-        return z;
+    @Deprecated
+    @Override
+    public ImmutableVector2i rotate(Radian angle) {
+        return null;
     }
 }
