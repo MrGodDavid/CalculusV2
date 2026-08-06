@@ -12,12 +12,12 @@ import org.junit.jupiter.params.provider.MethodSource;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
- * Holds all test suites of {@link com.mrgoddavid.function.Limit} class.
+ * Holds all test suites of {@link com.mrgoddavid.function.limit.Limit} class.
  *
  * @author Mr. GodDavid
  * @since 7/28/2026
  */
-public class Limit_ClassTest extends TestSuites.LimitClassTestSuites {
+public final class LimitClassTest extends TestSuites.LimitClassTestSuites {
 
     @ParameterizedTest
     @MethodSource("normalLimitTestProvider")
@@ -44,6 +44,20 @@ public class Limit_ClassTest extends TestSuites.LimitClassTestSuites {
     @MethodSource("limitAtInfinityTestProvider")
     void limitAtInfinityTest(Function function, double x, double expected, double tolerance) {
         double result = function.limitAt(x);
+        assertEquals(expected, result, tolerance);
+    }
+
+    @ParameterizedTest
+    @MethodSource("leftLimitTestProvider")
+    void leftLimitTest(Function function, double x, double expected, double tolerance) {
+        double result = function.leftLimitAt(x);
+        assertEquals(expected, result, tolerance);
+    }
+
+    @ParameterizedTest
+    @MethodSource("rightLimitTestProvider")
+    void rightLimitTest(Function function, double x, double expected, double tolerance) {
+        double result = function.rightLimitAt(x);
         assertEquals(expected, result, tolerance);
     }
 }

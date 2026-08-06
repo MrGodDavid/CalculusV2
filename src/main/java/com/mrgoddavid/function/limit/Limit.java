@@ -118,15 +118,33 @@ public final class Limit {
         }
     }
 
+    /**
+     * Calculates the left-sided limit of this function at x.
+     *
+     * @param x given x.
+     * @return the value of the left-sided limit of this function at x.
+     */
     public double leftLimitAt(double x) {
         return oneSideLimitAt(x, LEFT_SIDE_LIMIT);
     }
 
+    /**
+     * Calculates the right-sided limit of this function at x.
+     *
+     * @param x given x.
+     * @return the value of the right-sided limit of this function at x.
+     */
     public double rightLimitAt(double x) {
         return oneSideLimitAt(x, RIGHT_SIDE_LIMIT);
     }
 
     private double oneSideLimitAt(double x, boolean left) {
+        double result = function.value(x);
+
+        if (Double.isFinite(result)) {
+            return result;
+        }
+
         double[] table = left ? this.generateLeftTable(x) : this.generateRightTable(x);
         double leftClosest = table[table.length - 1];
 

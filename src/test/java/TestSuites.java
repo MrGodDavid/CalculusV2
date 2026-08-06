@@ -16,7 +16,7 @@ import static com.mrgoddavid.utils.Constants.*;
  * @author Mr. GodDavid
  * @since 7/20/2026
  */
-public class TestSuites {
+public abstract class TestSuites {
 
     protected static final double EPSILON = Constants.EPSILON;
 
@@ -318,6 +318,28 @@ public class TestSuites {
                     Arguments.of(new RationalFunction((x -> 3.0 * x * x), (x -> 2.0 * x)), Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY, EPSILON),
                     Arguments.of(new RationalFunction((x -> 6.0 * x * x), (x -> 7.0 * x * x)), Double.POSITIVE_INFINITY, 0.8571428571, EPSILON),
                     Arguments.of(new RationalFunction((x -> x + 8.0), (x -> Math.sqrt(2.0 * x * x + 3.0))), Double.NEGATIVE_INFINITY, -0.7071067812, EPSILON)
+            );
+        }
+
+        static Stream<Arguments> leftLimitTestProvider() {
+            return Stream.of(
+                    Arguments.of(new Function(x -> x), 1.0, 1.0, EPSILON),
+                    Arguments.of(new RationalFunction(x -> 1, x -> x), 0.0, Double.NEGATIVE_INFINITY, EPSILON),
+                    Arguments.of(new RationalFunction(x -> 1, x -> x * x), 0.0, Double.POSITIVE_INFINITY, EPSILON),
+                    Arguments.of(new Function(x -> Math.sqrt(x + 1.0)), 0.5, 1.2247448714, EPSILON),
+                    Arguments.of(new Function(x -> DavidMath.tan(new Radian(x))), PI_OVER_TWO.val(), Double.POSITIVE_INFINITY, EPSILON),
+                    Arguments.of(new Function(x -> x * x), 0.5, 0.25, EPSILON)
+            );
+        }
+
+        static Stream<Arguments> rightLimitTestProvider() {
+            return Stream.of(
+                    Arguments.of(new Function(x -> x), 1.0, 1.0, EPSILON),
+                    Arguments.of(new RationalFunction(x -> 1, x -> x), 0.0, Double.POSITIVE_INFINITY, EPSILON),
+                    Arguments.of(new RationalFunction(x -> 1, x -> x * x), 0.0, Double.POSITIVE_INFINITY, EPSILON),
+                    Arguments.of(new Function(x -> Math.sqrt(x + 1.0)), 0.5, 1.2247448714, EPSILON),
+                    Arguments.of(new Function(x -> DavidMath.tan(new Radian(x))), PI_OVER_TWO.val(), Double.NEGATIVE_INFINITY, EPSILON),
+                    Arguments.of(new Function(x -> x * x), 0.5, 0.25, EPSILON)
             );
         }
     }

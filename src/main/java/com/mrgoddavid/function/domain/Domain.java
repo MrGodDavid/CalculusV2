@@ -49,6 +49,12 @@ public final class Domain {
         this.rightInclusive = rightInclusive;
     }
 
+    /**
+     * Checks if the interval of this domain overlaps the interval of the second given domain.
+     *
+     * @param second the second domain that is not null.
+     * @return true if the interval of this domain overlaps the interval of the second domain.
+     */
     public boolean overlaps(Domain second) {
         if (this.min() == second.max() && !(this.leftInclusive() && second.rightInclusive())) {
             return false;
@@ -59,30 +65,66 @@ public final class Domain {
         return Math.max(this.min(), second.min()) <= Math.min(this.max(), second.max());
     }
 
+    /**
+     * Accessor the minimum number of the interval of this domain.
+     *
+     * @return the minimum number of the interval of this domain.
+     */
     public double max() {
         return maxDomain;
     }
 
+    /**
+     * Accessor the maximum number of the interval of this domain.
+     *
+     * @return the maximum number of the interval of this domain.
+     */
     public double min() {
         return minDomain;
     }
 
+    /**
+     * Returns if the left minimum is inclusive in this interval of this domain.
+     *
+     * @return true if the left number of this domain is inclusive.
+     */
     public boolean leftInclusive() {
         return leftInclusive;
     }
 
+    /**
+     * Returns if the left minimum is exclusive in this interval of this domain.
+     *
+     * @return true if the left number of this domain is exclusive.
+     */
     public boolean leftExclusive() {
         return !leftInclusive;
     }
 
+    /**
+     * Returns if the right maximum is inclusive in this interval of this domain.
+     *
+     * @return true if the right number of this domain is inclusive.
+     */
     public boolean rightInclusive() {
         return rightInclusive;
     }
 
+    /**
+     * Returns if the right maximum is exclusive in this interval of this domain.
+     *
+     * @return true if the right number of this domain is exclusive.
+     */
     public boolean rightExclusive() {
         return !rightInclusive;
     }
 
+    /**
+     * Determines if the give number is on the interval of this domain.
+     *
+     * @param x given number.
+     * @return true if the given number is on the interval of this domain.
+     */
     public boolean inDomain(double x) {
         if (leftInclusive() && rightInclusive()) {
             return x >= minDomain && x <= maxDomain;

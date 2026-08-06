@@ -3,7 +3,7 @@ package com.mrgoddavid.function;
 import com.mrgoddavid.function.derivative.Derivative;
 import com.mrgoddavid.function.limit.Limit;
 import com.mrgoddavid.function.rational.RationalFunction;
-import com.mrgoddavid.utils.Constants;
+import com.mrgoddavid.utils.DavidMath;
 
 import java.util.Optional;
 
@@ -63,7 +63,8 @@ public class Function {
     /**
      * Constructs a new function class by the given expression of this function.
      *
-     * @param expression expression of this function that is not null.
+     * @param expression     expression of this function that is not null.
+     * @param representation the string representation for this function.
      */
     public Function(Expression expression, String representation) {
         this.expression = expression;
@@ -75,8 +76,9 @@ public class Function {
     /**
      * Constructs a function with given numerator and denominator expression.
      *
-     * @param numerator   the expression of the numerator of this function.
-     * @param denominator the expression of the denominator of this function.
+     * @param numerator      the expression of the numerator of this function.
+     * @param denominator    the expression of the denominator of this function.
+     * @param representation the string representation for this function.
      */
     public Function(Expression numerator, Expression denominator, String representation) {
         this.expression = numerator.divide(denominator);
@@ -97,7 +99,7 @@ public class Function {
         if (!hasLimitAt(x)) {
             return false;
         }
-        return Math.abs(x - limitAt(x)) < Constants.THRESHOLD;
+        return DavidMath.strict_compare(this.value(x), this.limitAt(x));
     }
 
     /**
@@ -215,10 +217,20 @@ public class Function {
         this.derivative = new Derivative(this.expression);
     }
 
+    /**
+     * Accessor of the instance field {@code limit}.
+     *
+     * @return the instance of {@code Limit}.
+     */
     public final Limit getLimit() {
         return limit;
     }
 
+    /**
+     * Accessor of the instance field {@code derivative}.
+     *
+     * @return the instance of {@code Derivative}.
+     */
     public final Derivative getDerivative() {
         return derivative;
     }

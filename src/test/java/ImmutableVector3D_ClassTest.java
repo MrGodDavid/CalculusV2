@@ -10,7 +10,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * @author Mr. GodDavid
  * @since 7/20/2026
  */
-public class ImmutableVector3D_ClassTest extends TestSuites.Vector3dTestSuites {
+@SuppressWarnings("NewClassNamingConvention")
+public final class ImmutableVector3D_ClassTest extends TestSuites.Vector3dTestSuites {
 
     @ParameterizedTest
     @MethodSource("vector3dAdditionProvider")

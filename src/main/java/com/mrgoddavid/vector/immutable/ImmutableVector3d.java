@@ -1,7 +1,7 @@
 package com.mrgoddavid.vector.immutable;
 
 import com.mrgoddavid.matrix.Matrix3d;
-import com.mrgoddavid.vector.ImmutableVector3;
+import com.mrgoddavid.vector.Vector.ImmutableVector3;
 
 import java.io.Serial;
 

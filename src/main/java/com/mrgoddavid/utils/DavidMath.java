@@ -12,6 +12,9 @@ import com.mrgoddavid.geometry.angle.Radian;
  */
 public final class DavidMath {
 
+    private static final byte LARGE_THRESHOLD_COMPARISON = 0;
+    private static final byte SMALL_THRESHOLD_COMPARISON = 1;
+
     /**
      * Table of precalculated values of sine (angle).
      */
@@ -233,5 +236,85 @@ public final class DavidMath {
      */
     public static int binomial(int n, int k) {
         return DavidMath.factorial(n) / (DavidMath.factorial(k) * DavidMath.factorial(n - k));
+    }
+
+    /**
+     * Generally compares two numbers.
+     * <pre>{@code compare(a, b, LARGE_THRESHOLD_COMPARISON);}</pre>
+     *
+     * @param a the first number.
+     * @param b the second number.
+     * @return true if a and b are close enough.
+     */
+    public static boolean general_compare(int a, int b) {
+        return compare(a, b, LARGE_THRESHOLD_COMPARISON);
+    }
+
+    /**
+     * Generally compares two numbers.
+     * <pre>{@code compare(a, b, LARGE_THRESHOLD_COMPARISON);}</pre>
+     *
+     * @param a the first number.
+     * @param b the second number.
+     * @return true if a and b are close enough.
+     */
+    public static boolean general_compare(double a, double b) {
+        return compare(a, b, LARGE_THRESHOLD_COMPARISON);
+    }
+
+    /**
+     * Generally compares two numbers.
+     * <pre>{@code compare(a, b, SMALL_THRESHOLD_COMPARISON);}</pre>
+     *
+     * @param a the first number.
+     * @param b the second number.
+     * @return true if a and b are close enough.
+     */
+    public static boolean strict_compare(int a, int b) {
+        return compare(a, b, SMALL_THRESHOLD_COMPARISON);
+    }
+
+    /**
+     * Generally compares two numbers.
+     * <pre>{@code compare(a, b, SMALL_THRESHOLD_COMPARISON);}</pre>
+     *
+     * @param a the first number.
+     * @param b the second number.
+     * @return true if a and b are close enough.
+     */
+    public static boolean strict_compare(double a, double b) {
+        return compare(a, b, SMALL_THRESHOLD_COMPARISON);
+    }
+
+    /**
+     * Compares two numbers if they are close together.
+     *
+     * @param a    first number.
+     * @param b    second number.
+     * @param mode mode of comparison.
+     * @return true if a and b are close together.
+     */
+    private static boolean compare(int a, int b, byte mode) {
+        return switch (mode) {
+            case LARGE_THRESHOLD_COMPARISON -> Math.abs(a - b) <= Constants.THRESHOLD;
+            case SMALL_THRESHOLD_COMPARISON -> Math.abs(a - b) <= Constants.EPSILON;
+            default -> throw new IllegalArgumentException("Unknown mode: " + mode);
+        };
+    }
+
+    /**
+     * Compares two numbers if they are close together.
+     *
+     * @param a    first number.
+     * @param b    second number.
+     * @param mode mode of comparison.
+     * @return true if a and b are close together.
+     */
+    private static boolean compare(double a, double b, byte mode) {
+        return switch (mode) {
+            case LARGE_THRESHOLD_COMPARISON -> Math.abs(a - b) <= Constants.THRESHOLD;
+            case SMALL_THRESHOLD_COMPARISON -> Math.abs(a - b) <= Constants.EPSILON;
+            default -> throw new IllegalArgumentException("Unknown mode: " + mode);
+        };
     }
 }

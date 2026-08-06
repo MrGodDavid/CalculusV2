@@ -21,7 +21,7 @@ import com.mrgoddavid.utils.DavidMath;
  * of number to h to approximate the derivatives.
  *
  * @author Mr. GodDavid
- * @since 7/30/2026 Limit & Function Update part 2.
+ * @since 7/30/2026 Limit &amp; Function Update part 2.
  */
 public final class Derivative {
 
