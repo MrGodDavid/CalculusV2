@@ -123,7 +123,7 @@ public class MutableVector2i implements MutableVector.MutableVector2ic<MutableVe
      */
     @Override
     public void divide(MutableVector2i second) {
-        if (second.x != 0) {
+        if (compNotContainsZero()) {
             this.x /= second.x;
             this.y /= second.y;
         }
@@ -462,5 +462,10 @@ public class MutableVector2i implements MutableVector.MutableVector2ic<MutableVe
     @Override
     public MutableVector2i getSelf() {
         return new MutableVector2i(x, y);
+    }
+
+    @Override
+    public String toString() {
+        return stringPresentation();
     }
 }

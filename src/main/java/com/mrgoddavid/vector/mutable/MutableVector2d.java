@@ -1,16 +1,74 @@
-package com.mrgoddavid.vector;
+package com.mrgoddavid.vector.mutable;
 
+import com.mrgoddavid.vector.MutableVector;
 import com.mrgoddavid.vector.immutable.ImmutableVector2d;
-import com.mrgoddavid.vector.immutable.ImmutableVector2i;
 
 /**
- * This is the root interface of all mutable vectors.
+ * Mutable two-dimensional vector that each component is a double.
  *
- * @param <T> Class type of the implementation class of this interface.
  * @author Mr. GodDavid
  * @since 8/6/2026
  */
-public interface MutableVector<T> extends Vector<T> {
+public class MutableVector2d implements MutableVector.MutableVector2.MutableVector2dc<MutableVector2d> {
+
+    /**
+     * x component of this vector.
+     */
+    public double x;
+    /**
+     * y component of this vector.
+     */
+    public double y;
+
+    /**
+     * Default constructor. Create a new (0, 0) two-dimensional vector.
+     */
+    public MutableVector2d() {
+        this(0.0, 0.0);
+    }
+
+    /**
+     * Constructs a mutable two-dimensional vector which each component is an integer with the given x and y component.
+     *
+     * @param x the given x component of this vector.
+     * @param y the given y component of this vector.
+     */
+    public MutableVector2d(double x, double y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    /**
+     * Accessor of the x component of mutable Vector2i.
+     *
+     * @return the value of the x component of mutable Vector2i.
+     */
+    @Override
+    public double x() {
+        return x;
+    }
+
+    /**
+     * Accessor of the y component of mutable Vector2i.
+     *
+     * @return the value of the y component of mutable Vector2i.
+     */
+    @Override
+    public double y() {
+        return y;
+    }
+
+    /**
+     * Mutator of the x and y field of this vector.
+     *
+     * @param x new x.
+     * @param y new y.
+     */
+    @Override
+    public void set(double x, double y) {
+        this.x = x;
+        this.y = y;
+    }
 
     /**
      * Performs entry addition of two vectors.
@@ -19,7 +77,11 @@ public interface MutableVector<T> extends Vector<T> {
      *
      * @param second vector that is not null.
      */
-    void add(T second);
+    @Override
+    public void add(MutableVector2d second) {
+        this.x += second.x;
+        this.y += second.y;
+    }
 
     /**
      * Performs entry subtraction of two vectors.
@@ -28,7 +90,11 @@ public interface MutableVector<T> extends Vector<T> {
      *
      * @param second vector that is not null.
      */
-    void subtract(T second);
+    @Override
+    public void subtract(MutableVector2d second) {
+        this.x -= second.x;
+        this.y -= second.y;
+    }
 
     /**
      * Performs entry multiplication of two vectors.
@@ -37,7 +103,11 @@ public interface MutableVector<T> extends Vector<T> {
      *
      * @param second vector that is not null.
      */
-    void multiply(T second);
+    @Override
+    public void multiply(MutableVector2d second) {
+        this.x *= second.x;
+        this.y *= second.y;
+    }
 
     /**
      * Performs entry division of two vectors.
@@ -46,7 +116,13 @@ public interface MutableVector<T> extends Vector<T> {
      *
      * @param second vector that is not null.
      */
-    void divide(T second);
+    @Override
+    public void divide(MutableVector2d second) {
+        if (second.compNotContainsZero()) {
+            this.x /= second.x;
+            this.y /= second.y;
+        }
+    }
 
     /**
      * Performs entry multiplication and then addition of a vector itself.
@@ -56,7 +132,11 @@ public interface MutableVector<T> extends Vector<T> {
      * @param multiplier vector that is not null.
      * @param adder      vector that is not null.
      */
-    void multiply_add(T multiplier, T adder);
+    @Override
+    public void multiply_add(MutableVector2d multiplier, MutableVector2d adder) {
+        this.x = multiplier.x * this.x + adder.x;
+        this.y = multiplier.y * this.y + adder.y;
+    }
 
     /**
      * Performs the cross product of this vector to the second vector.
@@ -66,7 +146,10 @@ public interface MutableVector<T> extends Vector<T> {
      * @param second vector that is not null.
      * @return the cross product of itself to the second input vector.
      */
-    double cross_product(T second);
+    @Override
+    public double cross_product(MutableVector2d second) {
+        return this.x * second.y - this.y * second.x;
+    }
 
     /**
      * Project itself on the second vector.
@@ -76,7 +159,11 @@ public interface MutableVector<T> extends Vector<T> {
      * @param second vector that is not null.
      * @return the projection vector of the second vector.
      */
-    T project(T second);
+    @Override
+    public MutableVector2d project(MutableVector2d second) {
+        ImmutableVector2d result = new ImmutableVector2d(this.x, this.y).project(second.enhance());
+        return new MutableVector2d(result.getX(), result.getY());
+    }
 
     /**
      * Reflect itself around the normal of the second input vector.
@@ -86,7 +173,11 @@ public interface MutableVector<T> extends Vector<T> {
      * @param second vector that is not null.
      * @return the reflected vector around the normal of the second vector.
      */
-    T reflect(T second);
+    @Override
+    public MutableVector2d reflect(MutableVector2d second) {
+        ImmutableVector2d result = new ImmutableVector2d(this.x, this.y).reflect(second.enhance());
+        return new MutableVector2d(result.getX(), result.getY());
+    }
 
     /**
      * Orients a vector A (itself) to point away from a surface B as defined by its normal C.
@@ -97,7 +188,11 @@ public interface MutableVector<T> extends Vector<T> {
      * @param reference the surface normal used to determine the orientation and itself is not null.
      * @return the calculated vector that is either flipped or not.
      */
-    T faceForward(T incident, T reference);
+    @Override
+    public MutableVector2d faceForward(MutableVector2d incident, MutableVector2d reference) {
+        ImmutableVector2d result = new ImmutableVector2d(this.x, this.y).faceForward(incident.enhance(), reference.enhance());
+        return new MutableVector2d(result.getX(), result.getY());
+    }
 
     /**
      * Calculate the dot product of two vectors.
@@ -107,7 +202,10 @@ public interface MutableVector<T> extends Vector<T> {
      * @param second vector that is not null.
      * @return the dot product of itself and the second vector.
      */
-    double dot_product(T second);
+    @Override
+    public double dot_product(MutableVector2d second) {
+        return this.x * second.x + this.y * second.y;
+    }
 
     /**
      * Calculate the distance between two points are each represented by a 2-d vector.
@@ -117,7 +215,12 @@ public interface MutableVector<T> extends Vector<T> {
      * @param second vector that is not null.
      * @return the distance between itself and the second vector.
      */
-    double distance(T second);
+    @Override
+    public double distance(MutableVector2d second) {
+        double dx = this.x - second.x;
+        double dy = this.y - second.y;
+        return Math.sqrt(dx * dx + dy * dy);
+    }
 
     /**
      * Calculate the length/magnitude of the vector.
@@ -126,7 +229,10 @@ public interface MutableVector<T> extends Vector<T> {
      *
      * @return the length of itself.
      */
-    double length();
+    @Override
+    public double length() {
+        return Math.sqrt(x * x + y * y);
+    }
 
     /**
      * Entry scale each component by a scale factor.
@@ -135,7 +241,11 @@ public interface MutableVector<T> extends Vector<T> {
      *
      * @param scale scaling factor.
      */
-    void scale(double scale);
+    @Override
+    public void scale(double scale) {
+        this.x *= scale;
+        this.y *= scale;
+    }
 
     /**
      * Calculate the vector that is the normalized version of itself.
@@ -144,7 +254,11 @@ public interface MutableVector<T> extends Vector<T> {
      *
      * @return the normalized vector.
      */
-    T normalize();
+    @Override
+    public MutableVector2d normalize() {
+        ImmutableVector2d result = new ImmutableVector2d(this.x, this.y).normalize();
+        return new MutableVector2d(result.getX(), result.getY());
+    }
 
     /**
      * The entrywise absolute value of itself.
@@ -152,7 +266,11 @@ public interface MutableVector<T> extends Vector<T> {
      * <p>Postcondition: The entrywise absolute value of itself.</p>
      *
      */
-    void absolute();
+    @Override
+    public void absolute() {
+        this.x = Math.abs(x);
+        this.y = Math.abs(y);
+    }
 
     /**
      * The entrywise power operator where the Base raised to the power of Exponent.
@@ -161,7 +279,11 @@ public interface MutableVector<T> extends Vector<T> {
      *
      * @param exp the power exponent.
      */
-    void power(double exp);
+    @Override
+    public void power(double exp) {
+        this.x = Math.pow(this.x, exp);
+        this.y = Math.pow(this.y, exp);
+    }
 
     /**
      * Extracts the sign of the input value. All positive numbers will output 1.0. All negative numbers will output
@@ -172,7 +294,12 @@ public interface MutableVector<T> extends Vector<T> {
      *
      * @return a new vector that represents the sign of each component value.
      */
-    T sign();
+    @Override
+    public MutableVector2d sign() {
+        int signX = this.x < 0 ? -1 : 1;
+        int signY = this.y < 0 ? -1 : 1;
+        return new MutableVector2d(signX, signY);
+    }
 
     /**
      * The entrywise minimum of itself and the second vector.
@@ -182,7 +309,10 @@ public interface MutableVector<T> extends Vector<T> {
      * @param second vector that is not null.
      * @return a new vector that contains entrywise minimum of itself and the second vector
      */
-    T minimum(T second);
+    @Override
+    public MutableVector2d minimum(MutableVector2d second) {
+        return new MutableVector2d(Math.min(this.x, second.x), Math.min(this.y, second.y));
+    }
 
     /**
      * The entrywise maximum of itself and the second vector.
@@ -192,7 +322,10 @@ public interface MutableVector<T> extends Vector<T> {
      * @param second vector that is not null.
      * @return a new vector that contains entrywise maximum of itself and the second vector
      */
-    T maximum(T second);
+    @Override
+    public MutableVector2d maximum(MutableVector2d second) {
+        return new MutableVector2d(Math.max(this.x, second.x), Math.max(this.y, second.y));
+    }
 
     /**
      * Rounds itself entrywise down to the nearest integer.
@@ -201,7 +334,10 @@ public interface MutableVector<T> extends Vector<T> {
      *
      * @return a new vector with its each component entrywise down to the nearest integer.
      */
-    T floor();
+    @Override
+    public MutableVector2d floor() {
+        return new MutableVector2d((int) this.x, (int) this.y);
+    }
 
     /**
      * Rounds itself entrywise up to the nearest integer.
@@ -210,7 +346,10 @@ public interface MutableVector<T> extends Vector<T> {
      *
      * @return a new vector with its each component entrywise up to the nearest integer.
      */
-    T ceil();
+    @Override
+    public MutableVector2d ceil() {
+        return new MutableVector2d((int) (this.x + 0.5), (int) (this.y + 0.5));
+    }
 
     /**
      * Returns the fractional part of the value entrywise.
@@ -219,7 +358,12 @@ public interface MutableVector<T> extends Vector<T> {
      *
      * @return the fractional part of the value entrywise.
      */
-    T fraction();
+    @Override
+    public MutableVector2d fraction() {
+        double x = this.x - Math.ceil(this.x);
+        double y = this.y - Math.ceil(this.y);
+        return new MutableVector2d(x, y);
+    }
 
     /**
      * The entrywise modulo of itself by the second vector.
@@ -229,7 +373,10 @@ public interface MutableVector<T> extends Vector<T> {
      * @param second vector that is not null.
      * @return the entrywise modulo of itself by the second vector.
      */
-    T modulo(T second);
+    @Override
+    public MutableVector2d modulo(MutableVector2d second) {
+        return new MutableVector2d(this.x % second.x, this.y % second.y);
+    }
 
     /**
      * The entrywise output of a value between Min and Max based on the absolute difference between the input value
@@ -237,11 +384,15 @@ public interface MutableVector<T> extends Vector<T> {
      * <p>Precondition: none.</p>
      * <p>Postcondition: returns a new vector that is entrywise wrapped for each its component.</p>
      *
-     * @param minimum  minimum threshold.
-     * @param maximum: maximum threshold.
+     * @param minimum minimum threshold.
+     * @param maximum : maximum threshold.
      * @return a new vector that is entrywise wrapped for each its component.
      */
-    T wrap(T minimum, T maximum);
+    @Override
+    public MutableVector2d wrap(MutableVector2d minimum, MutableVector2d maximum) {
+        ImmutableVector2d result = new ImmutableVector2d(this.x, this.y).wrap(minimum.enhance(), maximum.enhance());
+        return new MutableVector2d(result.getX(), result.getY());
+    }
 
     /**
      * The result of rounding itself to the largest integer multiple of B less than or equal itself.
@@ -251,7 +402,11 @@ public interface MutableVector<T> extends Vector<T> {
      * @param second that is not null.
      * @return a new vector that is entrywise snapped for each its component.
      */
-    T snap(T second);
+    @Override
+    public MutableVector2d snap(MutableVector2d second) {
+        ImmutableVector2d result = new ImmutableVector2d(this.x, this.y).snap(second.enhance());
+        return new MutableVector2d(result.getX(), result.getY());
+    }
 
     /**
      * The entrywise of sine of itself.
@@ -259,7 +414,11 @@ public interface MutableVector<T> extends Vector<T> {
      * <p>Postcondition: calculate the entrywise of sine of its component</p>
      *
      */
-    void sine();
+    @Override
+    public void sine() {
+        this.x = Math.sin(this.x);
+        this.y = Math.sin(this.x);
+    }
 
     /**
      * The entrywise of cosine of itself.
@@ -267,7 +426,11 @@ public interface MutableVector<T> extends Vector<T> {
      * <p>Postcondition: calculate the entrywise of cosine of its component</p>
      *
      */
-    void cosine();
+    @Override
+    public void cosine() {
+        this.x = Math.cos(this.x);
+        this.y = Math.cos(this.x);
+    }
 
     /**
      * The entrywise of tangent of itself.
@@ -275,136 +438,26 @@ public interface MutableVector<T> extends Vector<T> {
      * <p>Postcondition: calculate the entrywise of tangent of its component</p>
      *
      */
-    void tangent();
-
-    /**
-     * This is the root interface of mutable two-dimensional vectors.
-     *
-     * @param <T> class type of classes that implement this interface.
-     * @author Mr. GodDavid
-     * @since 8/5/2026
-     */
-    interface MutableVector2<T> extends MutableVector<T> {
-        // empty interface.
-        // TODO
+    @Override
+    public void tangent() {
+        this.x = Math.tan(this.x);
+        this.y = Math.tan(this.x);
     }
 
     /**
-     * This is the interface of mutable two-dimensional vector that each component is an integer.
-     * // TODO
+     * Return a reference of itself.
+     * <p>Precondition: none.</p>
+     * <p>Postcondition: returns a reference of itself.</p>
      *
-     * @param <T> class type of classes that implement this interface.
-     * @author Mr. GodDavid
-     * @since 8/5/2026
+     * @return Return a reference of itself.
      */
-    interface MutableVector2ic<T> extends MutableVector2<T> {
-
-        /**
-         * Accessor of the x component of mutable Vector2i.
-         *
-         * @return the value of the x component of mutable Vector2i.
-         */
-        int x();
-
-        /**
-         * Accessor of the y component of mutable Vector2i.
-         *
-         * @return the value of the y component of mutable Vector2i.
-         */
-        int y();
-
-        /**
-         * Mutator of the x and y field of this vector.
-         *
-         * @param x new x.
-         * @param y new y.
-         */
-        void set(int x, int y);
-
-        /**
-         * Encapsulates the mutable two-dimensional vector to immutable two-dimensional vector.
-         *
-         * @return the encapsulated version of mutable two-dimensional vector.
-         */
-        default ImmutableVector2i enhance() {
-            return new ImmutableVector2i(x(), y());
-        }
-
-        /**
-         * Determines whether the component contains zero.
-         *
-         * @return true if any component is zero.
-         */
-        default boolean compNotContainsZero() {
-            return x() != 0 && y() != 0;
-        }
-
-        /**
-         * Gives a general string representation of two-dimensional vector.
-         *
-         * @return the string representation of this two-dimensional vector.
-         */
-        default String stringPresentation() {
-            return "<" + x() + ", " + y() + ">";
-        }
+    @Override
+    public MutableVector2d getSelf() {
+        return new MutableVector2d(this.x, this.y);
     }
 
-    /**
-     * This is the interface of mutable two-dimensional vector that each component is a double.
-     *
-     * @param <T> class type of classes that implement this interface.
-     * @author Mr. GodDavid
-     * @since 8/6/2026
-     */
-    interface MutableVector2dc<T> extends MutableVector2<T> {
-
-        /**
-         * Accessor of the x component of mutable Vector2i.
-         *
-         * @return the value of the x component of mutable Vector2i.
-         */
-        double x();
-
-        /**
-         * Accessor of the y component of mutable Vector2i.
-         *
-         * @return the value of the y component of mutable Vector2i.
-         */
-        double y();
-
-        /**
-         * Mutator of the x and y field of this vector.
-         *
-         * @param x new x.
-         * @param y new y.
-         */
-        void set(double x, double y);
-
-        /**
-         * Encapsulates the mutable two-dimensional vector to immutable two-dimensional vector.
-         *
-         * @return the encapsulated version of mutable two-dimensional vector.
-         */
-        default ImmutableVector2d enhance() {
-            return new ImmutableVector2d(x(), y());
-        }
-
-        /**
-         * Determines whether the component contains zero.
-         *
-         * @return true if any component is zero.
-         */
-        default boolean compNotContainsZero() {
-            return x() != 0.0 && y() != 0.0;
-        }
-
-        /**
-         * Gives a general string representation of two-dimensional vector.
-         *
-         * @return the string representation of this two-dimensional vector.
-         */
-        default String stringPresentation() {
-            return "<" + x() + ", " + y() + ">";
-        }
+    @Override
+    public String toString() {
+        return stringPresentation();
     }
 }
