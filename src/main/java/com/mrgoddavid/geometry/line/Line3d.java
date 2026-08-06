@@ -3,7 +3,7 @@ package com.mrgoddavid.geometry.line;
 import com.mrgoddavid.matrix.FixedMatrix;
 import com.mrgoddavid.matrix.Matrix2d;
 import com.mrgoddavid.vector.immutable.ImmutableVector3d;
-import com.mrgoddavid.vector.Vector;
+import com.mrgoddavid.vector.ImmutableVector;
 import com.mrgoddavid.geometry.point.Point3d;
 
 import java.io.Serial;
@@ -235,6 +235,6 @@ public final class Line3d implements Line.Line3, Serializable {
      */
     @Override
     public boolean isParallel(Line3d other) {
-        return this.direction.crossProduct(other.getDirection()).compareWith(ImmutableVector3d.ZERO_VECTOR3D, Vector.ComparisonCommand.EQUALS);
+        return this.direction.crossProduct(other.getDirection()).compareWith(ImmutableVector3d.ZERO_VECTOR3D, ImmutableVector.ComparisonCommand.EQUALS);
     }
 }

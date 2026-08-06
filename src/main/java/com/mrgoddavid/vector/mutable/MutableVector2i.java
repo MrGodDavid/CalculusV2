@@ -1,74 +1,78 @@
-package com.mrgoddavid.vector.immutable;
+package com.mrgoddavid.vector.mutable;
 
-import com.mrgoddavid.geometry.angle.Radian;
-import com.mrgoddavid.vector.ImmutableVector.ImmutableVector2;
+import com.mrgoddavid.vector.MutableVector;
+import com.mrgoddavid.vector.immutable.ImmutableVector2i;
 
 import java.io.Serial;
-import java.io.Serializable;
-import java.util.Comparator;
 
 /**
- * This class defines a two-dimensional vector that each coordinate is a long number.
+ * Mutable two-dimensional vector that each component is an integer.
  *
  * @author Mr. GodDavid
- * @since 7/21/2026 added this class.
+ * @since 8/6/2026
  */
-public class ImmutableVector2l implements ImmutableVector2<ImmutableVector2l>, Comparable<ImmutableVector2l>, Comparator<ImmutableVector2l>, Serializable {
-
-    /**
-     * Zero vector of this class.
-     */
-    public static final ImmutableVector2l ZERO = new ImmutableVector2l();
-
-    /**
-     * Unit vector along x-axis. We define this unit vector as i.
-     */
-    public static final ImmutableVector2l UNIT_I = new ImmutableVector2l(1L, 0L);
-
-    /**
-     * Unit vector along y-axis. We define this unit vector as j.
-     */
-    public static final ImmutableVector2l UNIT_J = new ImmutableVector2l(0L, 1L);
+public class MutableVector2i implements MutableVector.MutableVector2ic<MutableVector2i> {
 
     @Serial
-    private static final long serialVersionUID = -6221019907535906584L;
+    private static final long serialVersionUID = -9003114925453526658L;
 
     /**
      * x component of this vector.
      */
-    private final long x;
-
+    public int x;
     /**
      * y component of this vector.
      */
-    private final long y;
+    public int y;
 
     /**
-     * Default constructor of this vector. Constructs a (0L, 0L).
+     * Default constructor. Create a new (0, 0) two-dimensional vector.
      */
-    public ImmutableVector2l() {
-        this(0L, 0L);
+    public MutableVector2i() {
+        this(0, 0);
     }
 
     /**
-     * Constructs a two-dimensional vector with given x and y components.
+     * Constructs a mutable two-dimensional vector which each component is an integer with the given x and y component.
      *
-     * @param x x component of this vector.
-     * @param y y component of this vector.
+     * @param x the given x component of this vector.
+     * @param y the given y component of this vector.
      */
-    public ImmutableVector2l(long x, long y) {
+    public MutableVector2i(int x, int y) {
         this.x = x;
         this.y = y;
     }
 
     /**
-     * Constructs a new two-dimensional vector from the given two-dimensional vector.
+     * Accessor of the x component of mutable Vector2i.
      *
-     * @param v that is not null.
+     * @return the value of the x component of mutable Vector2i.
      */
-    public ImmutableVector2l(ImmutableVector2l v) {
-        this.x = v.x;
-        this.y = v.y;
+    @Override
+    public int x() {
+        return x;
+    }
+
+    /**
+     * Accessor of the y component of mutable Vector2i.
+     *
+     * @return the value of the y component of mutable Vector2i.
+     */
+    @Override
+    public int y() {
+        return y;
+    }
+
+    /**
+     * Mutator of the x and y field of this vector.
+     *
+     * @param x new x.
+     * @param y new y.
+     */
+    @Override
+    public void set(int x, int y) {
+        this.x = x;
+        this.y = y;
     }
 
     /**
@@ -77,11 +81,11 @@ public class ImmutableVector2l implements ImmutableVector2<ImmutableVector2l>, C
      * <p>Postcondition: returns the sum of two vectors.</p>
      *
      * @param second vector that is not null.
-     * @return the sum of two vectors.
      */
     @Override
-    public ImmutableVector2l add(ImmutableVector2l second) {
-        return new ImmutableVector2l(this.x + second.x, this.y + second.y);
+    public void add(MutableVector2i second) {
+        this.x += second.x;
+        this.y += second.y;
     }
 
     /**
@@ -90,11 +94,11 @@ public class ImmutableVector2l implements ImmutableVector2<ImmutableVector2l>, C
      * <p>Postcondition: returns the difference between two vectors.</p>
      *
      * @param second vector that is not null.
-     * @return the difference between two vectors.
      */
     @Override
-    public ImmutableVector2l subtract(ImmutableVector2l second) {
-        return new ImmutableVector2l(this.x - second.x, this.y - second.y);
+    public void subtract(MutableVector2i second) {
+        this.x -= second.x;
+        this.y -= second.y;
     }
 
     /**
@@ -103,11 +107,11 @@ public class ImmutableVector2l implements ImmutableVector2<ImmutableVector2l>, C
      * <p>Postcondition: returns the product of two vectors.</p>
      *
      * @param second vector that is not null.
-     * @return the product of two vectors.
      */
     @Override
-    public ImmutableVector2l multiply(ImmutableVector2l second) {
-        return new ImmutableVector2l(this.x * second.x, this.y * second.y);
+    public void multiply(MutableVector2i second) {
+        this.x *= second.x;
+        this.y *= second.y;
     }
 
     /**
@@ -116,14 +120,13 @@ public class ImmutableVector2l implements ImmutableVector2<ImmutableVector2l>, C
      * <p>Postcondition: returns the quotient of two vectors.</p>
      *
      * @param second vector that is not null.
-     * @return the quotient of two vectors.
      */
     @Override
-    public ImmutableVector2l divide(ImmutableVector2l second) {
-        if (compNotContainsZero(second.getX(), second.getY())) {
-            return new ImmutableVector2l(this.x / second.getX(), this.y / second.getY());
+    public void divide(MutableVector2i second) {
+        if (second.x != 0) {
+            this.x /= second.x;
+            this.y /= second.y;
         }
-        return ImmutableVector2.NAN_2L;
     }
 
     /**
@@ -133,14 +136,11 @@ public class ImmutableVector2l implements ImmutableVector2<ImmutableVector2l>, C
      *
      * @param multiplier vector that is not null.
      * @param adder      vector that is not null.
-     * @return the vector that is  multiplied multiplier vector and by  of two vectors.
      */
     @Override
-    public ImmutableVector2l multiply_add(ImmutableVector2l multiplier, ImmutableVector2l adder) {
-        return new ImmutableVector2l(
-                this.x * multiplier.getX() + adder.getX(),
-                this.y * multiplier.getY() + adder.getY()
-        );
+    public void multiply_add(MutableVector2i multiplier, MutableVector2i adder) {
+        this.x = multiplier.x * this.x + adder.x;
+        this.y = multiplier.y * this.y + adder.y;
     }
 
     /**
@@ -152,8 +152,8 @@ public class ImmutableVector2l implements ImmutableVector2<ImmutableVector2l>, C
      * @return the cross product of itself to the second input vector.
      */
     @Override
-    public double cross_product(ImmutableVector2l second) {
-        return x * second.y - y * second.x;
+    public double cross_product(MutableVector2i second) {
+        return this.x * second.y - this.y * second.x;
     }
 
     /**
@@ -165,14 +165,9 @@ public class ImmutableVector2l implements ImmutableVector2<ImmutableVector2l>, C
      * @return the projection vector of the second vector.
      */
     @Override
-    public ImmutableVector2l project(ImmutableVector2l second) {
-        double length = second.length();
-        if (length == 0) {
-            return new ImmutableVector2l();
-        }
-        double dotProduct = dot_product(second);
-        double scaleFactor = dotProduct / (length * length);
-        return second.scale(scaleFactor);
+    public MutableVector2i project(MutableVector2i second) {
+        ImmutableVector2i result = enhance().project(second.enhance());
+        return new MutableVector2i(result.getX(), result.getY());
     }
 
     /**
@@ -184,12 +179,9 @@ public class ImmutableVector2l implements ImmutableVector2<ImmutableVector2l>, C
      * @return the reflected vector around the normal of the second vector.
      */
     @Override
-    public ImmutableVector2l reflect(ImmutableVector2l second) {
-        if (second.length() == 0) return new ImmutableVector2l();
-        ImmutableVector2l n = second.normalize();
-        double dotProduct = dot_product(n);
-        ImmutableVector2l a = second.scale(dotProduct * 2);
-        return this.subtract(a);
+    public MutableVector2i reflect(MutableVector2i second) {
+        ImmutableVector2i reflected = enhance().reflect(second.enhance());
+        return new MutableVector2i(reflected.getX(), reflected.getY());
     }
 
     /**
@@ -202,8 +194,9 @@ public class ImmutableVector2l implements ImmutableVector2<ImmutableVector2l>, C
      * @return the calculated vector that is either flipped or not.
      */
     @Override
-    public ImmutableVector2l faceForward(ImmutableVector2l incident, ImmutableVector2l reference) {
-        return (incident.dot_product(reference) < 0) ? new ImmutableVector2l(this) : new ImmutableVector2l(this.scale(-1d));
+    public MutableVector2i faceForward(MutableVector2i incident, MutableVector2i reference) {
+        ImmutableVector2i immutableVector2i = enhance().faceForward(incident.enhance(), reference.enhance());
+        return new MutableVector2i(immutableVector2i.getX(), immutableVector2i.getY());
     }
 
     /**
@@ -215,7 +208,7 @@ public class ImmutableVector2l implements ImmutableVector2<ImmutableVector2l>, C
      * @return the dot product of itself and the second vector.
      */
     @Override
-    public double dot_product(ImmutableVector2l second) {
+    public double dot_product(MutableVector2i second) {
         return this.x * second.x + this.y * second.y;
     }
 
@@ -228,9 +221,9 @@ public class ImmutableVector2l implements ImmutableVector2<ImmutableVector2l>, C
      * @return the distance between itself and the second vector.
      */
     @Override
-    public double distance(ImmutableVector2l second) {
-        long dx = this.x - second.x;
-        long dy = this.y - second.y;
+    public double distance(MutableVector2i second) {
+        double dx = this.x - second.x;
+        double dy = this.y - second.y;
         return Math.sqrt(dx * dx + dy * dy);
     }
 
@@ -243,7 +236,7 @@ public class ImmutableVector2l implements ImmutableVector2<ImmutableVector2l>, C
      */
     @Override
     public double length() {
-        return Math.sqrt(this.x * this.x + this.y * this.y);
+        return Math.sqrt(x * x + y * y);
     }
 
     /**
@@ -252,11 +245,11 @@ public class ImmutableVector2l implements ImmutableVector2<ImmutableVector2l>, C
      * <p>Postcondition: calculate the scaled vector.</p>
      *
      * @param scale scaling factor.
-     * @return the result of multiplying itself by the scalar input <code>scale</code>.
      */
     @Override
-    public ImmutableVector2l scale(double scale) {
-        return new ImmutableVector2l((long) (x * scale), (long) (y * scale));
+    public void scale(double scale) {
+        this.x *= scale;
+        this.y *= scale;
     }
 
     /**
@@ -264,14 +257,11 @@ public class ImmutableVector2l implements ImmutableVector2<ImmutableVector2l>, C
      * <p>Precondition: none.</p>
      * <p>Postcondition: calculate the normalized vector.</p>
      *
-     * @return the normalized vector.
      */
     @Override
-    public ImmutableVector2l normalize() {
-        if (this.length() == 0) {
-            return new ImmutableVector2l();
-        }
-        return new ImmutableVector2l((long) (x / length()), (long) (y / length()));
+    public MutableVector2i normalize() {
+        ImmutableVector2i v = enhance().normalize();
+        return new MutableVector2i(v.getX(), v.getY());
     }
 
     /**
@@ -279,11 +269,11 @@ public class ImmutableVector2l implements ImmutableVector2<ImmutableVector2l>, C
      * <p>Precondition: none.</p>
      * <p>Postcondition: The entrywise absolute value of itself.</p>
      *
-     * @return a new vector2 that contains the entrywise absolute value of itself.
      */
     @Override
-    public ImmutableVector2l absolute() {
-        return new ImmutableVector2l(Math.abs(this.x), Math.abs(this.y));
+    public void absolute() {
+        this.x = Math.abs(x);
+        this.y = Math.abs(y);
     }
 
     /**
@@ -292,11 +282,11 @@ public class ImmutableVector2l implements ImmutableVector2<ImmutableVector2l>, C
      * <p>Postcondition: The entrywise power operator where the Base raised to the power of Exponent.</p>
      *
      * @param exp the power exponent.
-     * @return a new vector2 that contains the entrywise power operator where the Base raised to the power of Exponent.
      */
     @Override
-    public ImmutableVector2l power(double exp) {
-        return new ImmutableVector2l((long) Math.pow(x, exp), (long) Math.pow(y, exp));
+    public void power(double exp) {
+        this.x = (int) Math.pow(x, exp);
+        this.y = (int) Math.pow(x, exp);
     }
 
     /**
@@ -309,10 +299,10 @@ public class ImmutableVector2l implements ImmutableVector2<ImmutableVector2l>, C
      * @return a new vector that represents the sign of each component value.
      */
     @Override
-    public ImmutableVector2l sign() {
-        long signX = this.x < 0 ? -1 : x == 0 ? 0 : 1;
-        long signY = this.y < 0 ? -1 : y == 0 ? 0 : 1;
-        return new ImmutableVector2l(signX, signY);
+    public MutableVector2i sign() {
+        int signX = this.x < 0 ? -1 : 1;
+        int signY = this.y < 0 ? -1 : 1;
+        return new MutableVector2i(signX, signY);
     }
 
     /**
@@ -324,8 +314,11 @@ public class ImmutableVector2l implements ImmutableVector2<ImmutableVector2l>, C
      * @return a new vector that contains entrywise minimum of itself and the second vector
      */
     @Override
-    public ImmutableVector2l minimum(ImmutableVector2l second) {
-        return new ImmutableVector2l(Math.min(this.x, second.x), Math.min(this.y, second.y));
+    public MutableVector2i minimum(MutableVector2i second) {
+        return new MutableVector2i(
+                Math.min(x, second.x()),
+                Math.min(y, second.y())
+        );
     }
 
     /**
@@ -337,8 +330,11 @@ public class ImmutableVector2l implements ImmutableVector2<ImmutableVector2l>, C
      * @return a new vector that contains entrywise maximum of itself and the second vector
      */
     @Override
-    public ImmutableVector2l maximum(ImmutableVector2l second) {
-        return new ImmutableVector2l(Math.max(this.x, second.x), Math.max(this.y, second.y));
+    public MutableVector2i maximum(MutableVector2i second) {
+        return new MutableVector2i(
+                Math.max(x, second.x()),
+                Math.max(y, second.y())
+        );
     }
 
     /**
@@ -349,8 +345,8 @@ public class ImmutableVector2l implements ImmutableVector2<ImmutableVector2l>, C
      * @return a new vector with its each component entrywise down to the nearest integer.
      */
     @Override
-    public ImmutableVector2l floor() {
-        return new ImmutableVector2l((long) Math.floor(x), (long) Math.floor(y));
+    public MutableVector2i floor() {
+        return new MutableVector2i(x, y);
     }
 
     /**
@@ -361,8 +357,8 @@ public class ImmutableVector2l implements ImmutableVector2<ImmutableVector2l>, C
      * @return a new vector with its each component entrywise up to the nearest integer.
      */
     @Override
-    public ImmutableVector2l ceil() {
-        return new ImmutableVector2l((long) Math.ceil(x), (long) Math.ceil(y));
+    public MutableVector2i ceil() {
+        return new MutableVector2i(x, y);
     }
 
     /**
@@ -373,8 +369,8 @@ public class ImmutableVector2l implements ImmutableVector2<ImmutableVector2l>, C
      * @return the fractional part of the value entrywise.
      */
     @Override
-    public ImmutableVector2l fraction() {
-        return this.subtract(this.floor());
+    public MutableVector2i fraction() {
+        return new MutableVector2i();
     }
 
     /**
@@ -386,14 +382,8 @@ public class ImmutableVector2l implements ImmutableVector2<ImmutableVector2l>, C
      * @return the entrywise modulo of itself by the second vector.
      */
     @Override
-    public ImmutableVector2l modulo(ImmutableVector2l second) {
-        if (compNotContainsZero(x, y)) {
-            return new ImmutableVector2l(
-                    (long) (this.x - second.x * Math.floor((double) this.x / second.x)),
-                    (long) (this.y - second.y * Math.floor((double) this.y / second.y))
-            );
-        }
-        return ImmutableVector2.NAN_2L;
+    public MutableVector2i modulo(MutableVector2i second) {
+        return new MutableVector2i(x % second.x, y % second.y);
     }
 
     /**
@@ -407,10 +397,9 @@ public class ImmutableVector2l implements ImmutableVector2<ImmutableVector2l>, C
      * @return a new vector that is entrywise wrapped for each its component.
      */
     @Override
-    public ImmutableVector2l wrap(ImmutableVector2l minimum, ImmutableVector2l maximum) {
-        ImmutableVector2l v1 = this.subtract(minimum);
-        ImmutableVector2l range = maximum.subtract(minimum);
-        return this.subtract(range.multiply(v1.divide(range)).floor());
+    public MutableVector2i wrap(MutableVector2i minimum, MutableVector2i maximum) {
+        ImmutableVector2i v = enhance().wrap(minimum.enhance(), maximum.enhance());
+        return new MutableVector2i(v.getX(), v.getY());
     }
 
     /**
@@ -422,8 +411,9 @@ public class ImmutableVector2l implements ImmutableVector2<ImmutableVector2l>, C
      * @return a new vector that is entrywise snapped for each its component.
      */
     @Override
-    public ImmutableVector2l snap(ImmutableVector2l second) {
-        return this.divide(second).floor().multiply(second);
+    public MutableVector2i snap(MutableVector2i second) {
+        ImmutableVector2i v = enhance().snap(second.enhance());
+        return new MutableVector2i(v.getX(), v.getY());
     }
 
     /**
@@ -431,11 +421,11 @@ public class ImmutableVector2l implements ImmutableVector2<ImmutableVector2l>, C
      * <p>Precondition: none</p>
      * <p>Postcondition: calculate the entrywise of sine of its component</p>
      *
-     * @return the entrywise of sine of itself.
      */
     @Override
-    public ImmutableVector2l sine() {
-        return new ImmutableVector2l((long) Math.sin(x), (long) Math.cos(y));
+    public void sine() {
+        this.x = (int) Math.sin(x);
+        this.y = (int) Math.sin(x);
     }
 
     /**
@@ -443,11 +433,11 @@ public class ImmutableVector2l implements ImmutableVector2<ImmutableVector2l>, C
      * <p>Precondition: none</p>
      * <p>Postcondition: calculate the entrywise of cosine of its component</p>
      *
-     * @return the entrywise of cosine of itself.
      */
     @Override
-    public ImmutableVector2l cosine() {
-        return new ImmutableVector2l((long) Math.cos(x), (long) Math.sin(y));
+    public void cosine() {
+        this.x = (int) Math.cos(x);
+        this.y = (int) Math.cos(x);
     }
 
     /**
@@ -455,25 +445,11 @@ public class ImmutableVector2l implements ImmutableVector2<ImmutableVector2l>, C
      * <p>Precondition: none</p>
      * <p>Postcondition: calculate the entrywise of tangent of its component</p>
      *
-     * @return the entrywise of tangent of itself.
      */
     @Override
-    public ImmutableVector2l tangent() {
-        return new ImmutableVector2l((long) Math.tan(x), (long) Math.tan(y));
-    }
-
-    /**
-     * Copy itself.
-     * <p>Precondition: none.</p>
-     * <p>Postcondition: returns a new reference of itself.</p>
-     *
-     * @return a new reference of itself.
-     * @deprecated since 7/21/2026. The constructor of this class already handled copying reference of the instance.
-     */
-    @Deprecated
-    @Override
-    public ImmutableVector2l copy() {
-        return null;
+    public void tangent() {
+        this.x = (int) Math.tan(x);
+        this.y = (int) Math.tan(x);
     }
 
     /**
@@ -484,61 +460,7 @@ public class ImmutableVector2l implements ImmutableVector2<ImmutableVector2l>, C
      * @return Return a reference of itself.
      */
     @Override
-    public ImmutableVector2l getSelf() {
-        return new ImmutableVector2l(this.x, this.y);
-    }
-
-    @Override
-    public int compareTo(ImmutableVector2l vector2l) {
-        if (this.x != vector2l.getX()) {
-            return Long.compare(this.x, vector2l.getX());
-        }
-        if (this.y != vector2l.getY()) {
-            return Long.compare(this.y, vector2l.getY());
-        }
-        return (this.getX() == vector2l.getX())
-                ? 0
-                : Double.compare(this.length(), vector2l.length());
-    }
-
-    @Override
-    public int compare(ImmutableVector2l vector2l, ImmutableVector2l t1) {
-        return vector2l.compareTo(t1);
-    }
-
-    /**
-     * Accessor of the x component.
-     *
-     * @return the value of x component.
-     */
-    public long getX() {
-        return x;
-    }
-
-    /**
-     * Accessor of the y component.
-     *
-     * @return the value of y component.
-     */
-    public long getY() {
-        return y;
-    }
-
-    @Override
-    public String toString() {
-        return "<" + x + ", " + y + ">";
-    }
-
-    /**
-     * Rotate the vector in given angle around the origin.
-     *
-     * @param angle given angle in radians.
-     * @return the rotated vector.
-     * @since 7/24/2026 part of Transformation &amp; Circles Update.
-     */
-    @Deprecated
-    @Override
-    public ImmutableVector2l rotate(Radian angle) {
-        return null;
+    public MutableVector2i getSelf() {
+        return new MutableVector2i(x, y);
     }
 }

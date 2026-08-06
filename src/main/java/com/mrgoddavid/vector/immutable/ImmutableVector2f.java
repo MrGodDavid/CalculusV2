@@ -1,7 +1,7 @@
 package com.mrgoddavid.vector.immutable;
 
 import com.mrgoddavid.geometry.angle.Radian;
-import com.mrgoddavid.vector.Vector.ImmutableVector2;
+import com.mrgoddavid.vector.ImmutableVector.ImmutableVector2;
 
 import java.io.Serial;
 import java.io.Serializable;

@@ -2,7 +2,7 @@ package com.mrgoddavid.geometry.circle;
 
 import com.mrgoddavid.geometry.angle.Radian;
 import com.mrgoddavid.geometry.point.Point2d;
-import com.mrgoddavid.vector.Vector;
+import com.mrgoddavid.vector.ImmutableVector;
 import com.mrgoddavid.vector.immutable.ImmutableVector2d;
 
 import java.io.Serial;
@@ -81,7 +81,7 @@ public final class Circle2d implements Serializable {
 
         ImmutableVector2d vector = new ImmutableVector2d(center.x() + radius, center.y());
         ImmutableVector2d new_vector = vector.rotate(angle);
-        return vector.compareWith(new_vector, Vector.ComparisonCommand.EQUALS);
+        return vector.compareWith(new_vector, ImmutableVector.ComparisonCommand.EQUALS);
     }
 
     /**

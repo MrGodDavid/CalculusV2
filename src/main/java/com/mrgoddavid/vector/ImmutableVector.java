@@ -1,75 +1,18 @@
-package com.mrgoddavid.vector.immutable;
+package com.mrgoddavid.vector;
 
 import com.mrgoddavid.geometry.angle.Radian;
-import com.mrgoddavid.vector.ImmutableVector.ImmutableVector2;
+import com.mrgoddavid.vector.immutable.*;
 
-import java.io.Serial;
 import java.io.Serializable;
-import java.util.Comparator;
 
 /**
- * This class defines a two-dimensional vector that each coordinate is a long number.
+ * Interface of custom vector class. Define the operation of two-dimensional vector.
  *
- * @author Mr. GodDavid
- * @since 7/21/2026 added this class.
+ * @param <T> Class type of the implementation class of this interface.
+ * @author David Liu.
+ * @since 3/16/2026
  */
-public class ImmutableVector2l implements ImmutableVector2<ImmutableVector2l>, Comparable<ImmutableVector2l>, Comparator<ImmutableVector2l>, Serializable {
-
-    /**
-     * Zero vector of this class.
-     */
-    public static final ImmutableVector2l ZERO = new ImmutableVector2l();
-
-    /**
-     * Unit vector along x-axis. We define this unit vector as i.
-     */
-    public static final ImmutableVector2l UNIT_I = new ImmutableVector2l(1L, 0L);
-
-    /**
-     * Unit vector along y-axis. We define this unit vector as j.
-     */
-    public static final ImmutableVector2l UNIT_J = new ImmutableVector2l(0L, 1L);
-
-    @Serial
-    private static final long serialVersionUID = -6221019907535906584L;
-
-    /**
-     * x component of this vector.
-     */
-    private final long x;
-
-    /**
-     * y component of this vector.
-     */
-    private final long y;
-
-    /**
-     * Default constructor of this vector. Constructs a (0L, 0L).
-     */
-    public ImmutableVector2l() {
-        this(0L, 0L);
-    }
-
-    /**
-     * Constructs a two-dimensional vector with given x and y components.
-     *
-     * @param x x component of this vector.
-     * @param y y component of this vector.
-     */
-    public ImmutableVector2l(long x, long y) {
-        this.x = x;
-        this.y = y;
-    }
-
-    /**
-     * Constructs a new two-dimensional vector from the given two-dimensional vector.
-     *
-     * @param v that is not null.
-     */
-    public ImmutableVector2l(ImmutableVector2l v) {
-        this.x = v.x;
-        this.y = v.y;
-    }
+public interface ImmutableVector<T> extends Vector<T> {
 
     /**
      * Performs entry addition of two vectors.
@@ -79,10 +22,7 @@ public class ImmutableVector2l implements ImmutableVector2<ImmutableVector2l>, C
      * @param second vector that is not null.
      * @return the sum of two vectors.
      */
-    @Override
-    public ImmutableVector2l add(ImmutableVector2l second) {
-        return new ImmutableVector2l(this.x + second.x, this.y + second.y);
-    }
+    T add(T second);
 
     /**
      * Performs entry subtraction of two vectors.
@@ -92,10 +32,7 @@ public class ImmutableVector2l implements ImmutableVector2<ImmutableVector2l>, C
      * @param second vector that is not null.
      * @return the difference between two vectors.
      */
-    @Override
-    public ImmutableVector2l subtract(ImmutableVector2l second) {
-        return new ImmutableVector2l(this.x - second.x, this.y - second.y);
-    }
+    T subtract(T second);
 
     /**
      * Performs entry multiplication of two vectors.
@@ -105,10 +42,7 @@ public class ImmutableVector2l implements ImmutableVector2<ImmutableVector2l>, C
      * @param second vector that is not null.
      * @return the product of two vectors.
      */
-    @Override
-    public ImmutableVector2l multiply(ImmutableVector2l second) {
-        return new ImmutableVector2l(this.x * second.x, this.y * second.y);
-    }
+    T multiply(T second);
 
     /**
      * Performs entry division of two vectors.
@@ -118,13 +52,7 @@ public class ImmutableVector2l implements ImmutableVector2<ImmutableVector2l>, C
      * @param second vector that is not null.
      * @return the quotient of two vectors.
      */
-    @Override
-    public ImmutableVector2l divide(ImmutableVector2l second) {
-        if (compNotContainsZero(second.getX(), second.getY())) {
-            return new ImmutableVector2l(this.x / second.getX(), this.y / second.getY());
-        }
-        return ImmutableVector2.NAN_2L;
-    }
+    T divide(T second);
 
     /**
      * Performs entry multiplication and then addition of a vector itself.
@@ -135,13 +63,7 @@ public class ImmutableVector2l implements ImmutableVector2<ImmutableVector2l>, C
      * @param adder      vector that is not null.
      * @return the vector that is  multiplied multiplier vector and by  of two vectors.
      */
-    @Override
-    public ImmutableVector2l multiply_add(ImmutableVector2l multiplier, ImmutableVector2l adder) {
-        return new ImmutableVector2l(
-                this.x * multiplier.getX() + adder.getX(),
-                this.y * multiplier.getY() + adder.getY()
-        );
-    }
+    T multiply_add(T multiplier, T adder);
 
     /**
      * Performs the cross product of this vector to the second vector.
@@ -151,10 +73,7 @@ public class ImmutableVector2l implements ImmutableVector2<ImmutableVector2l>, C
      * @param second vector that is not null.
      * @return the cross product of itself to the second input vector.
      */
-    @Override
-    public double cross_product(ImmutableVector2l second) {
-        return x * second.y - y * second.x;
-    }
+    double cross_product(T second);
 
     /**
      * Project itself on the second vector.
@@ -164,16 +83,7 @@ public class ImmutableVector2l implements ImmutableVector2<ImmutableVector2l>, C
      * @param second vector that is not null.
      * @return the projection vector of the second vector.
      */
-    @Override
-    public ImmutableVector2l project(ImmutableVector2l second) {
-        double length = second.length();
-        if (length == 0) {
-            return new ImmutableVector2l();
-        }
-        double dotProduct = dot_product(second);
-        double scaleFactor = dotProduct / (length * length);
-        return second.scale(scaleFactor);
-    }
+    T project(T second);
 
     /**
      * Reflect itself around the normal of the second input vector.
@@ -183,14 +93,7 @@ public class ImmutableVector2l implements ImmutableVector2<ImmutableVector2l>, C
      * @param second vector that is not null.
      * @return the reflected vector around the normal of the second vector.
      */
-    @Override
-    public ImmutableVector2l reflect(ImmutableVector2l second) {
-        if (second.length() == 0) return new ImmutableVector2l();
-        ImmutableVector2l n = second.normalize();
-        double dotProduct = dot_product(n);
-        ImmutableVector2l a = second.scale(dotProduct * 2);
-        return this.subtract(a);
-    }
+    T reflect(T second);
 
     /**
      * Orients a vector A (itself) to point away from a surface B as defined by its normal C.
@@ -201,10 +104,7 @@ public class ImmutableVector2l implements ImmutableVector2<ImmutableVector2l>, C
      * @param reference the surface normal used to determine the orientation and itself is not null.
      * @return the calculated vector that is either flipped or not.
      */
-    @Override
-    public ImmutableVector2l faceForward(ImmutableVector2l incident, ImmutableVector2l reference) {
-        return (incident.dot_product(reference) < 0) ? new ImmutableVector2l(this) : new ImmutableVector2l(this.scale(-1d));
-    }
+    T faceForward(T incident, T reference);
 
     /**
      * Calculate the dot product of two vectors.
@@ -214,10 +114,7 @@ public class ImmutableVector2l implements ImmutableVector2<ImmutableVector2l>, C
      * @param second vector that is not null.
      * @return the dot product of itself and the second vector.
      */
-    @Override
-    public double dot_product(ImmutableVector2l second) {
-        return this.x * second.x + this.y * second.y;
-    }
+    double dot_product(T second);
 
     /**
      * Calculate the distance between two points are each represented by a 2-d vector.
@@ -227,12 +124,7 @@ public class ImmutableVector2l implements ImmutableVector2<ImmutableVector2l>, C
      * @param second vector that is not null.
      * @return the distance between itself and the second vector.
      */
-    @Override
-    public double distance(ImmutableVector2l second) {
-        long dx = this.x - second.x;
-        long dy = this.y - second.y;
-        return Math.sqrt(dx * dx + dy * dy);
-    }
+    double distance(T second);
 
     /**
      * Calculate the length/magnitude of the vector.
@@ -241,10 +133,7 @@ public class ImmutableVector2l implements ImmutableVector2<ImmutableVector2l>, C
      *
      * @return the length of itself.
      */
-    @Override
-    public double length() {
-        return Math.sqrt(this.x * this.x + this.y * this.y);
-    }
+    double length();
 
     /**
      * Entry scale each component by a scale factor.
@@ -254,10 +143,7 @@ public class ImmutableVector2l implements ImmutableVector2<ImmutableVector2l>, C
      * @param scale scaling factor.
      * @return the result of multiplying itself by the scalar input <code>scale</code>.
      */
-    @Override
-    public ImmutableVector2l scale(double scale) {
-        return new ImmutableVector2l((long) (x * scale), (long) (y * scale));
-    }
+    T scale(double scale);
 
     /**
      * Calculate the vector that is the normalized version of itself.
@@ -266,13 +152,7 @@ public class ImmutableVector2l implements ImmutableVector2<ImmutableVector2l>, C
      *
      * @return the normalized vector.
      */
-    @Override
-    public ImmutableVector2l normalize() {
-        if (this.length() == 0) {
-            return new ImmutableVector2l();
-        }
-        return new ImmutableVector2l((long) (x / length()), (long) (y / length()));
-    }
+    T normalize();
 
     /**
      * The entrywise absolute value of itself.
@@ -281,10 +161,7 @@ public class ImmutableVector2l implements ImmutableVector2<ImmutableVector2l>, C
      *
      * @return a new vector2 that contains the entrywise absolute value of itself.
      */
-    @Override
-    public ImmutableVector2l absolute() {
-        return new ImmutableVector2l(Math.abs(this.x), Math.abs(this.y));
-    }
+    T absolute();
 
     /**
      * The entrywise power operator where the Base raised to the power of Exponent.
@@ -294,10 +171,7 @@ public class ImmutableVector2l implements ImmutableVector2<ImmutableVector2l>, C
      * @param exp the power exponent.
      * @return a new vector2 that contains the entrywise power operator where the Base raised to the power of Exponent.
      */
-    @Override
-    public ImmutableVector2l power(double exp) {
-        return new ImmutableVector2l((long) Math.pow(x, exp), (long) Math.pow(y, exp));
-    }
+    T power(double exp);
 
     /**
      * Extracts the sign of the input value. All positive numbers will output 1.0. All negative numbers will output
@@ -308,12 +182,7 @@ public class ImmutableVector2l implements ImmutableVector2<ImmutableVector2l>, C
      *
      * @return a new vector that represents the sign of each component value.
      */
-    @Override
-    public ImmutableVector2l sign() {
-        long signX = this.x < 0 ? -1 : x == 0 ? 0 : 1;
-        long signY = this.y < 0 ? -1 : y == 0 ? 0 : 1;
-        return new ImmutableVector2l(signX, signY);
-    }
+    T sign();
 
     /**
      * The entrywise minimum of itself and the second vector.
@@ -323,10 +192,7 @@ public class ImmutableVector2l implements ImmutableVector2<ImmutableVector2l>, C
      * @param second vector that is not null.
      * @return a new vector that contains entrywise minimum of itself and the second vector
      */
-    @Override
-    public ImmutableVector2l minimum(ImmutableVector2l second) {
-        return new ImmutableVector2l(Math.min(this.x, second.x), Math.min(this.y, second.y));
-    }
+    T minimum(T second);
 
     /**
      * The entrywise maximum of itself and the second vector.
@@ -336,10 +202,7 @@ public class ImmutableVector2l implements ImmutableVector2<ImmutableVector2l>, C
      * @param second vector that is not null.
      * @return a new vector that contains entrywise maximum of itself and the second vector
      */
-    @Override
-    public ImmutableVector2l maximum(ImmutableVector2l second) {
-        return new ImmutableVector2l(Math.max(this.x, second.x), Math.max(this.y, second.y));
-    }
+    T maximum(T second);
 
     /**
      * Rounds itself entrywise down to the nearest integer.
@@ -348,10 +211,7 @@ public class ImmutableVector2l implements ImmutableVector2<ImmutableVector2l>, C
      *
      * @return a new vector with its each component entrywise down to the nearest integer.
      */
-    @Override
-    public ImmutableVector2l floor() {
-        return new ImmutableVector2l((long) Math.floor(x), (long) Math.floor(y));
-    }
+    T floor();
 
     /**
      * Rounds itself entrywise up to the nearest integer.
@@ -360,10 +220,7 @@ public class ImmutableVector2l implements ImmutableVector2<ImmutableVector2l>, C
      *
      * @return a new vector with its each component entrywise up to the nearest integer.
      */
-    @Override
-    public ImmutableVector2l ceil() {
-        return new ImmutableVector2l((long) Math.ceil(x), (long) Math.ceil(y));
-    }
+    T ceil();
 
     /**
      * Returns the fractional part of the value entrywise.
@@ -372,10 +229,7 @@ public class ImmutableVector2l implements ImmutableVector2<ImmutableVector2l>, C
      *
      * @return the fractional part of the value entrywise.
      */
-    @Override
-    public ImmutableVector2l fraction() {
-        return this.subtract(this.floor());
-    }
+    T fraction();
 
     /**
      * The entrywise modulo of itself by the second vector.
@@ -385,16 +239,7 @@ public class ImmutableVector2l implements ImmutableVector2<ImmutableVector2l>, C
      * @param second vector that is not null.
      * @return the entrywise modulo of itself by the second vector.
      */
-    @Override
-    public ImmutableVector2l modulo(ImmutableVector2l second) {
-        if (compNotContainsZero(x, y)) {
-            return new ImmutableVector2l(
-                    (long) (this.x - second.x * Math.floor((double) this.x / second.x)),
-                    (long) (this.y - second.y * Math.floor((double) this.y / second.y))
-            );
-        }
-        return ImmutableVector2.NAN_2L;
-    }
+    T modulo(T second);
 
     /**
      * The entrywise output of a value between Min and Max based on the absolute difference between the input value
@@ -402,16 +247,11 @@ public class ImmutableVector2l implements ImmutableVector2<ImmutableVector2l>, C
      * <p>Precondition: none.</p>
      * <p>Postcondition: returns a new vector that is entrywise wrapped for each its component.</p>
      *
-     * @param minimum minimum threshold.
-     * @param maximum : maximum threshold.
+     * @param minimum  minimum threshold.
+     * @param maximum: maximum threshold.
      * @return a new vector that is entrywise wrapped for each its component.
      */
-    @Override
-    public ImmutableVector2l wrap(ImmutableVector2l minimum, ImmutableVector2l maximum) {
-        ImmutableVector2l v1 = this.subtract(minimum);
-        ImmutableVector2l range = maximum.subtract(minimum);
-        return this.subtract(range.multiply(v1.divide(range)).floor());
-    }
+    T wrap(T minimum, T maximum);
 
     /**
      * The result of rounding itself to the largest integer multiple of B less than or equal itself.
@@ -421,10 +261,7 @@ public class ImmutableVector2l implements ImmutableVector2<ImmutableVector2l>, C
      * @param second that is not null.
      * @return a new vector that is entrywise snapped for each its component.
      */
-    @Override
-    public ImmutableVector2l snap(ImmutableVector2l second) {
-        return this.divide(second).floor().multiply(second);
-    }
+    T snap(T second);
 
     /**
      * The entrywise of sine of itself.
@@ -433,10 +270,7 @@ public class ImmutableVector2l implements ImmutableVector2<ImmutableVector2l>, C
      *
      * @return the entrywise of sine of itself.
      */
-    @Override
-    public ImmutableVector2l sine() {
-        return new ImmutableVector2l((long) Math.sin(x), (long) Math.cos(y));
-    }
+    T sine();
 
     /**
      * The entrywise of cosine of itself.
@@ -445,10 +279,7 @@ public class ImmutableVector2l implements ImmutableVector2<ImmutableVector2l>, C
      *
      * @return the entrywise of cosine of itself.
      */
-    @Override
-    public ImmutableVector2l cosine() {
-        return new ImmutableVector2l((long) Math.cos(x), (long) Math.sin(y));
-    }
+    T cosine();
 
     /**
      * The entrywise of tangent of itself.
@@ -457,10 +288,7 @@ public class ImmutableVector2l implements ImmutableVector2<ImmutableVector2l>, C
      *
      * @return the entrywise of tangent of itself.
      */
-    @Override
-    public ImmutableVector2l tangent() {
-        return new ImmutableVector2l((long) Math.tan(x), (long) Math.tan(y));
-    }
+    T tangent();
 
     /**
      * Copy itself.
@@ -468,77 +296,202 @@ public class ImmutableVector2l implements ImmutableVector2<ImmutableVector2l>, C
      * <p>Postcondition: returns a new reference of itself.</p>
      *
      * @return a new reference of itself.
-     * @deprecated since 7/21/2026. The constructor of this class already handled copying reference of the instance.
      */
     @Deprecated
-    @Override
-    public ImmutableVector2l copy() {
-        return null;
-    }
+    T copy();
 
     /**
-     * Return a reference of itself.
-     * <p>Precondition: none.</p>
-     * <p>Postcondition: returns a reference of itself.</p>
+     * Interface for operations of two-dimensional vectors. This interface extends {@link ImmutableVector}.
      *
-     * @return Return a reference of itself.
+     * @param <T> type parameter. Class type of implementation of this interface.
+     * @author Mr. GodDavid
+     * @since 7/21/2026
      */
-    @Override
-    public ImmutableVector2l getSelf() {
-        return new ImmutableVector2l(this.x, this.y);
-    }
+    interface ImmutableVector2<T> extends ImmutableVector<T> {
 
-    @Override
-    public int compareTo(ImmutableVector2l vector2l) {
-        if (this.x != vector2l.getX()) {
-            return Long.compare(this.x, vector2l.getX());
+        /**
+         * Not-a-number constants of vector2i. Use this when user accidentally divided some number by zero.
+         */
+        ImmutableVector2i NAN_2I = new ImmutableVector2i(Integer.MIN_VALUE, Integer.MIN_VALUE);
+
+        /**
+         * Not-a-number constants of vector2d. Use this when user accidentally divided some number by zero.
+         */
+        ImmutableVector2d NAN_2D = new ImmutableVector2d(Double.NaN, Double.NaN);
+
+        /**
+         * Not-a-number constants of vector2f. Use this when user accidentally divided some number by zero.
+         */
+        ImmutableVector2f NAN_2F = new ImmutableVector2f(Float.NaN, Float.NaN);
+
+        /**
+         * Not-a-number constants of vector2l. Use this when user accidentally divided some number by zero.
+         */
+        ImmutableVector2l NAN_2L = new ImmutableVector2l(Long.MIN_VALUE, Long.MIN_VALUE);
+
+        /**
+         * Rotate the vector in given angle around the origin.
+         *
+         * @param angle given angle in radians.
+         * @return the rotated vector.
+         * @since 7/24/2026 part of Transformation &amp; Circles Update.
+         */
+        T rotate(Radian angle);
+
+        /**
+         * Check if any component of {@code Vector} is zero.
+         * <p>Precondition: none.</p>
+         * <p>Postcondition: return true if none of the components of {@code Vector} is zero.</p>
+         *
+         * @param x x integer component of {@code Vector}.
+         * @param y y integer component of {@code Vector}.
+         * @return true if none of the components of {@code Vector} is zero.
+         */
+        default boolean compNotContainsZero(int x, int y) {
+            return x != 0 && y != 0;
         }
-        if (this.y != vector2l.getY()) {
-            return Long.compare(this.y, vector2l.getY());
+
+        /**
+         * Check if any component of {@code Vector} is zero.
+         * <p>Precondition: none.</p>
+         * <p>Postcondition: return true if none of the components of {@code Vector} is zero.</p>
+         *
+         * @param x x double component of {@code Vector}.
+         * @param y y double component of {@code Vector}.
+         * @return true if none of the components of {@code Vector} is zero.
+         */
+        default boolean compNotContainsZero(double x, double y) {
+            return x != 0d && y != 0d;
         }
-        return (this.getX() == vector2l.getX())
-                ? 0
-                : Double.compare(this.length(), vector2l.length());
-    }
 
-    @Override
-    public int compare(ImmutableVector2l vector2l, ImmutableVector2l t1) {
-        return vector2l.compareTo(t1);
-    }
+        /**
+         * Check if any component of {@code Vector} is zero.
+         * <p>Precondition: none.</p>
+         * <p>Postcondition: return true if none of the components of {@code Vector} is zero.</p>
+         *
+         * @param x x float component of {@code Vector}.
+         * @param y y float component of {@code Vector}.
+         * @return true if none of the components of {@code Vector} is zero.
+         */
+        default boolean compNotContainsZero(float x, float y) {
+            return x != 0f && y != 0f;
+        }
 
-    /**
-     * Accessor of the x component.
-     *
-     * @return the value of x component.
-     */
-    public long getX() {
-        return x;
-    }
-
-    /**
-     * Accessor of the y component.
-     *
-     * @return the value of y component.
-     */
-    public long getY() {
-        return y;
-    }
-
-    @Override
-    public String toString() {
-        return "<" + x + ", " + y + ">";
+        /**
+         * Check if any component of {@code Vector} is zero.
+         * <p>Precondition: none.</p>
+         * <p>Postcondition: return true if none of the components of {@code Vector} is zero.</p>
+         *
+         * @param x x long component of {@code Vector}.
+         * @param y y long component of {@code Vector}.
+         * @return true if none of the components of {@code Vector} is zero.
+         */
+        default boolean compNotContainsZero(long x, long y) {
+            return x != 0L && y != 0L;
+        }
     }
 
     /**
-     * Rotate the vector in given angle around the origin.
+     * Interface for operations of three-dimensional vectors. This interface extends {@link ImmutableVector}.
      *
-     * @param angle given angle in radians.
-     * @return the rotated vector.
-     * @since 7/24/2026 part of Transformation &amp; Circles Update.
+     * @param <T> type parameter. Class type of implementation of this interface.
+     * @author Mr. GodDavid
+     * @since 7/9/2026
      */
-    @Deprecated
-    @Override
-    public ImmutableVector2l rotate(Radian angle) {
-        return null;
+    interface ImmutableVector3<T> extends ImmutableVector<T> {
+
+        /**
+         * Zero three-dimensional vector. Each component of this vector is an integer.
+         */
+        ImmutableVector3i ZERO_VECTOR3I = new ImmutableVector3i();
+
+        /**
+         * Zero three-dimensional vector. Each component of this vector is a double.
+         */
+        ImmutableVector3d ZERO_VECTOR3D = new ImmutableVector3d();
+
+        /**
+         * Not-a-number Vector3i constant. This happens when user accidentally divide some number by zero.
+         */
+        ImmutableVector3i NAN_3I = new ImmutableVector3i(Integer.MIN_VALUE, Integer.MIN_VALUE, Integer.MIN_VALUE);
+
+        /**
+         * Not-a-number Vector3d constant. This happens when user accidentally divide some number by zero.
+         */
+        ImmutableVector3d NAN_3D = new ImmutableVector3d(Double.NaN, Double.NaN, Double.NaN);
+
+        /**
+         * Calculate the cross product of two three-dimensional vectors.
+         *
+         * @param other three-dimensional vector that is not null.
+         * @return the cross product of two three-dimensional vectors.
+         */
+        T crossProduct(T other);
+
+        /**
+         * Find the length of the shadow of itself on the second three-dimensional vector.
+         *
+         * @param second three-dimensional vector that is not null.
+         * @return the scalar projection of itself on the second vector.
+         * @since 7/10/2026 added this method.
+         */
+        double scalar_projection(T second);
+
+        /**
+         * Checks if any of the component of three-dimensional vector is zero. This method returns true if NONE of the
+         * components is zero.
+         *
+         * @param x component of this vector.
+         * @param y component of this vector.
+         * @param z component of this vector.
+         * @return true if NONE of the components is zero and false if any of them is zero.
+         * @since 7/21/2026 added this method.
+         */
+        default boolean compNotContainsZero(int x, int y, int z) {
+            return x != 0 && y != 0 && z != 0;
+        }
+
+        /**
+         * Checks if any of the component of three-dimensional vector is zero. This method returns true if NONE of the
+         * components is zero.
+         *
+         * @param x component of this vector.
+         * @param y component of this vector.
+         * @param z component of this vector.
+         * @return true if NONE of the components is zero and false if any of them is zero.
+         * @since 7/21/2026 added this method.
+         */
+        default boolean compNotContainsZero(double x, double y, double z) {
+            return x != 0d && y != 0d && z != 0d;
+        }
+
+        /**
+         * Checks if any of the component of three-dimensional vector is zero. This method returns true if NONE of the
+         * components is zero.
+         *
+         * @param x component of this vector.
+         * @param y component of this vector.
+         * @param z component of this vector.
+         * @return true if NONE of the components is zero and false if any of them is zero.
+         * @since 7/21/2026 added this method.
+         */
+        default boolean compNotContainsZero(float x, float y, float z) {
+            return x != 0f && y != 0f && z != 0f;
+        }
+
+        /**
+         * Checks if any of the component of three-dimensional vector is zero. This method returns true if NONE of the
+         * components is zero.
+         *
+         * @param x component of this vector.
+         * @param y component of this vector.
+         * @param z component of this vector.
+         * @return true if NONE of the components is zero and false if any of them is zero.
+         * @since 7/21/2026 added this method.
+         */
+        default boolean compNotContainsZero(long x, long y, long z) {
+            return x != 0L && y != 0L && z != 0L;
+        }
     }
 }
+
